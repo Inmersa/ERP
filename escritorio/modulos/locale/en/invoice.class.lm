@@ -1,0 +1,23 @@
+INVOICE_NODB	100	It has not been finded a valid connection request to the BDD ({{dbname}}).
+INVOICE_LOCKED	100	Invoice blocked. Verify the recipient and emitter data.
+INVOICE_NODISCOUNT_ORDER	100	The line {{idx}} cannot be discounted from the reference  {{ref}}  when belonging to the order ({{pedido}}).
+INVOICE_COMPANY_NOTFOUND	100	It has not been possible to find the company {{id}}.
+INVOICE_PENDING_CONTRACT	100	It has not been possible to emit the invoice {{fra}} because some amounts are unknow .
+INVOICE_ISSUED_DRAFTS	100	Some invoice bank drafts has been emited to the recipient.
+INVOICE_NODBRECORD_NOACENTRY	100	Invoice not accounted because there is not BDD identifier.
+INVOICE_NODBRECORD	100	Invoice not registered in the BDD.
+INVOICE_ACENTRY_FAILED	100	It has not been possible to create/obtain the requested entry.
+INVOICE_ACENTRY_EXISTS	100	Invoice already on journal. (ID:{{id}})
+INVOICE_NODOCUMENT_PARAM	100	{{fnc}} has received a wrong parameter because does not belong to a subclass document.
+INVOICE_ORDER_MODE_MISMATCH	100	Not compatible with the order.It is imposible to bill in sales and purchase order or the other way around.
+INVOICE_ORDER_ISSUER_MISMATCH	100	The order emitter is not the same from the invoice emitter.
+INVOICE_ORDER_RECIEVER_MISMATCH	100	The order recipient is not the same from the invoice recipient.
+INVOICE_ORDER_CURRENCY_MISMATCH	100	The order currency is not the same from the invoice currency.
+INVOICE_ORDER_PAYMENT_MISMATCH	100	The method of payment is not the same from the invoice method of payment.
+INVOICE_CONTRACT_NOPERIOD	100	The contract {{contract}} can not be processed because lack of information about the billing periods.
+INVOICE_NOHEADERS	100	It has not been possible to obtain the invoice headings.
+INVOICE_NODETAILS	100	It has not been possible to obtain the invoice details.
+INVOICE_NOISSUER	100	Invoice {{ref}} without emitter.
+INVOICE_NORECIEVER	100	Invoice {{ref}} without recipient.
+INVOICE_NOIDPRODUCT	100	Article reference does not exist in line: {{idx}}.
+INVOICE_DBFILL    	101	Invoice has been impossible to reach: ID {{id}}.

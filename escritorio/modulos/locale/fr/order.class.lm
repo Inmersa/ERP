@@ -1,0 +1,13 @@
+ORDER_DBFILL	101	N'a pas pu être obtenue la commande ID {{id}} sollicité.
+ORDER_INVOICE_EXISTS	101	Commande préalablement déjà facturée.
+ORDER_INCORRECT	101	Commande {{id}} incorrecte.
+ORDER_NORECIEVER	100	Commande {{ref}} sans récepteur.
+ORDER_RECIEVER_NODELIVERYADDRESS	100	Le récepteur {{id}} ne dispose pas de directions de libración.
+ORDER_NOISSUER	100	Commande {{ref}} sans émetteur.
+ORDER_NODELIVERYADDRESS	100	Commande {{ref}} sans direction de livraison.
+ORDER_CONTRACT_DUPLICATE	101	L'article {{prod}} existe déjà avec le service  {{contract}} choisi.
+ORDER_PRODUCT_NOTINCONTRACT	101	L'article {{prod}} n'existe pas dans le service  {{contract}} choisi.
+ORDER_NOHEADERS	100	N'ont pas pu être obtenues les têtes de la commande.
+ORDER_NODETAILS	100	N'ont pas pu être obtenues les details de la commande.
+ORDER_NODBRECORD	100	Commande non enregistrée dans la BDD.
+ORDER_CONTRACT_FEE	100	Frais d'autorisation

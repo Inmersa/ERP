@@ -1,0 +1,36 @@
+
+<fieldset class="fsficha" >
+<legend>{{dsb_frame_indicadores_generales}}</legend>
+
+<table class="full" >
+<thead class="dashboard" ><tr>
+<td>{{dsb_lbl_indicador}}</td>
+<td>{{dsb_lbl_vencimientos_cobro}}</td>
+<td>{{dsb_lbl_vencimientos_pago}}</td>
+<td>{{dsb_lbl_cobrado}}</td>
+<td>{{dsb_lbl_pagado}}</td>
+<td>{{dsb_lbl_pendiente_cobro}}</td>
+<td>{{dsb_lbl_pendiente_pago}}</td>
+<td>{{dsb_lbl_devoluciones_cobro}}</td>
+<td>{{dsb_lbl_devoluciones_pago}}</td>
+</tr></thead><tbody class="dashboard" >
+
+@%set:dsb_resultados=general;%@
+@%set:dsb_rs_limit=7;%@
+@%where:nodb|nodb_dsb_resultados_horizontal;%@
+<tr>
+<td>@%db:_periodo;%@ [@%db:colocar_fecha{_inicio};%@ - @%db:colocar_fecha{_fin};%@]</td>
+<td>@%db:lcdec{vencimiento_cobros};%@</td>
+<td>@%db:lcdec{vencimiento_pagos};%@</td>
+<td>@%db:lcdec{abonos_cobrados};%@</td>
+<td>@%db:lcdec{abonos_pagados};%@</td>
+<td>@%db:lcdec{pendiente_cobros};%@</td>
+<td>@%db:lcdec{pendiente_pagos};%@</td>
+<td>@%db:lcdec{devoluciones_cobros};%@</td>
+<td>@%db:lcdec{devoluciones_pagos};%@</td>
+</tr>
+@%end-where:%@
+
+</tbody></table>
+</fieldset>
+

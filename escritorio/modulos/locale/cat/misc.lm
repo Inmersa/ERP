@@ -1,0 +1,8 @@
+MISC_STOCK_LOC_MOVED	500	Article (Lot:{{lote}}/Caducitat:{{fcad}}) colocat en altra localització (Planta:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Columna:{{columna}}).
+MISC_STOCK_LOC_UNDEFINED	101	Error indefinit aconseguint les posibles localitzacions del producte {{referencia}}.
+MISC_STOCK_LOC_NEW	500	Article (Lot:{{lote}}/Caducitat:{{fcad}}) asignat en localització (Planta:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Columna:{{columna}}).
+MISC_STOCK_LOC	500	Article (Lot:{{lote}}/Caducitat:{{fcad}}) en la seue localització (Planta:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Columna:{{columna}}).
+MISC_PRODUCT_INVOICED	501	"Article {{referencia}} ha estat facturat; és impossible fer modificacions."
+MISC_EFLBL_TOTAL	505	Total Efectes
+MISC_EFLBL_PAGADO	506	Suma Pagada 
+MISC_ALLBL_VALOR	507	Valoració 

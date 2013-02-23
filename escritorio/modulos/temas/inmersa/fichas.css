@@ -1,0 +1,117 @@
+
+/** **/
+DIV.PIIFichaOculto {
+	visibility: hidden;
+	display: none;
+}
+
+DIV.PIIFicha {
+	visibility: show;
+
+	visibility: visible;
+	display: inline;
+
+	margin: 0;
+	padding: 0;
+}
+
+DIV.PIIFichaBase {
+	width: auto;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	display: block;
+}
+/** **/
+
+/*fieldsets*/
+fieldset.fsficha {
+	padding:5px;
+	width: auto;
+	margin:0px 0px 12px 0px;
+
+	border:1px solid #c7c7c7;
+        background-color: transparent;
+	display: block;
+}
+fieldset.fsficha legend {
+	padding:4px;
+	border:1px solid #c7c7c7;
+	font-weight:bold;
+	margin-bottom:12px;
+}
+
+DIV.PIIFicha FIELDSET.fsficha LEGEND {
+	display: none;
+}
+
+div.PIIFicha fieldset.fsficha legend.imprescindible {
+	display: inline;
+	visibility: visible;
+}
+
+DIV.PIIFicha .fsficha {
+	border:1px solid #000;
+	clear: both;
+}
+
+DIV.PIIContainer {
+	clear: both;
+	margin: 7px 0 5px 0;
+	padding: 0;
+	position: relative;
+	width: auto;
+	display: block;
+	text-align: left;
+}
+
+DIV.PIIContainer DIV {
+	display: inline;
+
+	padding: 0;
+	margin: 0;
+	background-color:#cc99bb;
+	cursor: pointer;
+	/** **
+	cursor: default;
+	cursor: wait;
+	cursor: crosshair;
+	cursor: text;
+	cursor: pointer;
+	cursor: help;
+	/** **/
+}
+
+DIV.PIIContainer DIV {
+	display: inline;
+
+	margin: 0 1px 0 0;
+	padding: 5px 3px 5px 3px;
+
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+
+	border: 1px solid #000000;
+	color: #fff;
+	background-color:#cc99dd;
+}
+
+DIV.PIIContainer DIV.activo {
+	border: 1px solid #000000;
+	border-bottom: 1px solid #efefef;
+
+	color: #000;
+}
+
+DIV.PIIContainer DIV:hover {
+	color: #000;
+	background: url(efectos/tab_square.gif) no-repeat bottom center;
+}
+
+DIV.PIIContainer DIV A.cambio_ss {
+	display: inline-block;
+	text-decoration: none;
+}
+	

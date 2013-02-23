@@ -1,0 +1,100 @@
+
+/** **
+@page PgEtiqueta { 
+	size: 102.6mm 36mm;
+	margin: 1mm;
+	padding: 0;
+}
+/** **/
+@page { 
+	/** **
+	size: 14.82cm 20.99cm; 
+	size: 10.00cm 7.50cm; 
+	/** **/
+	margin: 0;
+	padding: 0;
+}
+
+#Etiquetas {
+	margin: 0;
+	padding: 0;
+}
+
+DIV.Etiqueta {
+	/** border: 0; **/
+	width: 13.00cm;
+	height: 8.495cm;
+	border: 1px solid black;
+	width: 9.50cm;
+	height: 7.100cm;
+	margin: 0;
+	padding: 0;
+	margin-right: 1mm;
+	margin-bottom: 2.05mm;
+	font-size: 16px;
+	page-break-after: always !important;
+}
+
+DIV.Etiqueta DIV.bultos {
+	display: inline;
+	off_float: right;
+	margin: 0;
+	margin-top: 1mm;
+	margin-left: 15mm;
+	padding: 0;
+	font-size: 16px;
+	text-align: right;
+}
+
+DIV.Etiqueta DIV.fecha {
+   	float: left;
+   	/** display: inline; **/
+	margin: 0;
+	margin-top: 1mm;
+	padding: 0;
+	width: 145mm;
+	font-size: 16px;
+	text-align: left;
+}
+
+DIV.Etiqueta DIV.transportista {
+	clear: both;
+	display: block;
+	margin: 0;
+	margin-top: 9mm;
+	padding: 0;
+	/** font-weight: bold; **/
+	font-size: 18px;
+	text-align: center;
+}
+
+DIV.Etiqueta DIV.nombre_direccion {
+	clear: both;
+	display: block;
+	margin: 0;
+	margin-top: 1mm;
+	padding: 0;
+	/** font-weight: bold; **/
+	font-size: 18px;
+	text-align: center;
+}
+
+DIV.Etiqueta DIV.direccion {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+	text-align: center;
+}
+
+DIV.Etiqueta DIV.observaciones {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+	text-align: left;
+}
+
+

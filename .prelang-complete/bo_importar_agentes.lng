@@ -1,0 +1,8 @@
+<div class="barraoscura">
+<div class="titsuperior">&gt; {{frame_IMPORTARAGENTES}}</div><div class="alinder">
+@%if:AllowedLink;nuevo_agentes;%@
+<a href="?seccion=nuevo_agentes" class="accesos">{{acc_nuevoagente}}</a>
+@%end-if:%@
+</div></div>
+
+@%plt:Listado_Agentes%@

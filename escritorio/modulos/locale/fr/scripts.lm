@@ -1,0 +1,15 @@
+LCS_NOID	1	On n'a pas trouvé ce qui est identificateur de registre {{id}} d'organisme {{entidad}}.
+LCS_DBERR	101	Erreur en introduisant dans la base de dones.
+LCS_DBNULL	101	Erreur en obtenir une instance à lien favoie ({{dbname}}).
+LCS_NOSTOCK	101	Erreur en introduisant dans la base de dones.
+LCS_OUTSTOCK	101	Stock dans des magasins en suspens {{cantidad}} de référence d'articles {{referencia}}.
+LCS_NOREF_WHEREHOUSE	101	Impossible localiser magasin pour le vous ID article {{referencia}}.
+LCS_EMPTY_DELIVERY	101	Bulletin de livraison vide : vérifiez le stock des produits de la commande.
+LCS_NOLOCATION	101	Il doit choisir une certaine localisation pour donner de bas stock.
+LCS_PLT_MISCONF	99	La configuration des applications pour cette application est erronée : {{msg}}.
+LCS_USR_EXISTS	101	Le login existe deja: {{login}}.
+LCS_USR_PASSWORDMISMATCH	101	Les mots de passe de l'utilisateur ne coïncident pas: {{login}}.
+LCS_MODULE_NOINSTANCE	99	N'a pas pu être obtenue une instance valable du module {{class}}.
+LCS_MODULE_FAILINSTANCE	99	N'a pas pu être creér une instance valable du module {{class}}.
+LCS_MODULE_FAILINSTANCE	99	N'a pas pu être creér une instance valable du module {{class}}.
+LCS_RECORD_ACCESS_DENIED           	99	Il n'a pas autorisation pour accéder à ce registre

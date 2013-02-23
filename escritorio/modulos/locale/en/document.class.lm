@@ -1,0 +1,7 @@
+DOCUMENT_LOCKED	100	The document is blocked. You can not work with it.
+DOCUMENT_NODB	100	Does not exist connection request to the BDD.
+DOCUMENT_NO_AGENTS_RECIEVER     	100	The recipient {{id}} is not related to the selected agent.
+DOCUMENT_NO_RECIEVERS_AGENT    	100	The agent {{id}} is not related to the selected recipient.
+DOCUMENT_NOISSUER	100	Document without emitter.
+DOCUMENT_NORECIEVER	100	Document without recipient.
+DOCUMENT_AGENT_NOTFOUND	100	It has not been possible to find the agent  {{id}}.

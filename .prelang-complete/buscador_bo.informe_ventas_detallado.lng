@@ -1,0 +1,535 @@
+
+<form method=post action="?seccion=informe_ventas_detallado">
+<input type="hidden" name="nom_bus" value="informe_ventas_detallado">
+<table class="full">
+  <tr> 
+  <td class="caption" align="left">{{frame_inf_fras_venta}}</td>
+  <td class="caption" align="right">
+        <input type="submit" name="Buscar" value="{{buscar_submit}}" class="insertext" accesskey="{{ak_search}}" >
+		 <select name="hp">
+		@%where:nodb|nodb_hits_page;%@
+		<option value="@%db:value;%@"
+		@%if:equals;st_hp;value;%@
+		selected="selected"
+		@%end-if:%@
+		>@%db:name;%@</option>
+		@%end-where:%@
+
+		</select>
+  </td></tr>
+</table>
+<br>
+<table class="full" >
+  <td align="right" class="check" >
+  <input type="checkbox" name="ag_search" value="1"
+  @%if:esta_vacio;st[ag_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td align="left" class="caption" colspan="10">{{inf_group_agentes}}</td>
+  </tr>
+
+  <tr><td class="etiqueta">{{label_id}}:</td>
+  <td colspan="2"><input type="text" name="ag_id" size="20" class="insertext" value="@%get:st[ag_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="2"><input type="text" name="ag_nombre" size="30" class="insertext" value="@%get:st[ag_nombre];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_tipo}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[ag_tipo];%@ -->
+  <select name="ag_tipo" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Tipo_agente;nolink|1;nombre|tipos;%@
+  <option value="@%db:Tipo_agente.id_tipo_agente;%@"
+  @%db:selected_value{Tipo_agente.id_tipo_agente}%@
+  >@%db:Tipo_agente.nombre;%@</option>
+  @%end-where:%@
+
+  </select>
+  </tr>
+  <tr><td class="titulotb" colspan="11">{{label_totales}}</td></tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_baseimponible}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.base_imponible*-1),Facturas.base_imponible)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][round]" value="2" />
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.base_imponible;max;%@ />
+  </td><td>
+  {{inf_fnclabel_max}} 
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.base_imponible;min;%@ />
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.base_imponible;avg;%@ / -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.base_imponible;count;%@ />
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_baseimponible}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.base_imponible;sum;%@ />
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_totalimpuestos}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.base_imponible*-1),Facturas.total_impuestos)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_impuestos;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_impuestos;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_impuestos;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_impuestos;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_totalimpuestos}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_impuestos;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_retenido}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.retenido*-1),Facturas.retenido)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.retenido;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.retenido;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.retenido;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.retenido;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_retenido}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.retenido;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_bruto}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.total_bruto*-1),Facturas.total_bruto)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_bruto;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_bruto;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_bruto;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_bruto;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_bruto}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.total_bruto;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_importe}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_importe}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.monto_total*-1),Facturas.monto_total)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_importe}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_importe}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.monto_total;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_importe}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.monto_total;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_importe}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.monto_total;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_importe}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.monto_total;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_importe}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas.monto_total;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_comisiones}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][field]" value="Agentes_facturas.monto">
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Agentes_facturas.monto;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Agentes_facturas.monto;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Agentes_facturas.monto;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Agentes_facturas.monto;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_comisiones}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Agentes_facturas.monto;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_comisionescliente}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][field]" value="Agentes_facturas.monto">
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][round]" value="2">
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][erase_without]" value="ag_search">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Agentes_facturas.monto;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Agentes_facturas.monto;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Agentes_facturas.monto;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Agentes_facturas.monto;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_comisionescliente}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Agentes_facturas.monto;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+</table>
+
+<br>
+<table class="full" >
+  <tr><td align="left" class="caption" colspan="11">{{inf_group_clientes}}</td></tr>
+
+  <tr><td class="etiqueta">{{label_id}}:</td>
+  <td colspan="2"><input type="text" name="cl_id" size="20" class="insertext" value="@%get:st[cl_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="2"><input type="text" name="cl_nombre" size="30" class="insertext" value="@%get:st[cl_nombre];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_tipo}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[cl_tipo];%@ -->
+  <select name="cl_tipo" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Tipo_cliente;nolink|1;nombre|tiposcl;%@
+  <option value="@%db:Tipo_cliente.id_tipo_cliente;%@"
+  @%db:selected_value{Tipo_cliente.id_tipo_cliente}%@
+  >@%db:Tipo_cliente.nombre;%@</option>
+  @%end-where:%@
+
+  </select>
+  </td>
+  </tr>
+
+  <tr><td class="caption" colspan="12">{{inf_group_facturas}}</td></tr>
+
+  <tr><td class="etiqueta">{{label_ref}}:</td>
+  <td colspan="2"><input type="text" name="fr_ref" size="20" class="insertext" value="@%get:st[fr_ref];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_refexterna}}:</td>
+  <td colspan="2"><input type="text" name="fr_ref_ext" size="30" class="insertext" value="@%get:st[fr_ref_ext];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_serie}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[fr_serie];%@ -->
+  <select name="fr_serie" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Series_facturacion;nolink|1;nombre|seriesfra;where|ventas=1;%@
+  <option value="@%db:Series_facturacion.id_serie;%@"
+  @%db:selected_value{Series_facturacion.id_serie}%@
+  >@%db:Series_facturacion.nombre;%@ 
+  (@%db:si_no_flag{Series_facturacion.contabilizable}%@)</option>
+  @%end-where:%@
+
+  </select>
+  </tr>
+
+  <tr><td class="etiqueta">{{fld_desde}}:</td>
+  <td colspan="2"><input type=text name="fr_fecha_inicio" size="20" class="insertext" value="@%get:st[fr_fecha_inicio];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_hasta}}:</td>
+  <td colspan="2"><input type=text name="fr_fecha_fin" size="20" class="insertext" value="@%get:st[fr_fecha_fin];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_baseimp}} > :</td>
+  <td colspan="2"><input type=text name="fr_basei" size="20" class="insertext" value="@%get:st[fr_basei];%@"></td>
+  </tr>
+
+  <tr>
+  <td class="check" >
+  <input type="checkbox" name="ef_search" value="1"
+  @%if:esta_vacio;st[ef_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td class="caption" colspan="10">{{inf_group_efectos}}</td>
+  </tr>
+
+  <tr>
+  <td class="check" >
+  <input type="checkbox" name="ic_search" value="1"
+  @%if:esta_vacio;st[ic_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td class="caption" colspan="10">{{inf_group_incidencias}}</td>
+  </tr>
+
+  <tr><td class="titulotb" colspan="11">{{label_totales}}</td></tr><tr>
+
+  <td class="etiqueta" >{{inf_label_baseimponible}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.base_imponible*-1),Facturas.base_imponible)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.base_imponible;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.base_imponible;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.base_imponible;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.base_imponible;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_baseimponible}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.base_imponible;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td></tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_totalimpuestos}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.total_impuestos*-1),Facturas.total_impuestos)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_impuestos;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_impuestos;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_impuestos;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_impuestos;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_totalimpuestos}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_impuestos;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_retenido}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.retenido*-1),Facturas.retenido)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.retenido;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.retenido;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.retenido;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.retenido;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_retenido}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.retenido;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_bruto}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.total_bruto*-1),Facturas.total_bruto)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_bruto;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_bruto;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_bruto;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_bruto;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_bruto}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.total_bruto;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_importe}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][field]" 
+  	value="IF(Facturas.factura_abono,(Facturas.monto_total*-1),Facturas.monto_total)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][round]" value="2">
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.monto_total;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.monto_total;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.monto_total;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.monto_total;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_importe}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas.monto_total;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+</table>
+<br>
+
+<br>
+  </form>
+

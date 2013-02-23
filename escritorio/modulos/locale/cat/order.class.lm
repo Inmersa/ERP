@@ -1,0 +1,13 @@
+ORDER_DBFILL	101	No s'ha pogut obtindre la comanda ID {{id}} sollicitzada.
+ORDER_INVOICE_EXISTS	101	Comanda previament ja facturada.
+ORDER_INCORRECT	101	Comanda {{id}} incorrecta.
+ORDER_NORECIEVER	100	Comanda {{ref}} sense receptor.
+ORDER_RECIEVER_NODELIVERYADDRESS	100	El receptor {{id}} no dispossa de adreçes d'entrega.
+ORDER_NOISSUER	100	Comanda {{ref}} sense emissor.
+ORDER_NODELIVERYADDRESS	100	Comanda {{ref}} sense adreça de remesa.
+ORDER_CONTRACT_DUPLICATE	101	L'artícle {{prod}} ja existeix amb el servici {{contract}} seleccionat.
+ORDER_PRODUCT_NOTINCONTRACT	101	L'artícle {{prod}} no existeix amb el servici {{contract}} seleccionat.
+ORDER_NOHEADERS	100	No s'han pogut obtenir les capçals de la comanda.
+ORDER_NODETAILS	100	No s'han pogut obtenir els detalls de la comanda.
+ORDER_NODBRECORD	100	Comanda no registrada en la BDD.
+ORDER_CONTRACT_FEE	100	Quota d'alta

@@ -1,0 +1,94 @@
+@%where:tabla|Agentes;where|id_agente = $id_agente_promocion;%@
+
+<fieldset id="Modif_Agente_Datos" class="fsficha">
+<legend>{{label_datosgenerales}}</legend>
+
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_tipoagente}}:</td>
+<td><!-- @%db:Agentes.id_tipo_agente;%@ @%set:_selected_value=Agentes.id_tipo_agente;%@ -->
+<select name="registro[id_tipo_agente]">
+<option value="">{{label_ningunaseleccion}}</option>
+@%where:tabla|Tipo_agente;order|Tipo_agente.nombre;nolink|1;%@
+<option value="@%db:Tipo_agente.id_tipo_agente;%@" 
+@%db:selected_value{Tipo_agente.id_tipo_agente}%@
+>@%db:Tipo_agente.nombre;%@</option>
+@%end-where:%@
+
+
+</select></td>
+</tr>
+</table>
+
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_nombre}}:</td>
+<td><input type="text" name="registro[nombre]" value="@%db:Agentes.nombre;%@" size="30" /></td>
+<td class="etiqueta">{{fld_telefono1}}:</td>
+<td><input type="text" name="registro[telefono1]" value="@%db:Agentes.telefono1;%@" size="12" /></td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_apellidos}}:</td>
+<td><input type="text" name="registro[apellidos]" value="@%db:Agentes.apellidos;%@" size="30" /></td>
+<td class="etiqueta">{{fld_telefono2}}:</td>
+<td><input type="text" name="registro[telefono2]" value="@%db:Agentes.telefono2;%@" size="12" /></td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_direccion}}:</td>
+<td><input type="text" name="registro[direccion]" value="@%db:Agentes.direccion;%@" size="30" /></td>
+<td class="etiqueta">{{fld_poblacion}}:</td>
+<td><input type="text" name="registro[poblacion]" value="@%db:Agentes.poblacion;%@" size="12" /></td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_provincia}}:</td>
+<td><!-- @%db:Agentes.id_provincia;%@ @%set:_selected_value=Agentes.id_provincia;%@ -->
+<select name="registro[id_provincia]">
+ <option value="">{{label_ningunaseleccion}}</option>
+ @%where:tabla|Provincias;order|Provincias.nombre;nolink|1;%@
+<option value="@%db:Provincias.id_provincia;%@" 
+@%db:selected_value{Provincias.id_provincia}%@ 
+>@%db:Provincias.nombre;%@</option>
+ @%end-where:%@
+
+</select></td><td class="etiqueta">{{label_cp}}:</td>
+<td><input type="text" name="registro[cp]" value="@%db:Agentes.cp;%@" size="6" /></td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_comisionbase}}:</td>
+<td>
+<input type="text" name="registro[comision_base]" value="@%db:Agentes.comision_base;%@" size="6" /></td>
+<td class="etiqueta">{{fld_comisiondereparto}}:</td>
+<td>
+<input type="text" name="registro[comision_repartida]" value="@%db:Agentes.comision_repartida;%@" size="6" /></td>
+</tr>
+
+</table>
+
+ <table class="full">
+ <tr>
+   <td class="caption" colspan="6">{{fld_cuentabancaria}}</td>
+ </tr>
+<tr>
+ <td class="etiqueta">{{fld_paisdc}}</td>
+ <td><input type="text" name="registro[entidad]" value="@%db:Agentes.entidad;%@" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta">{{fld_oficina}}</td>
+ <td><input type="text" name="registro[oficina]" value="@%db:Agentes.oficina;%@" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta" >{{fld_dccuenta}}</td>
+ <td><input type="text" name="registro[dc_ccc]" value="@%db:Agentes.dc_ccc;%@" size="2" maxlength="3" class="insertext">
+ <input type="text" name="registro[cuenta_bancaria]" value="@%db:Agentes.cuenta_bancaria;%@" class="insertext" size="11" maxlength="10"></td>
+</tr>
+ <tr>
+ <td class="etiqueta">{{fld_entidad}}</td>
+ <td><input type="text" name="registro[iban]" value="@%db:Agentes.iban;%@" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta">{{fld_bic}}</td>
+ <td><input type="text" name="registro[bic]" value="@%db:Agentes.bic;%@" size="13" maxlength="12" class="insertext"></td>
+ <td class="etiqueta">{{fld_bban}}</td>
+ <td><input type="text" name="registro[bban]" value="@%db:Agentes.bban;%@" size="27" maxlength="26" class="insertext"></td>
+ </tr>
+</table>
+
+</fieldset>
+

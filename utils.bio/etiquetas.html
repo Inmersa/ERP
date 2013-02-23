@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Impresion de Etiquetas</title>
+<link rel="SHORTCUT ICON" href="../escritorio/imag/imagotipo.png">
+<meta http-equiv="Content-Script-Type" content="text/javascript" >
+<script type="text/javascript" src="../escritorio/modulos/temas/inmersa/Browsers.js" ></script>
+<script type="text/javascript" src="../escritorio/modulos/temas/inmersa/IfaceActions.js" ></script>
+<script type="text/javascript" src="../escritorio/modulos/temas/inmersa/Tabs.js" ></script>
+
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/base.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/tablas.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/imagenes.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/iconografia.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/menus.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/formularios.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/fichas.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/bordescolores.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/tipografia.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/graficas.css" type="text/css" media="screen" >
+
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/iconografia.css" type="text/css" media="print" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/bordesycolores.css" type="text/css" media="print" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/formularios.css" type="text/css" media="print" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/tipografia.css" type="text/css" media="print" >
+<link rel="stylesheet" href="../escritorio/modulos/temas/inmersa/print/base.css" type="text/css" media="print" >
+
+<link rel="stylesheet" href="etiquetas.css" type="text/css" media="print" >
+<link rel="stylesheet" href="etiquetas.css" type="text/css" media="screen" >
+
+</head>
+<body >
+
+<div class="tituloseccion" >Impresion de Etiquetas: BIOMUNDO</div>
+
+<form name="etiquetas" action="etiquetas.php" method="post" >
+<table class="full" >
+<thead>
+<tr><td>ID Albaran</td><td>Ref Albaran</td><td>Nº de Bultos</td><td>Nº Bultos en Expedicion</td><td>Seleccion Etiquetas</td></tr>
+</thead>
+<tbody>
+<tr><td><input type="text" class="id" name="albaranes[0][id]" /></td>
+<td><input type="text" class="id" name="albaranes[0][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[0][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[0][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[0][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[1][id]" /></td>
+<td><input type="text" class="id" name="albaranes[1][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[1][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[1][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[1][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[2][id]" /></td>
+<td><input type="text" class="id" name="albaranes[2][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[2][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[2][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[2][etiquetas]" /></td></tr>
+</tr>
+
+<tr><td><input type="text" class="id" name="albaranes[3][id]" /></td>
+<td><input type="text" class="id" name="albaranes[3][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[3][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[3][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[3][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[4][id]" /></td>
+<td><input type="text" class="id" name="albaranes[4][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[4][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[4][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[4][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[5][id]" /></td>
+<td><input type="text" class="id" name="albaranes[5][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[5][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[5][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[5][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[6][id]" /></td>
+<td><input type="text" class="id" name="albaranes[6][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[6][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[6][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[6][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[7][id]" /></td>
+<td><input type="text" class="id" name="albaranes[7][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[7][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[7][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[7][etiquetas]" /></td></tr>
+</tr>
+
+<tr><td><input type="text" class="id" name="albaranes[8][id]" /></td>
+<td><input type="text" class="id" name="albaranes[8][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[8][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[8][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[8][etiquetas]" /></td></tr>
+
+<tr><td><input type="text" class="id" name="albaranes[9][id]" /></td>
+<td><input type="text" class="id" name="albaranes[9][referencia]" /></td>
+<td><input type="text" class="mininum" name="albaranes[9][bultos]" /></td>
+<td><input type="text" class="mininum" name="albaranes[9][bultos_expedicion]" /></td>
+<td><input type="text" class="num" name="albaranes[9][etiquetas]" /></td></tr>
+
+</tbody></table>
+</form>
+
+<div class="AccionesEnvio" ><ul>
+<li><a href="#" onClick="return sendForm('etiquetas');"  class="guardar" ><img src="../imag/pixel.png" class="icono" /><span>Enviar</span></a></li>
+</ul></div>
+
+</body>
+</html>

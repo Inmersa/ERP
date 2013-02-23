@@ -1,0 +1,22 @@
+BUDGET_NODB	100	No ha sido encontrada una conexión válida a la BDD ({{dbname}}).
+BUDGET_LOCKED	100	Presupuesto Bloqueado. Verifique los datos del emisor y el receptor.
+BUDGET_NODISCOUNT_ORDER	100	La línea {{idx}} perteneciente a la referencia  {{ref}}  no puede ser descontada en el pedido ({{pedido}}).
+BUDGET_COMPANY_NOTFOUND	100	Ha sido imposible encontrar la empresa {{id}}.
+BUDGET_PENDING_CONTRACT	100	Ha sido imposible emitir el presupuesto {{fra}} porque algunas cantidades son desconocidas.
+BUDGET_ISSUED_DRAFTS	100	Algunos efectos han sido emitidos al receptor.
+BUDGET_NODBRECORD_NOACENTRY	100	Presupuesto no contabilizado porque no hay identificador de BDD.
+BUDGET_NODBRECORD	100	Presupuesto no registrado en la BDD.
+BUDGET_ACENTRY_FAILED	100	Ha sido imposible crear/obtener el registro solicitado.
+BUDGET_NODOCUMENT_PARAM	100	{{fnc}} ha recibido un parámetro erróneo porque no pertenece a ningún documento subclase.
+BUDGET_ORDER_MODE_MISMATCH	100	No compatible con el pedido.Es imposible facturar en ventas o compras o a la inversa.
+BUDGET_ORDER_ISSUER_MISMATCH	100	El emisor del pedido no es el mismo que el emisor del presupuesto.
+BUDGET_ORDER_RECIEVER_MISMATCH	100	El receptor del pedido no es el mismo que el receptor del presupuesto.
+BUDGET_ORDER_CURRENCY_MISMATCH	100	La moneda del pedido no es la misma que la moneda del presupuesto.
+BUDGET_ORDER_PAYMENT_MISMATCH	100	El método de pago del pedido no es el mismo que el del presupuesto.
+BUDGET_CONTRACT_NOPERIOD	100	El contrato {{contract}} no puede ser procesado por falta de información sobre los periodos de facturación.
+BUDGET_NOHEADERS	100	Ha sido imposible obtener las cabeceras del presupuesto.
+BUDGET_NODETAILS	100	Ha sido imposible obtener los detalles del presupuesto.
+BUDGET_NOISSUER	100	Presupuesto {{ref}} sin emisor.
+BUDGET_NORECIEVER	100	Presupuesto {{ref}} sin receptor.
+BUDGET_NOIDPRODUCT	100	La referencia de artículo no existe en línea: {{idx}}.
+BUDGET_DBFILL    	101	Presupuesto imposible de obtener: ID {{id}}.

@@ -1,0 +1,7 @@
+
+MISC_STOCK_LOC_MOVED	500	Articulo (Lote:{{lote}}/Caducidad:{{fcad}}) colocado en otra localizacion (Planta:{{planta}} Pasillo:{{pasillo}} Fila:{{fila}} Columna:{{columna}})
+MISC_STOCK_LOC_UNDEFINED	101	Error indefinido obteniendo las posibles localizaciones del producto {{referencia}}
+MISC_STOCK_LOC_NEW	500	Articulo (Lote:{{lote}}/Caducidad:{{fcad}}) asignado en localizacion (Planta:{{planta}} Pasillo:{{pasillo}} Fila:{{fila}} Columna:{{columna}})
+MISC_STOCK_LOC	500	Articulo (Lote:{{lote}}/Caducidad:{{fcad}}) colocado en su localizacion (Planta:{{planta}} Pasillo:{{pasillo}} Fila:{{fila}} Columna:{{columna}})
+MISC_PRODUCT_INVOICED	500	Articulo {{referencia}} Ya Ha sido Facturado
+

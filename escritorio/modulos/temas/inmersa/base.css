@@ -1,0 +1,204 @@
+
+BODY {
+	margin:10px;
+}
+
+
+/** Contenedores **/
+#cabecera {
+	text-align:right;
+	padding:4px;
+}
+#cuerpo {
+	padding:1px 0px 0px 0px;
+}
+
+#contenido {
+	padding-left:2px;
+}
+
+#BuscadorGeneral {
+	clear: both;
+	padding: 2px 0 2px 0;
+	margin: 2px 0 2px 0;
+	text-align: right;
+}
+
+DIV.spacer {
+	clear: both;
+	padding:0px 0px 0px 0px;
+}
+
+.enviar {
+	text-align:center;
+	padding:10px;
+}
+
+.error {
+	margin:1px 0px 0px 1px;
+	padding:4px;
+	float:bottom;
+}
+
+.acciones {
+	padding:6px 10px 6px 10px;
+	margin:1px 0px 0px 0px;
+	text-align:right;
+	height:15px;
+	vertical-align: middle;
+}
+
+.tituloseccion {
+	height: 25px;
+	vertical-align:middle;
+}
+
+.buscadorinterior {
+	text-align:right;
+	display: run-in;
+	padding:6px 20px 6px 20px;
+	margin:1px 0px 0px 0px;
+}
+
+.botonera {
+	text-align:left;
+	float:left;
+	margin:0px 0px 0px 5px;
+}
+
+.resultados {
+	margin:1px 0px 0px 0px;
+	padding:4px 20px 4px 20px;
+	text-align: right;
+	clear: both;
+}
+
+/** cabecera **/
+#encabezadohtml {
+  	display:block;
+  	clear: both;
+	text-align: center;
+	width: 100%;
+}
+
+#encabezadohtml span.fecha {
+	position: relative;
+	left: 25%;
+	margin: 0;
+	text-align: center;
+	vertical-align: top;
+}
+
+#BarraGeneral {
+	clear:both;
+	padding: 0;
+	/** El alto de los iconos flotantes de la dcha mas margen div de usuario (el otro flota)**/
+	height: 35px;
+	text-align: left;
+}
+
+#usuario {
+	display: inline;
+	text-align:left;
+  	margin: 0px 0px 0px 10px;
+  	padding: 0;
+}
+
+#DSBPeriodos {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: auto;
+	display: block;
+	text-align: left;
+}
+
+#DSBPeriodos div.item {
+	display: inline;
+	text-transform: uppercase;
+
+	padding: 0;
+	margin: 0;
+}
+
+#DSBPeriodos div.item a {
+	display: inline;
+
+	margin: 0 0 0 0;
+	padding: 5px 3px 5px 3px;
+	line-height: 250%;
+
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+
+}
+
+#DSBPeriodos {
+	background-color:#E4DD75;
+}
+
+#DSBPeriodos div.menuitem a {
+	border-right: 1px solid #fff;
+	color: #fff;
+}
+
+
+/** Pendientes de revisar y cambiar nombre **/
+
+#accesosdir {
+	margin:0px 0px 0px 10px;
+	float: left;
+}
+
+#accesosdir A {
+	margin:0px 2px 0px 2px;
+}
+
+.barraoscura {
+	padding:6px 10px 6px 10px;
+	margin:1px 0px 0px 0px;
+	text-align:right;
+	height:15px;
+	vertical-align:top;
+	display: block;
+}
+.barraoscurai {
+	padding:6px 20px 6px 20px;
+	margin:1px 0px 0px 0px;
+	display: run-in;
+	padding:6px 10px 6px 10px;
+	height:15px;
+	vertical-align:baseline;
+}
+
+.titsuperior {
+	float:left;
+}
+
+.alinder {
+	text-align:right;
+	display: run-in;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+
+.barraoscura DIV.alinder {
+	display: inline;
+	vertical-align: top;
+}
+
+.titul1{
+	text-align:right;
+}
+
+.rail{
+	text-align:right;
+}
+
+.oculto {
+	display: none;
+	visibility: hidden;
+}

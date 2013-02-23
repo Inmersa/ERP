@@ -1,0 +1,545 @@
+/* Entidades / Etiquetas */
+@import url("../imagenes.css");
+
+@page { 
+	size: 21cm 29.7cm; 
+	margin: 0;
+	padding: 0;
+}
+
+BODY {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color:#ffffff;
+	margin:0;
+}
+FORM {
+	margin:0px;
+	padding: 0;
+}
+
+/** input[type="radio"] { background-color: blue } **/
+INPUT,TEXTAREA {
+	border: 0px;
+	margin: 0;
+	padding: 0;
+	width: 10px;
+	height: 10px;
+}
+
+SELECT,OPTION {
+	border: 0px;
+}
+
+A {
+	text-decoration: none;
+	color: #000;
+}
+
+#encabezadohtml {
+  	display:block;
+	text-align: left;
+	width: 100%;
+  	border-bottom: 1px solid #000;
+	margin: 0px;
+	padding: 0px;
+}
+
+#encabezadohtml #logoempresa {
+	float: left;
+	display: block;
+}
+
+#encabezadohtml #logoinmersa A {
+	visibility: hidden;
+	display: none;
+}
+#encabezadohtml #logoinmersa {
+	background-image: none;
+	display: run-in;
+	text-align: right;
+	vertical-align: top;
+}
+
+#encabezadohtml #logoinmersa span.fecha {
+	text-align: right;
+	vertical-align: top;
+	padding: 0px 10px 0px 0px;
+}
+
+#barra1 span.fecha {
+	text-align: right;
+	vertical-align: top;
+	padding: 0px 10px 0px 0px;
+}
+
+
+
+/** Lo que no se debe ver **/
+img.ascendente, img.descendente, #buscadorinterior {
+	display: none;
+	visibility: hidden;
+}
+
+#tabs, #BarraGeneral, #BuscadorGeneral, #MenuHorizontal, #AccionesListado, #AccionesEncabezado, .AccionesFicha, .AccionesEnvio {
+	visibility: hidden;
+	display: none;
+}
+
+TABLE.full THEAD TR img.null {
+	visibility: hidden;
+	display: none;
+}
+
+.barraoscura, .resultados {
+	visibilitiy: hidden;
+	display: none;
+}
+
+
+.tituloseccion {
+  	clear: both;
+  	border-bottom: 1px solid #000;
+}
+
+#tipocopia {
+	float: left;
+}
+
+#barra1 {
+	display: block;
+	clear: both;
+	width: 100%;
+	text-align: right;
+
+	padding-bottom:5px;
+	border-bottom: 1px solid #000;
+}
+
+/* id's */
+
+.pagina {
+	display: block;
+	page-break-before: always !important;
+	width: auto;
+	height: 100%;
+
+	clear:both;
+}
+
+.paginacabecera {
+	display: block;
+	page-break-before: always !important;
+	width: auto;
+	height: 100%;
+
+	clear:both;
+}
+
+.primerapagina {
+	page-break-bofore: avoid !important;
+	width: auto;
+
+	vertical-align: middle;
+	clear:both;
+}
+
+#contadorpaginas {
+	display: inline;
+	text-align: right;
+	background-image:none;
+}
+/** **/
+
+
+
+#contenido {
+	display: block;
+}
+
+#pie {
+	position: relative;
+	display: block;
+	bottom: 1px;
+}
+
+@page:first#pie TABLE.fullstruct {
+	page-break-after: always !important;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #f00;
+}
+
+
+#pie TABLE.fullstruct {
+	position: relative;
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+#pie TABLE.fullstruct TABLE.full {
+	vertical-align: baseline;
+}
+
+.enviar {
+	visibility: hidden;
+}
+/** **/
+
+/* Etiquetas de una clase */
+TD {
+	vertical-align:middle;
+	empty-cells: show;
+}
+/** cuando este todo maquetado, esto pasarlo a un simple 'TABLE {' **/
+TABLE.lineasdetalle {
+	vertical-align: top;
+	width: 100%;
+	height: 220mm;
+}
+TD.lineasdetalle {
+	vertical-align: top;
+}
+.primerapagina TABLE.lineasdetalle, .paginacabecera TABLE.lineasdetalle {
+	height: 125mm;
+}
+
+TABLE.espaciarrecibo {
+	height: 10cm;
+}
+
+
+TABLE.full {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: hide;
+	border:1px solid #000000;
+}
+
+TABLE.full TBODY TR {
+	border:1px solid #000;
+}
+
+.primerapagina TABLE.full TBODY TR, .paginacabecera TABLE.full TBODY TR, .pagina TABLE.full TBODY TR {
+	border: 0;
+}
+
+TABLE.full TBODY TR.resalte {
+	background-color:#ebeced;
+}
+
+TABLE.lineasdetalle TABLE.full TBODY TD {
+	border:1px solid #000;
+}
+
+TABLE.full TBODY TD.productids {
+	border:1px solid #000;
+}
+
+DIV.productid {
+	display: inline;
+	margin: 0;
+
+	padding: 0 2px 0 2px;
+	border-right: 1px solid #000;
+}
+
+TABLE.fullstruct {
+	/** border-collapse:collapse; **/
+	margin:0px 0px 0px 0px;
+	width:100%;
+	empty-cells: hide;
+}
+TABLE.firmas {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: hide;
+	border:1px solid #000000;
+}
+TABLE.firmas TD {
+	border:1px solid #000000;
+	height: 30;
+}
+TABLE.firmas TD.titul1 {
+	text-align: center;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	line-height: normal;
+	height: auto;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px 0px 0px 0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+
+TABLE.firmas TD.lafirma {
+	height: 6cm;
+}
+
+/** **/
+.fullstruct TD {
+	font-size: 10px;
+	padding:0px;
+	vertical-align:top;
+	border: 0px;
+}
+TABLE.fullstruct TD.left {
+	padding-right:5px;
+	padding-top:5px;
+}
+TABLE.fullstruct TD.right {
+	padding-left:5px;
+	padding-top:5px;
+	margin-right:10px;
+}
+TABLE.fullstruct TD.middle {
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:5px;
+}
+.full TD {
+	font-size: 9px;
+	font-weight: normal;
+	text-decoration: none;
+	/** padding-left:2px; **/
+}
+
+CAPTION {
+	background-color:#CCD2D7;
+	font-weight:bold;
+	font-size: 3mm;
+	color: #000000;
+	text-align:left;
+}
+
+.bordes TD {
+	border:1px solid #000000;
+}
+
+TD.titul1{
+	text-align: right;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	line-height: normal;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+THEAD.encabezado TD {
+	text-align: center;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	font-variant: normal;
+	line-height: normal;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+TABLE.full TBODY.centrado {
+	empty-cells: show;
+}
+TBODY.centrado TD {
+	text-align: center;
+}
+TABLE.full THEAD.informe {
+	text-align: right;
+}
+TABLE.full TBODY.informe TD{
+	text-align: right;
+	border-right: 1px solid #000;
+}
+
+TD.tdimgarticulo {
+	padding:10px;
+	text-align:center;
+	vertical-align:middle;
+}
+
+TD.logoempresa TABLE.full {
+	border-collapse: separate;
+	margin:0 10px 10px 0;
+}
+
+TD.logoempresa TABLE.full CAPTION {
+	font-size: 14px;
+	margin: 5px 0 0 0;
+}
+
+/** Impresion de Documentos **/
+
+.contenedor {
+	width: 100%;
+	/** height: 95mm; **/
+	height: 87mm;
+	vertical-align:top;
+}
+
+.contenedor TR.empresa {
+	padding-bottom: 25px;
+	margin:0;
+}
+
+.contenedor TR.empresa TABLE.full TD.caption {
+	display: none;
+	visibility: hide;
+}
+
+.contenedor TR.empresa TABLE.full {
+	/** height: 100%; **/
+	height: auto;
+	margin:0;
+}
+
+TD.codigobarras {
+	vertical-align: middle;
+	text-align: center;
+	display: none;
+	visibility: hidden;
+}
+
+
+TD.direccionentrega {
+	padding-left:5px;
+	margin:2px 0px 2px 0px;
+	width: 115mm;
+
+	vertical-align: bottom;
+}
+TD.direccionentrega TABLE.full {
+	height: 45mm;
+	width: 100mm;
+
+	left: 0mm;
+	position: relative;
+	vertical-align: bottom;
+	border: 0;
+}
+
+TD.direccionentrega TABLE.full CAPTION {
+	text-align: right;
+}
+
+TD.diafano {
+	padding:0 0 0 0;
+	margin:0 0 0 0;
+	text-align:center;
+	vertical-align:top;
+	align:center;
+	font-size: 12px;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+TD.caption {
+	color: #000000;
+	background-color:#CCD2D7;
+
+	font-size: 14px;
+	font-weight:bold;
+	text-align:left;
+	font-style: normal;
+	line-height: normal;
+
+	text-transform: capitalize;
+}
+
+.oculto {
+	display: none;
+	visibility: hidden;
+}
+
+td.importe {
+	text-align: right;
+}
+
+div.resumen {
+	width: 99%;
+	border: 1px solid #000;
+	padding: 1px;
+}
+
+div.titulo {
+	margin-top: 10px;
+	width: 99%;
+	text-align: right;
+	border-bottom: 1px solid #000;
+}
+
+div.grupo {
+	margin-top: 10px;
+	font-size: 16px;
+	text-align: left;
+	border-bottom: 1px solid #000;
+}
+
+div.resumen table.fullstruct td {
+	vertical-align: top;
+	text-align: center;
+}
+
+div.resumen table.subtotal {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	width: 100%;
+	border: 0;
+	margin: 15px 5px 0 0;
+	padding: 0;
+}
+
+div.resumen table.subtotal td.nombregrupo {
+	text-align: left;
+}
+
+div.resumen table.subtotal thead td {
+	font-weight:bold;
+}
+
+div.resumen table.subtotal td.etiqueta {
+	text-align: left;
+}
+
+div.resumen table.subtotal td {
+	text-align: right;
+}
+
+div.resumen table.total {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #dedede;
+	width: 100%;
+	border: 0;
+	margin: 40px 5px 40px 0;
+	padding: 0;
+}
+
+div.resumen table.total td.etiqueta {
+	font-size: 14px;
+	font-weight:bold;
+	text-align:center;
+}
+
+div.resumen table.total td {
+	text-align: center;
+}
+

@@ -1,0 +1,13 @@
+ORDER_DBFILL	101	Não foi possível obter a Encomenda ID {{id}} solicitada
+ORDER_INVOICE_EXISTS	101	Encomenda já facturada.
+ORDER_INCORRECT	101	Encomenda {{id}} incorrecta
+ORDER_NORECIEVER	100	Encomenda {{ref}} sem Receptor.
+ORDER_RECIEVER_NODELIVERYADDRESS	100	O Receptor {{id}} não possui endereço de entrega.
+ORDER_NOISSUER	100	Encomenda {{ref}} sem Emissor.
+ORDER_NODELIVERYADDRESS	100	Encomenda {{ref}} sem endereço de entrega
+ORDER_CONTRACT_DUPLICATE	101	O Produto {{prod}} já está incluído no serviço {{contract}} seleccionado.
+ORDER_PRODUCT_NOTINCONTRACT	101	O Produto {{prod}} não está incluído no serviço {{contract}} seleccionado.
+ORDER_NOHEADERS	100	Não foi possível obter os cabeçalhos da Encomenda
+ORDER_NODETAILS	100	Não foi possível obter os detalhes da Encomenda
+ORDER_NODBRECORD	100	Encomenda não registada na BD.
+ORDER_CONTRACT_FEE	100	Taxa de Subscrição

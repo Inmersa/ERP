@@ -1,0 +1,4 @@
+CRM_NORETURNLINK	101	Il n'a pas pu se trouver en liaison de retour.
+CRM_NOVALIDUSER	101	Il n'a pas utilisateur CRM valable
+CRM_NOCRM	101	Il n'a pas utilisateur CRM valable
+CRM_NOCLIENTUSER 	104	Le client {{cliente}} n'a pas un utilisateur valide d'iCRM

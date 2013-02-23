@@ -1,0 +1,7 @@
+
+<div class="tituloseccion">&gt; {{label_rutas}}</div>
+
+@%plt:buscador_seccion%@
+
+@%plt:Nombre_Rutas%@ 
+

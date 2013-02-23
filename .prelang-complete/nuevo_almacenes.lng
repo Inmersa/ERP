@@ -1,0 +1,72 @@
+
+<div class="tituloseccion">&gt; {{frame_NUEVOALMACEN}}</div>
+
+<form name="nuevo_almacenes" action="?seccion=bo_almacenes" method="post">
+<input type="hidden" name="registro[id_almacen]" value="NULL" />
+
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_nombre}}:</td>
+<td>
+<input type="text" name="registro[nombre]" size="30" /></td>
+<td class="etiqueta" colspan="2">{{fld_provincia}}:</td>
+<td colspan="2">
+<select name="registro[id_provincia]">
+@%where:tabla|Provincias;nolink|1;order|nombre;%@
+<option value="@%db:Provincias.id_provincia;%@">@%db:Provincias.nombre;%@</option>
+@%end-where:%@
+
+</select></td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_personacontacto}}:</td>
+<td>
+<input type="text" name="registro[persona_contacto]" size="30" /></td>
+<td class="etiqueta" colspan="2">{{fld_cargopersonacontacto}}:</td>
+<td colspan="2">
+<input type="text" name="registro[cargo_persona_contacto]" size="30" /></td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_direccion}}</td>
+<td>
+<input type="text" name="registro[direccion]" size="30" /></td>
+<td class="etiqueta">{{label_cp}}:</td>
+<td>
+<input type="text" name="registro[cp]" size="6" /></td>
+<td class="etiqueta">{{fld_provincia}}</td>
+<td>
+<input type="text" name="registro[poblacion]" size="14" /></td>
+
+</tr>
+<tr>
+<td class="etiqueta">{{fld_email}}:</td>
+<td>
+<input type="text" name="registro[email]" size="30" /></td>
+<td class="etiqueta">{{fld_fax}}:</td>
+<td>
+<input type="text" name="registro[fax]" size="12" /></td>
+<td class="etiqueta">{{fld_telefono}}</td>
+<td>
+<input type="text" name="registro[telefono]" size="14" /></td>
+
+</tr>
+<tr>
+<td class="etiqueta">{{label_grupo}}:</td>
+<td colspan="5" >
+<select name="registro[mask]">
+@%where:db|conf;tabla|Groups;where|mascara != 2147483647 AND mascara != 0 AND mascara & $group_mask;nolink|1;%@
+<option value="@%db:Groups.mascara%@"
+>@%db:Groups.nombre%@</option>
+@%end-where:%@
+
+</select></td>
+</table>
+
+<input type="hidden" name="accion_ejecutar" value="Nuevo" />
+</form>
+
+<div class="AccionesEnvio"><ul>
+<li><a href="#" onClick="return onHRefClick('nuevo_almacenes','accion_ejecutar','Nuevo');" class="guardar" 
+	><img src="imag/pixel.png" class="icono" /><span>{{acc_guardar}}</span></a></li>
+</ul></div>
+

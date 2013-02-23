@@ -1,0 +1,22 @@
+BUDGET_NODB	100	Il n'a pas été trouvé une connexion valable à la BDD ({{dbname}}).
+BUDGET_LOCKED	100	Budget Bloqué. Vérifiez les données de l'émetteur et le récepteur.
+BUDGET_NODISCOUNT_ORDER	100	La ligne {{idx}} appartenant à la référence  {{ref}}  ne peut pas être déduite dans la commande ({{pedido}}).
+BUDGET_COMPANY_NOTFOUND	100	Il a été impossible de trouver l'entreprise {{id}}.
+BUDGET_PENDING_CONTRACT	100	Il a été impossible d'émettre le budget {{fra}} parce que quelques quantités sont inconnues.
+BUDGET_ISSUED_DRAFTS	100	Quelques effets ont été émis au récepteur.
+BUDGET_NODBRECORD_NOACENTRY	100	Budget non comptabilisé parce qu'ils n'ont pas identificateur de BDD.
+BUDGET_NODBRECORD	100	Budget non enregistré dans la BDD.
+BUDGET_ACENTRY_FAILED	100	Il a été impossible de créer/obtenir l'enregistrement demandé.
+BUDGET_NODOCUMENT_PARAM	100	{{fnc}} a reçu un paramètre erroné parce qu'il n'appartient à aucun document sous-classe.
+BUDGET_ORDER_MODE_MISMATCH	100	Non compatible avec la commande il Est impossible de facturer dans des ventes ou des achats ou à ce qui est inverse.
+BUDGET_ORDER_ISSUER_MISMATCH	100	L'émetteur de la commande n'est pas le même que l'émetteur du budget.
+BUDGET_ORDER_RECIEVER_MISMATCH	100	Le récepteur de la commande n'est pas le même que le récepteur du budget.
+BUDGET_ORDER_CURRENCY_MISMATCH	100	La Devise de la commande n'est pas la même que la monnaie du budget.
+BUDGET_ORDER_PAYMENT_MISMATCH	100	La méthode de paiement de la commande n'est pas le même que celui du budget.
+BUDGET_CONTRACT_NOPERIOD	100	Le contrat {{contract}} ne peut pas être accusé par manque d'information sur les périodes de facturation.
+BUDGET_NOHEADERS	100	l a été impossible d'obtenir les têtes du budget.
+BUDGET_NODETAILS	100	Il a été impossible d'obtenir les détails du budget.
+BUDGET_NOISSUER	100	Budget {{ref}} sans émetteur.
+BUDGET_NORECIEVER	100	Budget {{ref}} sans récepteur.
+BUDGET_NOIDPRODUCT	100	La référence d'article n'existe pas en ligne: {{idx}}.
+BUDGET_DBFILL    	101	Budget impossible d'obtenir: ID {{id}}.

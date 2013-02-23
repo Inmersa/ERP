@@ -1,0 +1,5 @@
+"16"="Apache no esta instalado. no se ha podido encontrar el binario apxs";
+"17"="No se ha encontrado el servidor MySQL. Instale el servidor MySQL en /usr o /Library";
+"18"="PHP no encontrado. Instale el modulo de Apache PHP 4.2.x o Superior";
+"19"="Configuracion web no encontrada. Revise la instalacion de Apache";
+"20"="No se ha podido encontrar el fichero de configuracion php.ini"

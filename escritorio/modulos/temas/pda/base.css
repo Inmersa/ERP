@@ -1,0 +1,74 @@
+
+.visible {
+   visibility: visible;
+   display: block;
+}
+
+.oculto {
+   visibility: hidden;
+   display: none;
+}
+
+.inhabilitado {
+   enabled: false;
+}
+
+.RowBlur {
+   background-color: #ededed;
+   font-style: italic;
+}
+
+.RowStd {
+   background-color: transparent;
+   font-style: normal;
+}
+
+.RowStd:blur {
+   background-color: #ededed;
+   font-style: italic;
+}
+
+.RowHi {
+   background-color: #55aa77;
+   font-style: normal;
+}
+
+.FrameSetBlur {
+   background-color: #ededed;
+   font-style: italic;
+}
+
+.FrameSetStd {
+   background-color: #aaed77;
+   font-style: normal;
+}
+
+.FrameSetHi {
+   background-color: #55aa77;
+   background-color: #aaed77;
+   font-style: normal;
+}
+
+TABLE.location {
+	border: 1px solid black; 
+	width: auto;
+}
+
+TABLE.location caption {
+	font-size: 10px;
+}
+
+TABLE.full {
+	width: 98%;
+}
+
+TABLE.full TD DIV {
+	position: relative;
+}
+
+.rec_log_line {
+	display: block;
+	border: 1px solid blue;
+	background-color: #2233EE;
+	font-style: normal;
+}

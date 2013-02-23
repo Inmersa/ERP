@@ -1,0 +1,8 @@
+MISC_STOCK_LOC_MOVED	500	Produto (Lote:{{lote}}/Caducidade:{{fcad}}) colocado  noutra localização (Piso:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Coluna:{{columna}})
+MISC_STOCK_LOC_UNDEFINED	101	Erro indefinido ao obter as possíveis localizações do produto {{referencia}}
+MISC_STOCK_LOC_NEW	500	Ao Produto (Lote:{{lote}}/Caducidade:{{fcad}}) foi atribuída a localização (Piso:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Coluna:{{columna}})
+MISC_STOCK_LOC	500	O Produto (Lote:{{lote}}/Caducidade:{{fcad}}) foi colocado na sua localização (Piso:{{planta}} Corredor:{{pasillo}} Fila:{{fila}} Coluna:{{columna}})
+MISC_PRODUCT_INVOICED	501	Produto {{referencia}} foi facturado, ele é imposible mudar qualquer coisa.
+MISC_EFLBL_TOTAL	505	Total Efeitos
+MISC_EFLBL_PAGADO	506	Quantidade Pagada
+MISC_ALLBL_VALOR	507	Valor

@@ -1,0 +1,66 @@
+#!/bin/bash
+lngcp=`which cplngplt`;
+
+if [ -z "$lngcp" ]; then
+	lngcp='bin/cplngplt';
+fi;
+
+if [ -z "$iGestion_root" ]; then
+	echo Variable de entorno iGestion_root no setteada, vuelve a hacer login;
+	exit;
+fi;
+
+if [ -z "$1" ]; then
+	echo Por favor, indique una seccion o subseccion para la cual obtener plantillas.
+	exit;
+else 
+	seccion=$1;
+fi;
+
+cd $iGestion_root;
+notupdated=`cvs status prelang/. 2>&1 | grep Status | grep -v Up-to-date | grep -v "Needs Checkout" `;
+if [ -n "$notupdated" ]; then
+	echo El directorio no esta sincronizado con el cvs.
+	echo 
+	echo $notupdated;
+	exit;
+fi;
+
+if [ ! -d $iGestion_root/tmp ]; then
+	mkdir tmp;
+	chmod a+w tmp;
+fi;
+
+if [ -f $iGestion_root/tmp/pltlist.sql ]; then
+	rm -rf $iGestion_root/tmp/pltlist.sql;
+fi;
+
+echo "SELECT DISTINCT P.nombre INTO OUTFILE '$iGestion_root/tmp/pltlist.sql' LINES TERMINATED BY '\n' FROM Secciones Sn, Sub_Secc Sc, Sec_Subsecc SS, Sub_Plts SP, Plantillas P WHERE Sn.id_seccion=SS.id_seccion AND SS.id_sub_secc=Sc.id_sub_secc AND SP.id_sub=Sc.id_sub_secc AND SP.id_plt=P.id_plantilla AND Sn.nombre like '%$seccion%'" | mysql -u freefilepriv -h intranet.wol biomundo_gestion_inmersa;
+
+if [ ! -s $iGestion_root/tmp/pltlist.sql ]; then
+	rm -rf $iGestion_root/tmp/pltlist.sql;
+	echo "SELECT DISTINCT P.nombre INTO OUTFILE '$iGestion_root/tmp/pltlist.sql' LINES TERMINATED BY '\n' FROM Sub_Secc Sc, Sub_Plts SP, Plantillas P WHERE SP.id_sub=Sc.id_sub_secc AND SP.id_plt=P.id_plantilla AND Sc.nombre like '%$seccion%'" | mysql -u freefilepriv -h intranet.wol biomundo_gestion_inmersa;
+	if [ ! -s $iGestion_root/tmp/pltlist.sql ]; then
+		echo None Found;
+		exit;
+	fi;
+fi;
+
+if [ ! -f $iGestion_root/tmp/pltlist.sql ]; then
+	echo Ni puta idea, pero el error es tocho
+	exit;
+fi;
+
+for filename in `cat $iGestion_root/tmp/pltlist.sql | awk -F '.' '{print $1}'`; do
+	echo $filename.lng;
+	rm -rf prelang/$filename.lng;
+	cvs update prelang/$filename.lng >> /dev/null;
+done;
+	
+if [ ! -d $iGestion_root/plantillas/work ]; then
+	mkdir plantillas/work;
+	chmod a+w plantillas/work;
+fi;
+
+${lngcp} prelang/ plantillas/work/
+

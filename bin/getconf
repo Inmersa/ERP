@@ -1,0 +1,123 @@
+#!/bin/bash
+
+CFGPATH=$(pwd)/conf
+CFGFILES=configure.files
+MYSQLDUMP="$(which mysqldump)"
+#MYSQLDUMP_OPTS="--quote-names=false --skip-opt --compatible=mysql323,no_table_options"
+MYSQLDUMP_OPTS="--quote-names=false --extended-insert=0 "
+MDUMP_CLEANOPTS="--skip-opt --compatible=mysql323,no_table_options"
+MYSQL=$(which mysql) 
+RPL=$(which rpl)
+AWK=$(which gawk|grep -v 'no gawk');
+if [ -z "$AWK" ]; then AWK=$(which awk|grep -v 'no awk'); fi;
+if [ ! -f "$CFGPATH/$CFGFILES" ]; then \
+	echo "Error: config file $CFGFILES not found. "; \
+	exit 1; \
+fi;
+
+if [ -z "$srcdir" ]; then srcdir=$(pwd); fi;
+
+. $CFGPATH/$CFGFILES
+
+if [ -z "$MYSQLDUMP" ]; then \
+	echo "Error: mysqldump not found"; \
+	exit 1; \
+fi
+
+if [ ! -f "$CONF_FILE" ]; then \
+	echo "Error: config file $CONF_FILE not found. "; \
+	exit 1; \
+fi;
+
+. $CONF_FILE
+
+DBCFG=$DBNAME_INM; 
+
+if [ ! -z "$MYSQL_PORT" ]; then portinfo="-P $MYSQL_PORT"
+fi;
+
+DBV=`cat dbs/version`;
+DBSTRUCT="dbs/V$DBV/estructura.sql"
+if [ ! -z "$DBV" -a -f "$DBSTRUCT" ]; then
+	STRUCT_FILE=$DBSTRUCT;
+fi;
+
+echo -n "Dumping cfg from $DBNAME and $DBCFG .. "
+
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo --add-drop-table --no-data $DBNAME > $STRUCT_FILE || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Ayuda >> $STRUCT_FILE || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Ayuda_epigrafes >> $STRUCT_FILE || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Relaciones >> $STRUCT_FILE || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -c --add-drop-table $DBCFG | grep -vE "INSERT.*INTO.*Users.*\(" | grep -v "EXISTS.*Users" | awk '{ if (/(CREATE TABLE).*(Users)/)  { gsub("CREATE TABLE","CREATE TABLE IF NOT EXISTS",$0) } print $0 }' > $DBCFG_FILE || exit 1
+$RPL "CREATE TABLE Users" "CREATE TABLE IF NOT EXISTS Users" $DBCFG_FILE 2>/dev/null 1>/dev/null || exit 1
+echo " ok ";
+
+#echo -n "Replacing MySQL 4.1.1 specific .. "
+#$RPL "DEFAULT CHARSET=latin1" " " $STRUCT_FILE 2>/dev/null 1>/dev/null || exit 1
+#$RPL -- '/*!' '--/*!' $STRUCT_FILE 2>/dev/null 1>/dev/null || exit 1
+#$RPL "DEFAULT CHARSET=latin1" " " $DBCFG_FILE 2>/dev/null 1>/dev/null || exit 1
+#$RPL -- '/*!' '--/*!' $DBCFG_FILE 2>/dev/null 1>/dev/null || exit 1
+#echo " ok ";
+
+DBV=`cat dbs/version`;
+if [ -z "$DBV" ]; then
+	echo "NO DATABASE VERSION FOUND"
+	exit;
+fi;
+
+echo -n "Setting up DataBase Version $DBV .. "
+if [ ! -d "dbs/V$DBV" ]; then
+	echo creando path a la version dbs/V$DBV
+	mkdir dbs/V$DBV
+fi;
+
+DBSTRUCT="dbs/V$DBV/estructura.sql"
+
+if [ -f "dbs/dbv_preupgrade" ]; then
+	cp dbs/dbv_preupgrade dbs/V$DBV/preupgrade.sql
+fi;
+
+if [ -f "dbs/dbv_postupgrade" ]; then
+	cp dbs/dbv_postupgrade dbs/V$DBV/postupgrade.sql
+fi;
+
+if [ -f "dbs/dbv_predowngrade" ]; then
+	cp dbs/dbv_predowngrade dbs/V$DBV/predowngrade.sql
+fi;
+
+if [ -f "dbs/dbv_postdowngrade" ]; then
+	cp dbs/dbv_postdowngrade dbs/V$DBV/postdowngrade.sql
+fi;
+
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo --add-drop-table --no-data $DBNAME > $DBSTRUCT || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Ayuda >> $DBSTRUCT || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Ayuda_epigrafes >> $DBSTRUCT || exit 1
+$MYSQLDUMP $MYSQLDUMP_OPTS -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo -t -c $DBNAME Relaciones >> $DBSTRUCT || exit 1
+
+echo " ok ";
+
+ELFILE=$(pwd)/dbs/V$DBV/entidades.list
+TMPF=`tempfile`
+#echo "show tables;" | $MYSQL -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo $DBNAME 
+#echo "show tables;" | $MYSQL -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo $DBNAME > $TMPF
+echo "show tables;" | $MYSQL -u $MYSQL_SU_USER --password=$MYSQL_SU_PASS -h $MYSQL_HOST $portinfo $DBNAME | grep -v "Tables_in_$DBNAME" | grep -v "Relaciones" > $ELFILE
+#rm -rf $TMPF
+
+if [ -s "dbs/V$DBV/entidades.list" ]; then
+	rm -rf dbs/V$DBV/maestros.list
+	for t in `cat dbs/V$DBV/entidades.list`; do
+		clave=`$MYSQLDUMP -u $DBLOGIN --password=$DBPW -h $MYSQL_HOST $portinfo -d $DBNAME $t | grep 'PRIMARY KEY' | $AWK -F '(' '{{print $2}}' | $AWK -F ')' '{{print $1}}' | $AWK -F ' ' '{{print $1}}'`;
+		if [ -z "$clave" ]; then continue; fi;
+		cl2=`echo $clave | $AWK -F ',' '{{print $2}}'`;
+		if [ ! -z "$cl2" ]; then continue; fi;
+		mtb=`$MYSQLDUMP $MYSQLDUMP_OPTS -u $DBLOGIN --password=$DBPW -h $MYSQL_HOST $portinfo -t -c --where="$clave=0" $DBNAME $t | grep -E "^INSERT INTO" | $AWK -F ' ' '{{print $3}}'`;
+		if [ ! -z "$mtb" ]; then
+			echo -n "Maestro $mtb .. ";
+			grep -v $mtb $ELFILE > $ELFILE.tmp
+			mv $ELFILE.tmp $ELFILE
+			echo $mtb >> dbs/V$DBV/maestros.list
+			echo " ok ";
+		fi;
+	done;
+fi;
+

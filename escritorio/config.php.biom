@@ -1,0 +1,12 @@
+<?php
+ $login="btgt_inm";
+ $passwd=".0n3b0x";
+ $cfgServer="dbserver.biomundo";
+ $port="3306";
+ $cfgDbase="_main";
+ $dbase="betatest_gestion_inmersa";
+ $APP_NAME="IGestion_devel_XX";
+ $mod_path="modulos/";
+ $BACKOFFICE=TRUE;
+ $DEBUG="ON";
+ ?>

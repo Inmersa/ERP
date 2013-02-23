@@ -1,0 +1,7 @@
+@%where:tabla|Provincias;%@
+
+ <div class="tituloseccion">&gt; {{frame_MODIFICARPROVINCIA}}</div>
+
+
+@%plt:Nombre_Provincia%@ 
+

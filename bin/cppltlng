@@ -1,0 +1,23 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+	src="plantillas/src/";
+else
+	src=$1;
+fi;
+
+if [ -z "$2" ]; then
+	dest="plantillas/";
+else
+	dest=$2;
+fi;
+
+ext_orig='.plt';
+ext_dest='.lng';
+
+for f in `ls $src | grep $ext_orig`; do 
+	if [ -f $src/$f ]; then 
+		root=`echo $f | awk -F "$ext_orig" '{print $1}'`;
+		cp $src/$root.plt $dest/$root.lng;
+	fi; 
+done
+

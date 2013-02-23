@@ -1,0 +1,4 @@
+<div class="tituloseccion">&gt; {{label_provincias}}</div>
+
+@%plt:Provincias%@
+

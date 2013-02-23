@@ -1,0 +1,8 @@
+@%where:tabla|Grupo_rutas;%@
+ <div class="barraoscura"><div class="titsuperior">&gt; {{frame_MODIFICARGRUPODERUTAS}}</div>
+ <div class="alinder">
+ @%if:AllowedLink;nuevo_grupo_rutas;%@
+ <a href="?seccion=nuevo_grupo_rutas">{{acc_nuevo}}</a>
+ @%end-if:%@
+ </div></div>
+@%plt:Nombre_Rutas%@

@@ -1,0 +1,139 @@
+
+.fondotela {
+	text-align:right;
+	background-image:url('login/telaarana.png');
+	background-repeat:no-repeat;
+}
+
+
+TABLE.login {
+	border-collapse:collapse;
+	width:500px; 
+	float:bottom;
+	vertical-align:baseline;
+}
+
+#pagina {
+	width: 600px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#login {
+	align: center;
+	right: 50%;
+}
+
+#login div#version {
+	text-align: center;
+}
+#login div#copyright {
+	display: block;
+	text-align: left;
+	clear: both;
+}
+
+
+#login .fondotela {
+	width: 100%;
+	float: right;
+  	background-image:url("login/telaarana.png");
+  	background-position: top right;
+  	background-repeat: no-repeat;
+	margin: 0;
+	padding: 0;
+}
+
+
+/** Logo de la empresa que tiene licenciado el producto **/
+#logoempresa {
+  	text-align:right;
+  	background-image:url("imagenes/logo_login_defecto.png");
+  	background-position: top right;
+  	background-repeat: no-repeat;
+}
+
+#logoempresa img.null {
+  	width: 180px;
+  	height: 40px;
+  	margin: 0;
+  	padding: 0;
+}
+
+
+/** Logo de la Suite **/
+#logoproducto {
+	background-image:url("login/empresa.png");
+  	background-position: top left;
+  	background-repeat: no-repeat;
+	margin: 0;
+	padding: 0;
+	height: 120px;
+}
+
+#logoproducto img.null {
+	width: 160px;
+	height: 77px;
+}
+
+#logoproducto.internacional {
+	background-image:url("login/business.png");
+}
+
+#logoproducto.internacional img.null {
+	width: 188px;
+	height: 104px;
+}
+
+#logoproducto.nacional {
+	background-image:url("login/empresa.png"); 
+}
+
+
+
+/** Logo de Gestion **/
+#logomodulo {
+	background-image:url("login/gestion.png"); 
+  	background-position: top left;
+  	background-repeat: no-repeat;
+	/** height: 42; **/
+}
+
+#logomodulo img.null {
+	/** **/
+	width: 133px;
+	height: 42px;
+	/** **/
+	width: 0;
+	height: 0;
+}
+
+#logomodulo.internacional {
+  	background-image:url("login/management.png");
+}
+
+#logomodulo.nacional {
+  	background-image:url("login/gestion.png");
+}
+
+
+/** Navegando el futuro ... **/
+#logoinmersa {
+  	background-image:url("login/navegando.png");
+  	background-position: top left;
+  	background-repeat: no-repeat;
+}
+
+#logoinmersa.internacional {
+  	background-image:url("login/browsing.png");
+}
+
+#logoinmersa.nacional {
+  	background-image:url("login/navegando.png");
+}
+
+#logoinmersa img.null {
+	width: 140px;
+	height: 77px;
+}
+

@@ -1,0 +1,102 @@
+@%where:nodb|class_dbItemMultiEntity_iface;nombre|AccionesDetalleAlbaran;%@
+<fieldset id="Albaran_Almacen_Detalle" class="fsficha">
+<legend>Details</legend>
+
+<div class="AccionesFicha"><ul>
+@%if:!esta_vacio;enviado;%@
+<li><a href="#" onclick="return SendFormToWindow('bo_albaran_almacen','nuevo_bajas_almacen','BajaLocalizacion','accion_ejecutar','',600);" class="rechazar" ><img src="images/pixel.png" class="icono" /><span>Return</span></a></li>
+@%end-if:%@
+
+@%if:esta_vacio;preparado;%@
+<li><a href="#" onclick="return SendFormToWindow('bo_albaran_almacen','albaran_localizaciones','Localizaciones',null,null,640);" class="verlocalizaciones" ><img src="images/pixel.png" class="icono" /><span>To see Locations</span></a></li>
+<li><a href="#" onclick="return sendForm('bo_albaran_almacen','accion_ejecutar','GenerarLocalizaciones');" class="verlocalizaciones" 
+	><img src="images/pixel.png" class="icono" /><span>{{acc_obtenerlocalizaciones}}</span></a></li>
+<li><a href="#" onclick="return sendForm('bo_albaran_almacen','accion_ejecutar','Borrar');" class="borrar" 
+	><img src="images/pixel.png" class="icono" /><span>Delete</span></a></li>
+<li><a href="#" onclick="return sendForm('bo_albaran_almacen','accion_ejecutar','Rellenar');" class="recalcular" 
+	><img src="images/pixel.png" class="icono" /><span>{{acc_rellenarapedido}}</span></a></li>
+<li><a href="#" onclick="return sendForm('bo_albaran_almacen','accion_ejecutar','Confirmar');" class="consolidar" 
+	><img src="images/pixel.png" class="icono" /><span>{{acc_confirmarcantidades}}</span></a></li>
+@%end-if:%@
+@%end-if:%@
+</ul></div>
+
+<table class="full">
+<thead>
+<tr>
+<td class="estado" ><img src="images/pixel.png" class="marcartodos" onclick="return formCheckAll('detalle_devuelto');"  /></td>
+<td >Article</td>
+<td >Use-by date Lot</td>
+<td >Location</td>
+<td >Ordered Amount</td>
+<td >{{fld_cantidadprevista}} </td>
+<td >{{label_cantidadaservida}}</td>
+<td >Return</td>
+</tr>
+</thead>
+
+<!-- @%set:id_almacen=id_almacen;%@ @%set:enviado=enviado;%@ @%set:preparado=preparado;%@ -->
+@%where:nodb|class_IndexList_iface;nombre|DetalleAlbaran;format_name|Detalles_albaran;%@
+<input type="hidden" name="detalles_albaran[@%db:idx;%@][id_unidad_medida]" value="@%db:Producto.id_unidad_medida;%@" />
+<tr>
+<td class="check" >
+@%db:idx;%@
+@%if:!esta_vacio;enviado;%@
+<input type="checkbox" name="detalle_devuelto[@%db:idx;%@]" value="@%db:cantidad_devuelta;%@" />
+@%else:%@
+@%if:esta_vacio;preparado;%@
+<input type="checkbox" name="detalle_devuelto[@%db:idx;%@]" value="@%db:DetallePedido.id_articulo;%@" />
+@%end-if:%@
+@%end-if:%@
+</td>
+
+<td><a href="?seccion=bo_localizacion_articulos&id_articulo=@%db:Producto.id_articulo;%@">@%db:Producto.nombre;%@</a></td>
+<td>
+@%if:esta_vacio;preparado;%@
+	<input type="text" size="10" name="detalles_albaran[@%db:idx;%@][fecha_caducidad]" value="@%db:colocar_fecha{fecha_caducidad};%@" />
+	<input type="text" size="5" name="detalles_albaran[@%db:idx;%@][lote]" value="@%db:lote;%@" />
+@%else:%@
+	@%db:colocar_fecha{fecha_caducidad};%@ 
+	(@%db:lote;%@)
+@%end-if:%@
+</td>
+@%if:!esta_vacio;preparado;%@
+<td>@%db:Zona.nombre;%@ @%db:planta;%@ @%db:pasillo;%@ @%db:columna;%@ @%db:fila;%@</td>
+@%else:%@
+ <!-- @%set:_selected_value=id_almacen_logico;%@ -->
+ <td>
+ <select name="detalles_albaran[@%db:idx;%@][id_almacen_logico]" >
+<option value="" >No selection</option>
+ @%where:tabla|Almacenes_logicos;where|id_almacen = $id_almacen;%@
+ <option value="@%db:Almacenes_logicos.id_almacen_logico;%@"
+ @%db:selected_value{Almacenes_logicos.id_almacen_logico};%@
+ >@%db:Almacenes_logicos.nombre;%@</option>
+ @%end-where:%@
+
+ </select>
+ <input type="text" name="detalles_albaran[@%db:idx;%@][planta]" value="@%db:planta;%@" class="nanonum" /> 
+ <input type="text" name="detalles_albaran[@%db:idx;%@][pasillo]" value="@%db:pasillo;%@" class="nanonum" /> 
+ <input type="text" name="detalles_albaran[@%db:idx;%@][columna]" value="@%db:columna;%@" class="nanonum" /> 
+ <input type="text" name="detalles_albaran[@%db:idx;%@][fila]" value="@%db:fila;%@" class="nanonum" /> 
+ </td>
+@%end-if:%@
+
+<td>@%db:DetallePedido.cantidad;%@</td>
+<td>@%db:stock_previsto;%@</td>
+<td>
+@%if:esta_vacio;preparado;%@
+<input type="text" class="cantidad" name="detalles_albaran[@%db:idx;%@][cantidad]" value="@%db:cantidad;%@">
+@%else:%@
+@%db:cantidad;%@
+@%end-if:%@
+</td>
+<td>@%db:cantidad_devuelta;%@</td>
+</tr>
+@%if:!esta_vacio;observaciones;%@
+<tr><td colspan="7" >@%db:reemplazar_salto{Detalles_albaran.observaciones};%@</td></tr>
+@%end-if:%@
+@%end-where:%@
+
+</table>
+</fieldset>
+

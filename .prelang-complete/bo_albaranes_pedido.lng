@@ -1,0 +1,13 @@
+
+<div class="tituloseccion">&gt; {{frame_ALBARANES}}</div>
+
+<div id="AccionesListado" ><ul>
+<li><a href="#" onclick=window.open('?@%get:_krn_ss_querystring%@&imprimir=1'); class="inicioprint" 
+><img src="imag/pixel.png" class="icono" /><span>{{acc_imprimirpuestamarcha}}</span></a></li>
+</ul></div> 
+
+@%plt:Datos_Pedido%@ 
+
+
+@%plt:Detalle_Pedido%@ 
+

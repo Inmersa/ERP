@@ -1,0 +1,4 @@
+#!/bin/bash
+../bin/cifra.inmersa -c $1 plantillas/*.plt
+#cifra.inmersa -st -c rWQKIYY1KpBg scripts/AccessValidation/*.php
+

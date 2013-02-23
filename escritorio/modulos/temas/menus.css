@@ -1,0 +1,179 @@
+
+#tabs {
+    float:left;
+    width:100%;
+    background-color:#ebeced;
+    font-size:93%;
+    line-height:normal;
+}
+
+#tabs ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#tabs li {
+    float:left;
+    margin:5;
+    padding:0;
+    background:url("../../imag/tst/norm_right.png") no-repeat right top;
+}
+
+#tabs a {
+    display:block;
+    background:url("../../imag/tst/norm_left.png") no-repeat left top;
+    padding:5px 15px;
+    text-decoration: none;
+}
+
+#tabs #current {
+    margin:0;
+    padding:0;
+    background-image:url("../../imag/tst/right_on.png"); 
+    border-bottom: 0px none;
+}
+
+#tabs #current a {
+    background-image:url("../../imag/tst/left_on.png"); 
+}
+
+
+#menuhorizontal {
+	clear: both;
+	background-color:#689830;
+	margin: 0 auto;
+	position: relative;
+	width: auto;
+	display: block;
+}
+
+#menuhorizontal div.menuitem {
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
+#menuhorizontal div.menuitem a {
+	display: table-cell;
+	border-right: 1px solid #fff;
+	margin: 0;
+	padding: 5px 3px 5px 3px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: #fff;
+}
+#menuhorizontal div.menuitem a.activo {
+	background-color: #999900;
+	color: #ffff00;
+}
+
+
+/** 
+#menuhorizontal ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: inline;
+	min-width: 500px;
+	overflow: auto;
+	position: relative;
+}
+
+#menuhorizontal ul li {
+	margin: 0;
+	padding: 5px 0 5px 0;
+	display: table-cell;
+	list-style: none;
+	border-right: 1px solid #fff;
+	max-width: 700px;
+	position: relative;
+}
+
+#menuhorizontal ul li a {
+	display: block;
+	margin: 0;
+	padding: 0 5px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	width: 100%;
+	color: #fff;
+}
+
+#menuhorizontal ul li.activo {
+	background-color: #999900;
+}
+#menuhorizontal ul li.activo a {
+	color: #ffff00;
+}
+
+
+#header li:hover, #header li:hover a {
+  ** background-position:0% -150px; **
+  background-image:url("../../imag/tst/hoover_left_on.png");
+  ** color:#333; **
+}
+
+#header li:hover a {
+  ** background-position:100% -150px; **
+  background-image:url("../../imag/tst/hoover_right_on.png");
+}
+
+color selec #ffcc00
+fondo selec #999900
+
+#menuhorizontal ul li a:link, #menuhorizontal ul li a:visited {
+	color: #502F08;
+}
+#menuhorizontal ul li a:focus, #menuhorizontal ul li a:active {
+	background: #ebebeb;
+	color: #502F08;
+}
+
+#menuhorizontal ul li a:hoover {
+	color: #fff;
+	background-color: #ebebeb;
+}
+
+.pestsel {
+	float:left;
+	line-height:20xp;
+	text-align:center;
+	width:80px;
+	background-color:#689830;
+	background-image:url('../../imag/bgpestsel.gif');
+	background-repeat:no-repeat;
+	height:25px;
+	padding:5px 0px 0px 0px;
+}
+.pestnor {
+	float:left;
+	text-align:center;
+	width:80px;
+	padding:5px 3px 0px 3px;
+	background-color:#91c800;
+}
+
+#barra3 {
+	background-color:#91c800;
+	padding:0px 0px 0px 20px;
+	height:25px;
+	clear:both;
+	background-image:url('../../imag/bgbarra3.gif');
+	background-repeat:x-repeat;
+}
+
+#menu {
+	position:absolute;
+	width:200px;
+	float:bottom;
+	height: 100%;
+}
+
+**/
+

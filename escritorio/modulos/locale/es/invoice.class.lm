@@ -1,0 +1,23 @@
+INVOICE_NODB	100	No se ha encontrado una instancia válida de conexión a la BDD ({{dbname}}).
+INVOICE_LOCKED	100	Factura bloqueada. Verifique los datos de Emisor y Receptor.
+INVOICE_NODISCOUNT_ORDER	100	Línea {{idx}} no se puede descontar de la referencia {{ref}} al pertenecer a un pedido ({{pedido}}).
+INVOICE_COMPANY_NOTFOUND	100	No se ha podido encontrar la Empresa {{id}}.
+INVOICE_PENDING_CONTRACT	100	Imposible emitir la Fra {{fra}} por no conocerse cantidades y/o importes de alguno de los contratos que contiene.
+INVOICE_ISSUED_DRAFTS	100	Alguno de los efectos de la Factura ya han sido emitidos al receptor.
+INVOICE_NODBRECORD_NOACENTRY	100	Factura no contabilizada al no existir identificador en la BDD.
+INVOICE_NODBRECORD	100	Factura no registrada en la BDD.
+INVOICE_ACENTRY_FAILED	100	No se ha podido obtener/crear la instancia del Asiento Contable.
+INVOICE_ACENTRY_EXISTS	100	Factura ya asentada. (ID:{{id}}).
+INVOICE_NODOCUMENT_PARAM	100	{{fnc}} ha recibido un parametro de tipo erroneo al no pertenecer a una subclase de tipo Document.
+INVOICE_ORDER_MODE_MISMATCH	100	Modos incompatibles con el Pedido. No se puede facturar en ventas un pedido de compras, ni viceversa.
+INVOICE_ORDER_ISSUER_MISMATCH	100	El emisor del pedido no coinciden con el de la Factura.
+INVOICE_ORDER_RECIEVER_MISMATCH	100	El receptor del pedido no coinciden con el de la Factura.
+INVOICE_ORDER_CURRENCY_MISMATCH	100	La divisa del pedido no coinciden con la de la Factura.
+INVOICE_ORDER_PAYMENT_MISMATCH	100	La forma de pago del pedido no coincide con la de la Factura.
+INVOICE_CONTRACT_NOPERIOD	100	El contrato {{contract}} no puede ser procesado al carecer de información sobre los plazos de facturación.
+INVOICE_NOHEADERS	100	No se han podido obtener las cabeceras de la factura
+INVOICE_NODETAILS	100	No se han podido obtener los detalles de la factura
+INVOICE_NOISSUER	100	Factura {{ref}} sin Emisor.
+INVOICE_NORECIEVER	100	Factura {{ref}} sin Receptor.
+INVOICE_NOIDPRODUCT	100	Referencia de producto inexistente en línea {{idx}}
+INVOICE_DBFILL    	101	No se ha podido obtener la Factura ID {{id}} solicitada

@@ -1,0 +1,15 @@
+LCS_NOID	1	No s'ha trobat l'identificador de registre {{id}} de l'entitat {{entidad}}.
+LCS_DBERR	101	Error al introducir en la base de dades.
+LCS_DBNULL	101	Error al obtindre una instància de conexió vàlida ({{dbname}}).
+LCS_NOSTOCK	101	Error al introducir en la base de datos.
+LCS_OUTSTOCK	101	Stock en magatzens pendents {{cantidad}} de Ref d'article {{referencia}}.
+LCS_NOREF_WHEREHOUSE	101	Impossible localitzar magatzen per el ID article {{referencia}}.
+LCS_EMPTY_DELIVERY	101	Albaràn buit: Comprovar l'stock dels products de la comanda.
+LCS_NOLOCATION	101	Deu seleccionar alguna localització per donar de baixa stock.
+LCS_PLT_MISCONF	99	La configuració de les aplicacions per aquesta aplicació es erronea : {{msg}}.
+LCS_USR_EXISTS	101	El Login {{login}} ja existeix.
+LCS_USR_PASSWORDMISMATCH	101	Les contrasenyes del usuari {{login}} no tenen coincidència.
+LCS_MODULE_NOINSTANCE	99	No s´ha pogut obtindre una instància vàlida de mòdul {{class}}.
+LCS_MODULE_FAILINSTANCE	99	No s´ha pogut crear una instància vàlida de mòdul {{class}}.
+LCS_MODULE_FAILINSTANCE	99	No s´ha pogut crear una instància vàlida de mòdul {{class}}.
+LCS_RECORD_ACCESS_DENIED           	99	No té permís per a accedir a aquest registre

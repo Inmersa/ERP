@@ -1,0 +1,8 @@
+MISC_STOCK_LOC_MOVED	500	Article (Lot:{{lote}}/Use by date:{{fcad}})  located in other location (Floor:{{planta}} Corridor:{{pasillo}} Row:{{fila}} Column:{{columna}}).
+MISC_STOCK_LOC_UNDEFINED	101	Unknown error obtained the article locations {{referencia}}.
+MISC_STOCK_LOC_NEW	500	Article (Lot:{{lote}}/Use by date:{{fcad}})  assigned in location (Floor:{{planta}} Corridor:{{pasillo}} Row:{{fila}} Column:{{columna}}).
+MISC_STOCK_LOC	500	Article (Lot:{{lote}}/Use by date:{{fcad}})  located in the location (Floor:{{planta}} Corridor:{{pasillo}} Row:{{fila}} Column:{{columna}}).
+MISC_PRODUCT_INVOICED	501	 Product {{referencia}} has been invoiced, it's imposible to change anything. 
+MISC_EFLBL_TOTAL	505	Total Bank Drafts
+MISC_EFLBL_PAGADO	506	Total Amount Paid
+MISC_ALLBL_VALOR	507	Value

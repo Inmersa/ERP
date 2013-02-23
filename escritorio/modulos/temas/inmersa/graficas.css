@@ -1,0 +1,324 @@
+/*    Stylesheet for WPDFD Browser Stats December 2003    */
+
+
+/*       Overall chart div      */
+
+	
+#chartinset {
+	background-color: transparent;
+	float: left;
+	visibility: visible;
+	display: block;
+	position: relative;
+	width: 150px;
+	height: 270px
+}
+
+#chart {
+	display: block;
+	position: relative;
+	float: left;
+	visibility: visible;
+	clear: both;
+
+	color: white;
+	background-color: transparent;
+
+	text-align: center;
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+
+	line-height: 16px;
+
+	width: 100%;
+	height: 270px;
+	border: 1px solid #000;
+}
+
+.chartTitle {
+	visibility: visible;
+	position: relative;
+	display: block;
+
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+
+	line-height: 16px;
+
+	color: #993300;
+	background-color: transparent;
+
+	height: 30px;
+	width: auto;
+}
+	
+.headers {
+	color: #666666;
+	font-weight: bold;
+	text-align: center
+}
+
+.horz {
+	clear: both;
+	background-color: transparent;
+	line-height: 16px;
+	text-align: center;
+	visibility: visible;
+	position: relative;
+	display: block;
+	height: 20px;
+	width:auto;
+	}
+	
+	
+	
+	
+/*      Windows Chart      */ 
+	
+#EjeY {
+	visibility: visible;
+	position: relative;
+	/** Para que los graficos esten pegaos **/
+	float: left;
+
+	text-align: center;
+
+	margin: 0;
+
+	height: 196px;
+	width: 70px;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+}
+
+.ValorY {
+	position: absolute;
+	right: 0;
+	color: #000;
+	margin-top: 10px;
+}
+
+.grafica {
+	visibility: visible;
+	position: relative;
+	/** Para que los graficos esten pegaos **/
+	float: left;
+
+	background-image: url(efectos/pixel_linea.png);
+	background-position: 0 0;
+	background-repeat: repeat;
+	background-color: #DBDBFF;
+
+	text-align: center;
+
+	margin-right: 5px;
+	margin-left: 5px;
+
+	width: 150px;
+	height: 196px;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: #5f4a94 #e6e8ff #e6e8ff #5f4a94;
+}
+
+#LeyendaGrf {
+	visibility: visible;
+	position: relative;
+	/** Para que los graficos esten pegaos **/
+	float: left;
+
+	text-align: left;
+
+	margin: 0px 0px 0px 5px;
+
+	width: auto;
+	height: auto;
+
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+}
+
+/*     the chart colour key along the bottom      */	
+	
+.keysp {
+	float:left;
+	width: 100%;
+	height: 14px;
+	margin: 0px 0 7px 0;
+	clear: both;
+}
+	
+.keyswatch {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #99c #e6e6ff #e6e6ff #99c;
+	float:left;
+	width: 20px;
+	height: 14px;
+}
+	
+.keytext	{
+	color: #333366;
+	font-size: 9px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	float:left;
+	text-align: left;
+
+	width: auto;
+	height: 16px;
+	margin-left: 2px;
+	background-color: transparent;
+}
+
+a.gr_linkleyenda {
+	display: inline;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	background-color: inherit;
+}
+	
+
+.barra {
+	position: absolute;
+	bottom: 0;
+	width: 30px;
+
+	border-style: solid solid solid;
+	border-width: 2px 2px 2px;
+}
+ 
+.b1 {
+	z-index: 1;
+	left: 5%;
+}
+
+div.valorbarra {
+	background-color: #555;
+	visibility: hidden;
+	position: relative;
+	display: none;
+	z-index: 1;
+}
+
+div.valorbarra A {
+	background-color: #555;
+	color: #fff;
+	position: relative;
+	display: inline;
+}
+
+span.gbl_cierre {
+	background-color: transparent;
+	color: #fff;
+}
+// COLORES
+
+.bc-azul {
+	background-color: #00e;
+	border-color: #aaf #009 #000 #99f;
+}
+
+.bc-inm {
+	background-color: #91c800;
+	border-color: #b9dc5c #4d6b00 #4d6b00 #b9dc5c;
+}
+
+.bc-rosa {
+	background-color: #e6007c;
+	border-color: #ff80ff #9a0053 #9a0053 #ff80ff;
+}
+
+
+.bc-lila {
+        background-color: #cc6699;
+        border-color: #df9ebe #775465 #775465 #df9ebe;
+}
+
+.bc-violeta {
+        background-color: #9966cc;
+        border-color: #be9edf #655477 #655477 #be9edf;
+}
+
+.bc-tinto {
+        background-color: #cc0000;
+        border-color: #df5d5d #773232 #773232 #df5d5d;
+}
+
+.bc-oro {
+        background-color: #cccc00;
+        border-color: #dfdf5d #777732 #777732 #dfdf5d;
+}
+
+.bc-azulclaro {
+        background-color: #0000ff;
+        border-color: #5d5dff #323288 #323288 #5d5dff;
+}
+
+.bc-amarillo {
+        background-color: #ffff00;
+        border-color: #ffff5d #888832 #888832 #ffff5d;
+}
+
+.bc-violeta {
+        background-color: #9966cc;
+        border-color: #be9edf #655477 #655477 #be9edf;
+}
+
+.bc-verdepastel {
+        background-color: #33cc00;
+        border-color: #7ddf5d #437732 #437732 #7ddf5d;
+}
+
+.bc-morado {
+        background-color: #660000;
+        border-color: #9e5d5d #360000 #360000 #9e5d5d;
+}
+
+.bc-azulpastel {
+        background-color: #66ffcc;
+        border-color: #9effdf #36886d #36886d #9effdf;
+}
+
+.bc-marron {
+        background-color: #996600;
+        border-color: #be9e5d #523600 #523600 #be9e5d;
+}
+
+.bc-grisfuerte {
+        background-color: #666666;
+        border-color: #9e9e9e #363636 #363636 #9e9e9e;
+}
+
+.bc-lilapastel {
+        background-color: #cc99ff;
+        border-color: #dfbeff #6d5288 #6d5288 #dfbeff;
+}
+
+.bc-amarillopastel {
+        background-color: #ffff66;
+        border-color: #ffff9e #888836 #888836 #ffff9e;
+}
+
+.bc-verdeoscuro {
+        background-color: #408080;
+        border-color: #86aeae #224444 #224444 #86aeae;
+}
+
+.bc-rosaoscuro {
+        background-color: #ca00ca;
+        border-color: #dd5ddd #6c006c #6c006c #dd5ddd;
+}
+
+.bc-ocre {
+        background-color: #d5d77d;
+        border-color: #e4e6ac #727343 #727343 #e4e6ac;
+}
+
+

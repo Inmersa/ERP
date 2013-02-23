@@ -1,0 +1,4 @@
+@%where:tabla|Tipos_IVA;%@
+ <div class="tituloseccion">&gt; {{frame_MODIFICARTIPODEIVA}}</div>
+@%plt:Tipo_Iva%@ 
+

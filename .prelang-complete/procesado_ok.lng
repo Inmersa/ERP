@@ -1,0 +1,5 @@
+<br/>
+{{incidencias_solicitud_ok}}
+<br/>
+<a href="?@%get:link_volver%@" class="accesos">{{acc_volver}}</a>
+<br/>

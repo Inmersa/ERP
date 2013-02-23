@@ -1,0 +1,8 @@
+IKRN_SYS_NODIR	300	The directory {{dir}} does not exist.
+IKRN_SYS_NOFILE	300	The file  {{file}} does not exist {{ruta}}.
+IKRN_MSG_NOTFOUND	300	The message {{msg}} has not been possible to find.
+IKRN_MSG_YES	500	Yes
+IKRN_MSG_NO	500	No
+IKRN_AUTH_NODESK	500	It has not been found the role desktop {{desktop}}
+IKRN_AUTH_NOLOGIN	500	It Has not been found indicated user name
+IKRN_AUTH_USR_EXISTS	500	The user name {{login}} already exist in DB

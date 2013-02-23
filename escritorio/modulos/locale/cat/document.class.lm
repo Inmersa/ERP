@@ -1,0 +1,7 @@
+DOCUMENT_LOCKED	100	Document bloquejat. No es pot operar amb ell.
+DOCUMENT_NODB	100	No existeix instància de conexió a la BDD.
+DOCUMENT_NO_AGENTS_RECIEVER     	100	El Receptor {{id}} no està associat a l'agent seleccionat.
+DOCUMENT_NO_RECIEVERS_AGENT    	100	L'agent {{id}} no està associat al receptor seleccionat.
+DOCUMENT_NOISSUER	100	Document sense emissor.
+DOCUMENT_NORECIEVER	100	Document sense receptor.
+DOCUMENT_AGENT_NOTFOUND	100	No s'ha pogut trobar l'agent {{id}}.

@@ -1,0 +1,15 @@
+LCS_NOID	1	It has not been finded the {{id}} entry identifier fron the entity {{entidad}}.
+LCS_DBERR	101	Error whe introducing in data base.
+LCS_DBNULL	101	Error obtaining a valid conection request ({{dbname}}).
+LCS_NOSTOCK	101	Error when introducing in data base.
+LCS_OUTSTOCK	101	Stock in warehouses pending {{cantidad}} of article references {{referencia}} .
+LCS_NOREF_WHEREHOUSE	101	It is impossible to locate warehouse for the ID article  {{referencia}} .
+LCS_EMPTY_DELIVERY	101	Empty Delivery note: Verify the stock of order articles.
+LCS_NOLOCATION	101	You must select some location to stock down.
+LCS_PLT_MISCONF	99	The applications configuration is incorrect: {{msg}}.
+LCS_USR_EXISTS	101	The login {{login}} already exist.
+LCS_USR_PASSWORDMISMATCH	101	The user passwords {{login}} are not the same.
+LCS_MODULE_NOINSTANCE	99	It is impossible to obtain a valid module request {{class}}.
+LCS_MODULE_FAILINSTANCE	99	It is impossible to create a valid module request {{class}}.
+LCS_MODULE_FAILINSTANCE	99	It is impossible to create a valid module request {{class}}.
+LCS_RECORD_ACCESS_DENIED           	99	Yo do not have permision to access the requested record

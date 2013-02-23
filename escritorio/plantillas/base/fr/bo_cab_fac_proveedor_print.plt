@@ -1,0 +1,40 @@
+@%where:nodb|nodb_order_data;%@
+<!-- @%set:observaciones_pedido=observaciones;%@ -->
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+ <tr> 
+<td colspan="3" height="10"></td>
+ </tr>
+ <tr> 
+<td colspan="3"><img src="imag/p.gif" width="700" height="1"></td>
+ </tr>
+ <tr> 
+<td width="1"><img src="imag/p.gif" width="1" height="30"></td>
+<td width="698"> 
+ <table width="698" border="0" cellspacing="0" cellpadding="0">
+ <tr bgcolor="#CCD2D7" align="center"> <td height="15" class="titul">Factures</td>
+ <td class="titul">Réf. Ext</td>
+ <td class="titul">Date</td>
+ <td class="titul">Pèse Total</td>
+ <td class="titul">Modalité de paiment</td>
+ <td class="titul">Devise</td>
+ </tr>
+ <tr align="center"> <td height="15" class="texto">@%db:referencia;%@</td>
+ <td height="15" class="texto">@%db:referencia_externa;%@</td>
+ <td class="texto">@%db:colocar_fecha{fecha};%@</td>
+ <td class="texto">@%db:peso%@ Kg</td>
+ <td class="texto">@%db:nombre_forma_pago%@</td>
+ <td class="texto">@%db:nombre_divisa;%@</td>
+ </tr>
+ </table>
+ </td>
+<td width="1"><img src="imag/p.gif" width="1" height="30"></td>
+ </tr>
+ <tr> 
+<td colspan="3"><img src="imag/p.gif" width="700" height="1"></td>
+ </tr>
+ <tr>
+<td colspan="3" height="15"></td>
+ </tr>
+</table>
+
+@%end-where:%@

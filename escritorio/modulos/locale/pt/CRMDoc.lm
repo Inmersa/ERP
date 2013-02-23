@@ -1,0 +1,12 @@
+DOC_NO_DOCROOT	90	Trajeto à raiz da aplicação (doc_root) não encontrado
+DOC_PATH_NOTFOUND	101	Trajeto {{path}} não encontrado
+DOC_FILE_NOTFOUND	102	File {{file}} não encontrado
+DOC_FILE_RENAMED	103	File {{origen}} já existe, rebatizando a {{destino}}
+DOC_FILE_NOTRENAMED	104	File {{origen}} já existe, não poderia rebatizá-lo
+DOC_RENAME_FAILED	105	File {{origen}} não podia ser movido para {{destino}}. Você tem o problema do acesso
+DOC_UPLOAD_FAILED	106	File {{file}} não podia uploaded. Você tem o problema do acesso
+DOC_FILE_NOTDELETED	107	File {{file}} não podia uploaded. Você tem o problema do acesso
+DOC_NO_DEFAULTDOCTYPE	108	Nenhum Documento Tipo do defeito
+DOC_MAXSIZE_EXCEEDED	109	Tamanho de File máximo de {{size}} Kbs excedido
+DOC_DOCTYPE_UNCHANGED	110	Não podia mudar a {{id}} Documento Tipo
+DOC_MIME_NOTFOUND	501	Mime type {{mime}} Não está em minha lista

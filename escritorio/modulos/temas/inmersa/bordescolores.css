@@ -1,0 +1,236 @@
+BODY {
+	background-color:#ffffff;
+}
+
+#cabecera {
+	background-color:#689830;
+}
+
+#BarraGeneral {
+	background-color:#ebeced;
+}
+
+#tabs {
+    	background-color:#ebeced;
+}
+
+#tabs #current a {
+    	color: #fff;
+}
+
+#MenuHorizontal {
+	background-color:#689830;
+}
+
+#MenuHorizontal div.menuitem a.activo {
+	background-color: #999900;
+	color: #ffff00;
+}
+
+#MenuHorizontal div.menuitem a {
+	border-right: 1px solid #fff;
+	color: #fff;
+}
+
+
+#BuscadorGeneral {
+	background-color:#ebeced;
+}
+
+#AccionesListado {
+	background-color:#CCD2D7;
+}
+
+#AccionesEncabezado {
+	background-color:#CCD2D7;
+}
+
+.AccionesEnvio {
+	background-color:#CCD2D7;
+}
+
+.AccionesFicha {
+	background-color:#CCD2D7;
+}
+
+.enviar {
+	background-color:#CCD2D7;
+}
+
+.error {
+	background-color:#a40;
+	color:#fff;
+}
+
+.botonera {
+	color:#000;
+}
+
+.resultados {
+	background-color:invisible;
+	border:1px solid #CCD2D7;
+}
+
+.acciones {
+	background-color:#CCD2D7;
+}
+
+.buscadorinterior {
+	/** background-color:#CCD2D7; **/
+	background-color:invisible;
+}
+
+.caption {
+	background-color:#CCD2D7;
+	border:1px solid #bbbbbb;
+}
+
+.check {
+	background-color:#CCD2D7;
+	border:1px solid #bbbbbb;
+}
+
+.tituloseccion {
+	color: #000000;
+	background-color:#CCD2D7;
+}
+
+DIV.notas {
+	color: #000000;
+	background-color:#ffffff;
+	border:1px solid #000000;
+}
+
+.buscadorinterior {
+	background-color:#CCD2D7;
+	background-color:invisible;
+}
+
+/** Tablas **/
+TABLE.full TD {
+	border:1px solid #CCD2D7;
+}
+
+TABLE.full THEAD TD {
+	background-color:#ccd2d7;
+	border:1px solid #bbbbbb;
+}
+
+TABLE.full THEAD.dashboard TD {
+	background-color: transparent;
+	border: 0;
+	border-bottom:1px solid #bbbbbb;
+	border-left:1px solid #bbbbbb;
+}
+
+
+TABLE.full THEAD.secundario TD {
+	background-color:#EBECED;
+}
+
+TABLE.full TBODY.dashboard TD {
+	background-color: transparent;
+	border: 0;
+	border-bottom:1px solid #bbbbbb;
+}
+
+
+TABLE.full THEAD TD.fieldvalue {
+	background-color:transparent;
+}
+
+TABLE.full TBODY TD {
+	border:1px solid #bbbbbb;
+}
+
+TABLE.full TBODY TR.filacolor {
+	background-color:#bbbbbb;
+	color: #006699;
+}
+
+TABLE.full TBODY TR.caption {
+	color: #006699;
+}
+
+TABLE.full TBODY TR.resalte {
+	background-color:#CCCCFF;
+}
+
+TABLE.full TBODY TR.impropio {
+	background-color:#ffcc00;
+}
+
+DIV.impropio {
+	background-color:#ffcc00;
+}
+
+.etiqueta {
+	background-color:#EBECED;
+}
+
+.etiquetacheck {
+	background-color:#EBECED;
+}
+
+/** Pendientes de revisar y cambiar nombre **/
+
+#accesosdir {
+	font-weight:bold;
+}
+
+.alinder {
+	background-color:invisible;
+}
+
+.barraoscura {
+	background-color:#CCD2D7;
+}
+
+.barraoscurai {
+	background-color:#CCD2D7;
+}
+
+.titsuperior {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.alinder {
+	background-color:invisible;
+}
+
+.botdestacado {
+	color:#c7c7c7;
+}
+
+
+.full TD {
+	border:1px solid #CCD2D7;
+}
+
+.titulotb {
+	background-color:#aaaaaa;
+	color:#000;
+	border:2px solid #bbbbbb;
+}
+
+.titul1{
+	background-color:#EBECED;
+}
+
+.rail{
+	background-color:#EBECED;
+}
+
+.tdimgarticulo {
+	background-color:#CCD2D7;
+}
+
+.trnormal {
+	background-color:#none;
+}
+.trsobre {
+	background-color:#91c800;
+}
+
+

@@ -1,0 +1,218 @@
+En * lo echo , - pendiente , *NOTA apreciaciones 
+ 
+ 
+PENDIENTE 
+=============== 
+- Servicios , cuota de alta no tenerlos en cuenta en las lineas de albaran
+pero si en las facturas 
+
+- Mover a Facturas_detalle
+
+- Al generar facturas , multiples 
+
+- Una subseccion intermedia para el generado de pedidos -> factura 
+
+-Navegacion horizontal
+
+- Impresion con paginado via css: 
+El nomero de paginado esta mal. te pone 1 de tantitimas. 
+ 
+- Impresion guapa de albaran_almacen
+ 
+-Generar facturas a partir de un pedido tener en cuenta los servicios 
+-Generar facturas a partir de pedidos => generar a partir de albaranes si
+existen , mas o menos lo mismo  
+, la putada es borrar un pedido o albaran  de una factura no emitida ,
+modificar una linea de detalle , 
+ ke se produzca una devolucion , y seguro ke algun caso mas sale , pa borrar
+ya tengo el sitio (en pedidos y facturas)  
+ 
+ 
+ 
+- Gestion de Efectos generados por las Facturas.. 
+
+- Enviar por email docs al Emitir.  al cliente nah mas 
+
+- Impresion/Emision multiple de documentos. 
+con una cfunc en el where de pedidos con formato paginado por css 
+ 
+
+- XML , correo y fax en pedidos , albaranes y facturas 
+
+ 
+ 
+GESTION: 
+========= 
+* Listado de las facturas de un pedido
+
+*Al  generar los albaranes tratar los servicion de manera diferente 
+
+* Mover  a Pedidos_facturas
+ 
+* Servicios  listado modif nuevo (con lo de los meses , años) y meter servicios a los articulos
+
+* Leyenda de colores en Pedidos: 
+  Pedido   R Preparado = 0 	
+	   A Preparado = 1 => Para todos albaranes preparado =1 
+	   V Preparado = 1 y Para todo Albaran confirmado = 1
+
+  Albaran  R No existe albaran o no estan todos preparados 
+	   A Estan todos preparados 
+	   V Estan todos enviados
+	   N Alguno esta devuelto
+
+  Factura  R No existe 
+	   A Sin emitir
+	   V Emitida
+
+
+
+* Gestion de Servicios lo basiko echo keda detallarlo 
+
+*Observaciones para las lineas de detalle en pedidos meter pa ver
+db:Lineas_detalle.observaciones
+
+
+ 
+En la ficha de pedido: 
+* Las cantidades han de aparecer con 2 decimales, no 3. Mientras se esta 
+haciendo el pedido salen con 2, que esta bien, pero a la hora de ver la 
+ficha a posteriori se ven 3. Si los calculos han de hacerse con 3 
+decimales, se hacen, pero el usuario solo puede ver 2. 
+ 
+Albaranes: 
+* Solo se generan los albaranes de los articulos que tienen control de 
+stock. Negativo: De los articulos que tienen control de stock se 
+descuenta de la localizacion, de los articulos que no tienen ese 
+control, no se descuenta de la localizacion, pero SI se genera el 
+albaran. El albaran se genera siempre que se le de a generar albaranes, 
+otra cosa es que descuente cantidades. 
+* NOTA : habria ke mirar bien ke pasa si se kita el control de stock , se
+kitan articulos , o si se borra una linea , lo basiko funciona 
+ 
+* En la ficha de Albaranes ver referencia del pedido. 
+- En la ficha de Facturas, ver la referencia del pedido 
+*NOTA puede haber mas de uno !!!! 
+Estas dos cosillas las puedes hacer poniendolo al lado de la referencia 
+del documento entre parentesis 
+ 
+* Generar Albaranes: 
+en
+<http://biogestion.proyectos.wolstudios.com:8080/escritorio/?seccion=bo_albaranes_pedido&id_pedido=1711> 
+vemos que no nos visualiza los datos del cliente de este albaran, pero 
+sin embargo. en
+<http://biogestion.proyectos.wolstudios.com:8080/escritorio/?seccion=bo_pedidos_ventas> 
+si que vemos en el listado el cliente al que se le ha hecho el albaran. 
+:OO. Echale un ojo tambien anda. :)= 
+ 
+Almacenes: 
+* Desde ?seccion=bo_inventario_almacen nos aparece un listado de 
+articulos del inventario de este almacen fisico. El enlace que tiene 
+cada articulos es: ?seccion=modif_localizacion_articulos&lote=  
+Subseccion que no existe. Ademas, el listado, ha de indicar la 
+referencia del articulo. 
+ 
+* Pda: 
+Cuando no se selecciona ningun articulo, da un fallo de 'suplied argumen 
+foreach is not an array'. Por que campos buscas la referencia insertada? 
+hemos metido un par de referencias, del campo referencia de la base de 
+datos (la de Empresas_articulos) y no hemos conseguido que nos pillase 
+los articulos que queriamos. Tambien hemos probado a meterle como 
+referencia el id_articulo y nos ha metido un articulo que no era. 
+ 
+Asimismo, hay unos fallitos tanto en la visualizacion de decimales, que 
+pone 3 en vez de 2, y del monto total, que sale cosa del doble de lo que 
+luego te mete en el pedido. 
+ 
+Tambien necesitamos unas checkboxes para quitar articulos no deseados en 
+la pantalla ultima de confirmacion del pedido. Es posible que alguna 
+referencia insertada mal nos haya metido un articulo no deseado y seria 
+erroneo hacerle repetir el pedido completo al agente. 
+ 
+* En el escritorio de clientes: 
+Al hacer un pedido, el buscador de articulos no encuentra ningun resultado. 
+ 
+* Como empresa: 
+A la hora de hacer un pedido, en la pantalla de seleccion de cliente, busco  
+uno que este en otras paginas y parece ser que pierde la variable indicativa  
+de si es presupuesto o pedido porque si continuas con la seleccion de  
+articulos, arriba te pone 'seleccionando articulos para presupuesto'. La  
+cuestion esta, en que si lo que estas intentando hacer es un pedido, te lo
+da  
+de alta como presupuesto (y creo que nisikiera eso) y si estas realizando un  
+presupuesto con eso, no te lo da de alta (pasa de todo). Echale un ojo a ver  
+que carajo le pasa. 
+ 
+*El cliente no ha de poder modificar su login. 
+ 
+*Excepciones de almacenes al generar un albaran: 
+ 
+1.- Obtenemos el almacen logico de un albaran a generar de una busqueda 
+en localizaciones de articulos por el articulo en cuestion y obtendremos 
+el primer almacen que encontremos. 
+ 
+2.- Caso de no tener localizacion de articulos para generar el albaran, 
+descontaremos de stock (caso de ser necesario) y pondremos en el 
+albaran el almacen logico por defecto. 
+ 
+*Debajo de las cuentas contables, hay una persona de contacto que no permite  
+ser modificada. Hay que meterle una caja de texto ahi. 
+ 
+* Clientes, Agentes, Proveedores, Almacenes, y demas: 
+Recuerda que en cada uno de los submenus de estas categorias debe 
+indicarte el nombre del registro sobre el cual estas actuando. 
+ 
+ 
+ 
+* Facturas: 
+Poder borrar, mediante checkbox en el listado de facturas, las facturas 
+no emitidas. Y, poder cambiar la referencia de la factura cuando se 
+consolida un pedido y cuando se hace una factura nueva, sin pedido. 
+ 
+*NOTA falta lo de cambiar la refeerencia de la factura , ke habra ke
+comprobar ke no exista y tal 
+ 
+* En las facturas, se ha de poder indicar/cambiar el numero de la factura  
+(dentro de la serie actual). que te ponga una casilla donde la referencia,  
+con el contador actual, pero que te permita cambiarlo. Si la referencia  
+indicada con el numero, ya existe, NO se realiza ninguna modificacion ni  
+insercion, y se deberia sacar un mensaje en el hueco del mensajero, asi que  
+deja comentado el sitio donde iria el mandar el mensaje al tipo en question  
+(implementaremos lo del mensajero en unos 15 dias). 
+*NOTA lo comentado si se mete la "refencia" se intenta escribir  
+ 
+ 
+*Necesito 3 checkboxes en la ficha de albaran. 
+ 
+1 para cada uno de los estados : preparado, enviado, confirmado 
+ 
+Tambien necesitamos que sea posible, en la ficha del albaran, devolver 
+mercancia. Asi que ademas de tener el tinyint de devuelto en el albaran 
+(para saber los albaranes que tienen alguna mercancia devuelta) metemos 
+otro tinyint en detalle_albaran para indicar que articulos nos han 
+devuelto. 
+ 
+Este flag de devuelto en el detalle del albaran, habra de venir(ir) 
+junto con una casilla que indique cantidad, para saber que cantidad de 
+la linea de detalle nos han devuelto (puede que solo nos hayan devuelto 
+parte del producto por la razon que sea). Una opcion es añadir otro 
+registro en detalle_albaran asociado a la misma id_detalle pero con el 
+devuelto marcado e indicando la cantidad devuelta. De tal forma, que a 
+la hora de generar/consolidad un pedido a factura lo haremos de las 
+cantidades conformes con el cliente (la cantidad del detalle_albaran 
+menos la candidad devuelta -caso de haberla-) 
+ 
+Tambien seria conveniente tener un textarea (mediumtext) en el albaran 
+con Observaciones o Notas (modificar la tabla plis). Que nos sirva tanto 
+para añadir comentarios utiles del albaran, como para indicar las 
+razones que han provocado la devolucion de X articulos. 
+ 
+*NOTA el de devolucion se activa en cuanto nos devuelven un producto 
+ 
+* debug: Pedido Vacio. 
+Este debug sale en el precode del listado de pedidos al llegar desde 
+confirmar pedido. 
+*NOTA sale la plantilla de operacion erronea 
+ 
+ 
+ 

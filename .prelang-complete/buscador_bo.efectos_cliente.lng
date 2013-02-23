@@ -1,0 +1,101 @@
+
+
+ <form method="post" action="?seccion=bo_efectos_cliente" name="buscadorgeneral">
+<input type="hidden" name="nom_bus" value="efectos_clientes" />
+<!-- @%set:_selected_value=st_id_ag;%@ -->
+{{label_agente}} 
+<select name="id_ag" class="insertext">
+<option value="">{{label_ningunagente}}</option>
+@%where:tabla|Agentes;nolink|1;nombre|agentes;%@
+<option value="@%db:Agentes.id_agente;%@"
+@%db:selected_value{Agentes.id_agente};%@
+>@%db:Agentes.nombre;%@</option>
+@%end-where:%@
+
+</select>
+{{label_ids}} <input type="text" name="id_cli" class="mininum" value="@%get:st_id_cli;%@" />
+ {{buscar_nombre}}<input type="text" name="nombre" size="20" value="@%get:st_nombre;%@" />
+ {{label_estado}}
+<select name="estado">
+<option value="">---------------</option>
+<option value="1"
+@%if:equals;st_estado;1;%@
+selected="selected"
+@%end-if:%@
+>{{label_sinemitir}}</option>
+<option value="5"
+@%if:equals;st_estado;5;%@
+selected="selected"
+@%end-if:%@
+>{{label_nopagados}}</option>
+<option value="2"
+@%if:equals;st_estado;2;%@
+selected="selected"
+@%end-if:%@
+>{{label_pagoparcial}}</option>
+<option value="3"
+@%if:equals;st_estado;3;%@
+selected="selected"
+@%end-if:%@
+>{{label_abonado}}</option>
+<option value="4"
+@%if:equals;st_estado;4;%@
+selected="selected"
+@%end-if:%@
+>{{label_devuelto}}</option>
+</select>
+ <input type="text" name="fecha_inicio" class="fecha"
+ @%if:esta_vacio;st_fecha_inicio;%@
+ value="dd/mm/aaaa" 
+ @%else:%@
+ value="@%get:st_fecha_inicio;%@"
+ @%end-if:%@
+ />
+ <input type="text" name="fecha_fin" class="fecha"
+ @%if:esta_vacio;st_fecha_fin;%@
+ value="dd/mm/aaaa" 
+ @%else:%@
+ value="@%get:st_fecha_fin;%@"
+ @%end-if:%@
+ />
+ {{fld_mediodepago}}: <select name="medio_pago">
+ <option value="">---------------</option>
+ <option value="efectivo"
+@%if:equals;st_medio_pago;efectivo;%@
+selected="selected"
+@%end-if:%@
+>{{label_efectivo}}</option>
+ <option value="cheque"
+@%if:equals;st_medio_pago;cheque;%@
+selected="selected"
+@%end-if:%@
+>{{fld_cheque}}</option>
+ <option value="transferencia"
+@%if:equals;st_medio_pago;transferencia;%@
+selected="selected"
+@%end-if:%@
+>{{label_transferencia}}</option>
+ <option value="pagare"
+@%if:equals;st_medio_pago;pagare;%@
+selected="selected"
+@%end-if:%@
+>{{label_pagare}}</option>
+ <option value="recibo"
+@%if:equals;st_medio_pago;recibo;%@
+selected="selected"
+@%end-if:%@
+>{{label_recibo}}</option>
+ </select>
+ <a href="#" onclick="return sendForm('buscadorgeneral');" class="submit" accesskey="{{ak_search}}" >{{buscar_submit}}</a>
+ <select name="hp">
+@%where:nodb|nodb_hits_page;%@
+<option value="@%db:value;%@"
+@%if:equals;st_hp;value;%@
+selected="selected"
+@%end-if:%@
+>@%db:name;%@</option>
+@%end-where:%@
+
+</select>
+ </form>
+

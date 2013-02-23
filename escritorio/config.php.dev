@@ -1,0 +1,12 @@
+<?php
+$login="biogest_inm";
+$passwd=".0n3b0x";
+$cfgServer="dbserver.devel";
+$port="3307";
+$cfgDbase="_main";
+$dbase="biomundo_gestion_inmersa";
+$APP_NAME="IGestion_devel";
+$mod_path="modulos/";
+$BACKOFFICE=TRUE;
+$DEBUG="ON";
+?>

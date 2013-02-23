@@ -1,0 +1,12 @@
+<?php
+$login="mundobio_inm";
+$passwd="mund0b10";
+$cfgServer="bbdd05.biomundo";
+$port="3306";
+$cfgDbase="_main";
+$dbase="mundobio_gestion_inmersa";
+$APP_NAME="IGestion_devel";
+$mod_path="modulos/";
+$BACKOFFICE=TRUE;
+$DEBUG="Off";
+?>

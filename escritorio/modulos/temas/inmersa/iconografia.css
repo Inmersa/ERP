@@ -1,0 +1,883 @@
+
+/** Iconos de Estado **/
+.estado img {
+	display: inline;
+
+	width: 14px;
+	height: 14px;
+	border: 0;
+
+	margin: 0;
+	padding: 0;
+}
+
+.estado img.marcartodos {
+	background-image:url('iconos/marcar_todos.png');
+	width: 16px;
+	height: 16px;
+}
+
+.estado img.rojo {
+	background-image:url('iconos/estado_triangulo.png');
+}
+
+.estado img.amarillo {
+	background-image:url('iconos/estado_cuadrado.png');
+}
+
+.estado img.verde {
+	background-image:url('iconos/estado_circulo.png');
+}
+
+.estado img.negro {
+	background-image:url('iconos/estado_negro.png');
+}
+
+.estado img.ver {
+	width: 22px;
+	height: 22px;
+	background-image:url('iconos/ver.png');
+}
+
+.check A {
+	display: inline;
+}
+.check img.abono {
+	display: inline;
+	border: 0;
+	width: 14px;
+	height: 14px;
+	background-image:url('iconos/lit_fraabono.png');
+}
+
+
+img.icono {
+	display: inline;
+
+	/** New **/
+	width: 22px;
+	height: 15px;
+	border: 0;
+	background-position: top left;
+	background-repeat: no-repeat;
+
+	margin: 0;
+	padding: 0;
+}
+
+/** Medidas Generales por defecto **/
+.IconosYTexto #AccionesListado img.icono, .IconosYTexto #AccionesEncabezado img.icono, .IconosYTexto .AccionesEnvio img.icono {
+	height: 22px;
+}
+
+.SoloIconos #AccionesListado img.icono, .SoloIconos #AccionesEncabezado img.icono, .SoloIconos .AccionesEnvio img.icono {
+	width: 43px;
+	height: 20px;
+}
+
+.IconosYTexto .AccionesFicha img.icono {
+	width: 21px;
+	height: 15px;
+}
+
+.SoloIconos .AccionesFicha img.icono {
+	width: 21px;
+	height: 15px;
+}
+
+.SinIconos img.icono {
+	width: 0;
+  	height: 0;
+}
+
+/** Cabeceras de Listados (desplazar a base.css?) **/
+TABLE  THEAD  TR  TD  A {
+	text-decoration: none;
+	vertical-align: top;
+	display: block;
+	color: inherit;
+}
+TABLE  THEAD  TR  TD  A:visited {
+	text-decoration: none;
+	color: inherit;
+}
+
+TABLE  THEAD  TR  TD.fieldvalue  A {
+	text-decoration: underline;
+	vertical-align: middle;
+	display: inline;
+}
+
+TABLE  THEAD  TR  TD IMG.null {
+  	width: 0px;
+  	height: 0px;
+	border: 0;
+  	margin: 0;
+  	padding: 0;
+}
+
+TABLE  THEAD  TR  TD IMG.ascendente {
+  	width: 13px;
+  	height: 13px;
+	background-image:url('iconos/ascendente.png');
+	border: 0;
+  	margin: 0 0 0 3px;
+  	padding: 0;
+}
+
+TABLE  THEAD  TR  TD IMG.descendente {
+  	width: 13px;
+  	height: 13px;
+	background-image:url('iconos/descendente.png');
+	border: 0;
+  	margin: 0 0 0 3px;
+  	padding: 0;
+}
+
+A.order IMG {
+	border: 0;
+  	padding: 0;
+
+  	width: 8px;
+  	height: 10px;
+}
+
+A.order IMG.null {
+  	width: 8px;
+  	height: 10px;
+  	margin: 0 0 0 5px;
+	background-image:url('iconos/flecha.png');
+}
+
+A.order IMG.ascendente {
+  	width: 8px;
+  	height: 10px;
+  	margin: 0 0 0 5px;
+	background-image:url('iconos/flecha_up.png');
+}
+
+A.order IMG.descendente {
+  	width: 8px;
+  	height: 10px;
+  	margin: 0 0 0 5px;
+	background-image:url('iconos/flecha_down.png');
+}
+
+/** Los Iconos **/
+#AccionesGenerales A.imprimir {
+  	background-image:url("iconos/big_imprimir.png");
+}
+
+#AccionesGenerales A.ayuda {
+  	background-image:url("iconos/ayuda.png");
+}
+
+#AccionesGenerales A.logout {
+  	background-image:url("iconos/logout.png");
+}
+
+#AccionesGenerales A.volver {
+  	background-image:url("iconos/volver_barra.png");
+}
+
+
+/** Iconografia general **/
+.SoloIconos a.borrar img.icono, .IconosYTexto a.borrar img.icono {
+  	background-image:url("iconos/borrar.png");
+}
+
+.SoloIconos a.editar img.icono, .IconosYTexto a.editar img.icono {
+  	background-image:url("iconos/editar.png");
+}
+
+.SoloIconos a.nuevo img.icono, .IconosYTexto a.nuevo img.icono {
+  	background-image:url("iconos/nuevo.png");
+}
+
+.SoloIconos a.seleccionar img.icono, .IconosYTexto a.seleccionar img.icono {
+  	background-image:url("iconos/seleccionar.png");
+}
+
+.SoloIconos a.guardar img.icono, .IconosYTexto a.guardar img.icono {
+  	background-image:url("iconos/guardar.png");
+}
+
+.SoloIconos a.deshacer img.icono, .IconosYTexto a.deshacer img.icono {
+  	background-image:url("iconos/deshacer.png");
+}
+
+.SoloIconos a.hacerpredefinido img.icono, .IconosYTexto a.hacerpredefinido img.icono {
+  	background-image:url("iconos/predefinido.png");
+}
+
+.SoloIconos a.enviar img.icono, .IconosYTexto a.enviar img.icono {
+  	background-image:url("iconos/enviar.png");
+}
+
+.SoloIconos a.ver img.icono, .IconosYTexto a.ver img.icono {
+  	background-image:url("iconos/verin.png");
+}
+
+.SoloIconos a.imprimir img.icono, .IconosYTexto a.imprimir img.icono {
+  	background-image:url("iconos/imprimir.png");
+}
+
+.SoloIconos a.imprimirvarios img.icono , .IconosYTexto a.imprimirvarios img.icono {
+  	background-image:url("iconos/imprimir_multiples.png");
+}
+
+.SoloIconos a.imprimirdirecto img.icono, .IconosYTexto a.imprimirdirecto img.icono {
+  	background-image:url("iconos/imprimir_directo.png");
+}
+
+.SoloIconos a.imprimirticket img.icono, .IconosYTexto a.imprimirticket img.icono {
+  	background-image:url("iconos/imprimir_ticket.png");
+}
+
+.SoloIconos a.iniciar img.icono, .IconosYTexto a.iniciar img.icono {
+  	background-image:url("iconos/iniciar.png");
+}
+
+.SoloIconos a.finalizar img.icono, .IconosYTexto a.finalizar img.icono {
+  	background-image:url("iconos/finalizar.png");
+}
+
+.SoloIconos a.sumaracesta img.icono, .IconosYTexto a.sumaracesta img.icono {
+  	background-image:url("iconos/anyadiracesta.png");
+}
+
+.SoloIconos a.nuevopedido img.icono, .IconosYTexto a.nuevopedido img.icono {
+  	background-image:url("iconos/hacer_pedido.png");
+}
+
+.SoloIconos a.vaciar img.icono, .IconosYTexto a.vaciar img.icono {
+  	background-image:url("iconos/vaciar_documento.png");
+}
+
+.SoloIconos a.consolidar img.icono, .IconosYTexto a.consolidar img.icono {
+  	background-image:url("iconos/consolidar.png");
+}
+
+.SoloIconos a.emitir img.icono, .IconosYTexto a.emitir img.icono {
+  	background-image:url("iconos/emitir.png");
+}
+
+.SoloIconos a.desemitir img.icono, .IconosYTexto a.desemitir img.icono {
+  	background-image:url("iconos/desemitir.png");
+}
+
+.SoloIconos a.recalcular img.icono, .IconosYTexto a.recalcular img.icono {
+  	background-image:url("iconos/recalcular.png");
+}
+
+.SoloIconos a.asociar img.icono, .IconosYTexto a.asociar img.icono {
+  	background-image:url("iconos/asociar.png");
+}
+
+
+.SoloIconos a.revisar img.icono, .IconosYTexto a.revisar img.icono {
+  	background-image:url("iconos/revisado.png");
+}
+
+.SoloIconos a.aprobar img.icono, .IconosYTexto a.aprobar img.icono {
+  	background-image:url("iconos/aprobar.png");
+}
+
+.SoloIconos a.rechazar img.icono, .IconosYTexto a.rechazar img.icono {
+  	background-image:url("iconos/rechazar.png");
+}
+
+.SoloIconos a.causarbaja img.icono, .IconosYTexto a.causarbaja img.icono {
+  	background-image:url("iconos/causarbaja.png");
+}
+
+.SoloIconos a.recuperar img.icono, .IconosYTexto a.recuperar img.icono {
+  	background-image:url("iconos/causarbaja.png");
+}
+
+.SoloIconos a.bajausuario img.icono, .IconosYTexto a.bajausuario img.icono {
+  	background-image:url("iconos/deluser.png");
+}
+
+.SoloIconos a.altausuario img.icono, .IconosYTexto a.altausuario img.icono {
+  	background-image:url("iconos/adduser.png");
+}
+
+.SoloIconos a.importarusuario img.icono, .IconosYTexto a.importarusuario img.icono {
+  	background-image:url("iconos/adduser.png");
+}
+
+.SoloIconos a.abonar img.icono, .IconosYTexto a.abonar img.icono {
+  	background-image:url("iconos/abonar.png");
+}
+
+.SoloIconos a.listaefectos img.icono, .IconosYTexto a.listaefectos img.icono {
+  	background-image:url("iconos/lit_listado_efectos.png");
+}
+
+.SoloIconos a.abonarparcial img.icono, .IconosYTexto a.abonarparcial img.icono {
+  	background-image:url("iconos/pagos_parciales.png");
+}
+
+.SoloIconos a.abonofactura img.icono, .IconosYTexto a.abonofactura img.icono {
+  	background-image:url("iconos/abonarfactura.png");
+}
+
+.SoloIconos a.cargarpendiente img.icono, .IconosYTexto a.cargarpendiente img.icono {
+  	background-image:url("iconos/cargarpendiente.png");
+}
+
+.SoloIconos a.devolverabono img.icono, .IconosYTexto a.devolverabono img.icono {
+  	background-image:url("iconos/devolverabono.png");
+}
+
+.SoloIconos a.generar img.icono, .IconosYTexto a.generar img.icono {
+  	background-image:url("iconos/generar.png");
+}
+
+.SoloIconos a.generaralbaranes img.icono, .IconosYTexto a.generaralbaranes img.icono {
+  	background-image:url("iconos/generar_albaranes.png");
+}
+
+/* Iconos muy anchos */
+.SoloIconos a.guardar img.icono, .IconosYTexto a.guardar img.icono {
+	width: 25px;
+}
+.SoloIconos a.enviar img.icono, .IconosYTexto a.enviar img.icono {
+	width: 37px;
+}
+.SoloIconos a.emitir img.icono, .IconosYTexto a.emitir img.icono {
+	width: 41px;
+}
+.SoloIconos a.desemitir img.icono, .IconosYTexto a.desemitir img.icono {
+	width: 41px;
+}
+.SoloIconos a.revisar img.icono, .IconosYTexto a.revisar img.icono {
+	width: 41px;
+}
+.SoloIconos a.imprimirdirecto img.icono, .IconosYTexto a.imprimirdirecto img.icono {
+	width: 41px;
+}
+.SoloIconos a.imprimirticket img.icono, .IconosYTexto a.imprimirticket img.icono {
+	width: 41px;
+}
+
+.SoloIconos a.causarbaja img.icono, .IconosYTexto a.causarbaja img.icono {
+	width: 29px;
+}
+.SoloIconos a.recuperar img.icono, .IconosYTexto a.recuperar img.icono {
+	width: 29px;
+}
+
+.SoloIconos a.aprobar img.icono, .IconosYTexto a.aprobar img.icono {
+	width: 29px;
+}
+.SoloIconos a.rechazar img.icono, .IconosYTexto a.rechazar img.icono {
+	width: 29px;
+}
+
+.SoloIconos a.abonar img.icono, .IconosYTexto a.abonar img.icono {
+	width: 44px;
+}
+
+.SoloIconos a.listaefectos img.icono, .IconosYTexto a.listaefectos img.icono {
+	width: 35px;
+}
+
+.SoloIconos a.devolverabono img.icono, .IconosYTexto a.devolverabono img.icono {
+	width: 44px;
+}
+
+.SoloIconos a.abonofactura img.icono, .IconosYTexto a.abonofactura img.icono {
+	width: 39px;
+}
+
+.SoloIconos a.recalcular img.icono, .IconosYTexto a.recalcular img.icono {
+	width: 29px;
+}
+.SoloIconos a.verfras img.icono, .IconosYTexto a.verfras img.icono {
+	width: 41px;
+}
+.SoloIconos a.veralbs img.icono, .IconosYTexto a.veralbs img.icono {
+	width: 41px;
+}
+.SoloIconos a.generaralbaranes img.icono, .IconosYTexto a.generaralbaranes img.icono {
+	width: 34px;
+}
+
+.SoloIconos a.sumaracesta img.icono, .IconosYTexto a.sumaracesta img.icono {
+	width: 37px;
+}
+
+.SoloIconos a.asociar img.icono, .IconosYTexto a.asociar img.icono {
+	width: 37px;
+}
+
+.SoloIconos a.aproforma img.icono, .IconosYTexto a.aproforma img.icono {
+	width: 41px;
+}
+
+.SoloIconos a.enlazarrfq img.icono, .IconosYTexto a.enlazarrfq img.icono {
+	width: 41px;
+}
+
+.SoloIconos a.nuevalocalizacion img.icono, .IconosYTexto a.nuevalocalizacion img.icono {
+	width: 41px;
+}
+
+.SoloIconos a.agruparlocalizaciones img.icono, .IconosYTexto a.agruparlocalizaciones img.icono {
+	width: 34px;
+}
+
+.SoloIconos a.agruparlocalizaciones img.icono, .IconosYTexto a.agruparlocalizaciones img.icono {
+	width: 34px;
+}
+
+.SoloIconos a.verlocalizaciones img.icono, .IconosYTexto a.verlocalizaciones img.icono {
+	width: 34px;
+}
+
+.SoloIconos a.envioprint img.icono, .IconosYTexto a.envioprint img.icono {
+	width: 41px;
+}
+.SoloIconos a.devolucionprint img.icono, .IconosYTexto a.devolucionprint img.icono {
+	width: 41px;
+}
+.SoloIconos a.inicioprint img.icono, .IconosYTexto a.inicioprint img.icono {
+	width: 41px;
+}
+
+
+/** Iconos/Acciones Mas especificas de contexto: **/
+.SoloIconos .AccionesFicha a.enviar img.icono, .IconosYTexto .AccionesFicha a.enviar img.icono {
+	height: 22px;
+}
+.SoloIconos a.envioprint img.icono, .IconosYTexto a.envioprint img.icono {
+  	background-image:url("iconos/imprimir_alb_envio.png");
+}
+.SoloIconos a.devolucionprint img.icono, .IconosYTexto a.devolucionprint img.icono {
+  	background-image:url("iconos/imprimir_devuelto.png");
+}
+
+.SoloIconos a.inicioprint img.icono, .IconosYTexto a.inicioprint img.icono {
+  	background-image:url("iconos/imprimir_puesta_marcha.png");
+}
+
+.SoloIconos a.aproforma img.icono, .IconosYTexto a.aproforma img.icono {
+  	background-image:url("iconos/convertira_proforma.png");
+}
+
+.SoloIconos a.enlazarrfq img.icono, .IconosYTexto a.enlazarrfq img.icono {
+  	background-image:url("iconos/enlazar_rfq.png");
+}
+
+.SoloIconos a.verfras img.icono, .IconosYTexto a.verfras img.icono {
+  	background-image:url("iconos/ver_facturas.png");
+}
+
+.SoloIconos a.veralbs img.icono, .IconosYTexto a.veralbs img.icono {
+  	background-image:url("iconos/ver_albaranes.png");
+}
+
+.SoloIconos a.nuevalocalizacion img.icono, .IconosYTexto a.nuevalocalizacion img.icono {
+  	background-image:url("iconos/alta_localizacion.png");
+}
+
+.SoloIconos a.agruparlocalizaciones img.icono, .IconosYTexto a.agruparlocalizaciones img.icono {
+  	background-image:url("iconos/agrupar_localizaciones.png");
+}
+
+.SoloIconos a.verlocalizaciones img.icono, .IconosYTexto a.verlocalizaciones img.icono {
+  	background-image:url("iconos/lit_ver_localizaciones.png");
+}
+
+/** Iconos listados **/
+.SoloIconos #AccionesListado a.imprimirmultiple img.icono, .IconosYTexto #AccionesListado a.imprimirmultiple img.icono {
+  	background-image:url("iconos/imprimir_multiples.png");
+}
+
+/** Iconos fichas **/
+.SoloIconos .AccionesFicha a.guardar img.icono, .IconosYTexto .AccionesFicha a.guardar img.icono {
+  	background-image:url("iconos/lit_guardar.png");
+}
+
+.SoloIconos .AccionesFicha a.nuevo img.icono, .IconosYTexto .AccionesFicha a.nuevo img.icono {
+  	background-image:url("iconos/lit_nuevo.png");
+}
+
+.SoloIconos .AccionesFicha a.editar img.icono, .IconosYTexto .AccionesFicha a.editar img.icono {
+  	background-image:url("iconos/lit_editar.png");
+}
+
+.SoloIconos .AccionesFicha a.borrar img.icono, .IconosYTexto .AccionesFicha a.borrar img.icono {
+  	background-image:url("iconos/lit_borrar.png");
+}
+
+.SoloIconos .AccionesFicha a.seleccionar img.icono, .IconosYTexto .AccionesFicha a.seleccionar img.icono {
+  	background-image:url("iconos/lit_seleccionar.png");
+}
+
+.SoloIconos .AccionesFicha a.asociar img.icono, .IconosYTexto .AccionesFicha a.asociar img.icono {
+  	background-image:url("iconos/lit_asociar.png");
+}
+
+.SoloIconos .AccionesFicha a.generaralbaranes img.icono, .IconosYTexto .AccionesFicha a.generaralbaranes img.icono {
+  	background-image:url("iconos/lit_generar_albaranes.png");
+	width: 22px;
+}
+
+.SoloIconos .AccionesFicha a.aprobar img.icono, .IconosYTexto .AccionesFicha a.aprobar img.icono {
+  	background-image:url("iconos/lit_aprobar.png");
+}
+
+.SoloIconos .AccionesFicha a.rechazar img.icono, .IconosYTexto .AccionesFicha a.rechazar img.icono {
+  	background-image:url("iconos/lit_rechazar.png");
+}
+
+.SoloIconos .AccionesFicha a.abonar img.icono, .IconosYTexto .AccionesFicha a.abonar img.icono {
+  	background-image:url("iconos/lit_abonar.png");
+	width: 30px;
+}
+
+.SoloIconos .AccionesFicha a.abonofactura img.icono, .IconosYTexto .AccionesFicha a.abonofactura img.icono {
+  	background-image:url("iconos/lit_abonarfactura.png");
+	width: 22px;
+}
+
+.SoloIconos .AccionesFicha a.cargarpendiente img.icono, .IconosYTexto .AccionesFicha a.cargarpendiente img.icono {
+  	background-image:url("iconos/lit_cargarpendiente.png");
+	width: 22px;
+}
+
+
+.SoloIconos .AccionesFicha a.limpiar img.icono, .IconosYTexto .AccionesFicha a.limpiar img.icono {
+  	background-image:url("iconos/lit_papelera.png");
+}
+
+.SoloIconos .AccionesFicha a.deshacer img.icono, .IconosYTexto .AccionesFicha a.deshacer img.icono {
+  	background-image:url("iconos/lit_deshacer.png");
+}
+
+.SoloIconos .AccionesFicha a.exportarxml img.icono, .IconosYTexto .AccionesFicha a.exportarxml img.icono {
+  	background-image:url("iconos/lit_xml.png");
+}
+
+.SoloIconos .AccionesFicha a.imprimir img.icono, .IconosYTexto .AccionesFicha a.imprimir img.icono {
+  	background-image:url("iconos/lit_imprimir.png");
+}
+
+.SoloIconos .AccionesFicha a.envioprint img.icono, .IconosYTexto .AccionesFicha a.envioprint img.icono {
+  	background-image:url("iconos/lit_imprimir_albaran_envio.png");
+	width: 30px;
+}
+
+
+
+/** El Texto **/
+.SoloIconos #AccionesListado a span, .SoloIconos #AccionesEncabezado a span, .SoloIconos .AccionesFicha a span {
+	visibility: hidden;
+	display: none;
+}
+
+.IconosYTexto #AccionesListado a, .IconosYTexto #AccionesListado span, .SinIconos #AccionesListado a, .SinIconos #AccionesListado span,
+.IconosYTexto #AccionesEncabezado a, .IconosYTexto #AccionesEncabezado span, .SinIconos #AccionesEncabezado a, .SinIconos #AccionesEncabezado span,
+.IconosYTexto .AccionesFicha a, .IconosYTexto .AccionesFicha span, .SinIconos .AccionesFicha a, .SinIconos .AccionesFicha span {
+	visibility: visible;
+	display: inline;
+}
+
+
+/** Barra superior de acciones **/
+#AccionesGenerales {
+	float: right;
+	position: relative;
+  	margin: 0 5px 0 3px;
+  	padding: 0;
+}
+
+#AccionesGenerales A {
+  	margin: 0;
+  	padding: 0;
+  	background-position: center center;
+	background-repeat: no-repeat;
+	display: table-cell;
+}
+
+
+#AccionesGenerales IMG.null {
+  	width: 39px;
+  	height: 29px;
+	border: 0;
+  	margin: 0;
+  	padding: 0;
+}
+
+#AccionesGenerales A.logout IMG.null, #AccionesGenerales A.volver IMG.null {
+  	width: 55px;
+  	height: 29px;
+}
+
+#AccionesGenerales  ul {
+	list-style-type: none;
+
+	width: auto;
+	margin: 0;
+	pagging: 0;
+}
+
+#AccionesGenerales  ul  li {
+	list-style: none;
+	display: inline;
+
+	margin: 0;
+	padding: 0;
+}
+
+#AccionesGenerales  ul  li  a {
+	display: inline-block;
+
+	height: auto;
+
+  	background-position: top center;
+	background-repeat: no-repeat;
+
+	margin: 0px;
+	padding: 0px 5px 0px 0px;
+
+	vertical-align: baseline;
+	text-decoration: none;
+}
+
+
+/** Para los Listados **/
+#AccionesListado {
+	display: block;
+	clear: both;
+
+	text-align:right;
+	vertical-align: baseline;
+
+	margin: 5px 0 1px 0;
+	padding: 5px 0 0 0;
+}
+
+.IconosYTexto #AccionesListado {
+	height: 34px;
+}
+
+#AccionesListado  ul {
+	list-style-type: none;
+
+	width: auto;
+	margin: 0;
+	pagging: 0;
+}
+
+#AccionesListado  ul  li {
+	list-style: none;
+	display: inline;
+
+	margin: 0;
+	padding: 0;
+}
+
+#AccionesListado  ul  li.noicon {
+	vertical-align: middle;
+	padding: 0 0 10px 0;
+}
+
+#AccionesListado  ul  li  a {
+	display: inline-block;
+
+	height: auto;
+
+  	background-position: top left;
+	background-repeat: no-repeat;
+
+	margin: 0px;
+	padding: 0px 0px 0px 0px;
+
+	vertical-align: baseline;
+	text-decoration: none;
+	min-width: 44px;
+	text-align: center;
+}
+
+
+ul li.noicon form {
+	display: inline;
+}
+
+
+/** Para El encabezado de algunas fichas **/
+#AccionesEncabezado {
+	display: block;
+	clear: both;
+
+	text-align:right;
+	vertical-align: middle;
+
+	height:30px;
+	width: 100%;
+
+	margin: 5px 0 1px 0;
+	padding: 5px 0 0 0;
+}
+
+.IconosYTexto #AccionesEncabezado {
+	height: 35px;
+}
+
+#AccionesEncabezado  ul {
+	list-style-type: none;
+
+	width: auto;
+	margin: 0;
+	pagging: 0;
+}
+
+#AccionesEncabezado  ul  li {
+	list-style: none;
+	display: inline;
+
+	margin: 0 5px;
+	padding: 0;
+	white-space: nowrap;
+}
+
+#AccionesEncabezado  ul  li.noicon {
+	vertical-align: middle;
+	padding: 0 0 10px 0;
+}
+
+#AccionesEncabezado  ul  li  a {
+	display: inline-block;
+
+	height: auto;
+
+  	background-position: top center;
+	background-repeat: no-repeat;
+
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+
+	vertical-align: baseline;
+	text-decoration: none;
+	min-width: 44px;
+	text-align: center;
+}
+
+/** Acciones de Envio de ficha **/
+
+.AccionesEnvio {
+	display: block;
+	clear: both;
+
+	text-align:center;
+	vertical-align: middle;
+
+	height:30px;
+	width: 100%;
+
+	margin: 5px 0 1px 0;
+	padding: 5px 0 0 0;
+}
+
+.IconosYTexto .AccionesEnvio {
+	height: 35px;
+}
+
+.AccionesEnvio  ul {
+	list-style-type: none;
+
+	width: auto;
+	margin: 0;
+	pagging: 0;
+}
+
+.AccionesEnvio  ul  li {
+	list-style: none;
+	display: inline;
+
+	margin: 0px 5px 0px 0px;
+	padding: 0;
+}
+
+.AccionesEnvio  ul  li.noicon {
+	vertical-align: middle;
+	padding: 0 0 10px 0;
+}
+
+.AccionesEnvio  ul  li  a {
+	display: inline-block;
+
+	height: auto;
+
+  	background-position: top center;
+	background-repeat: no-repeat;
+
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+
+	vertical-align: baseline;
+	text-decoration: none;
+	min-width: 44px;
+	text-align: center;
+}
+
+/** Para El detalle de algunas fichas **/
+.AccionesFicha {
+	display: block;
+	clear: both;
+
+	text-align:right;
+	vertical-align: baseline;
+
+	height:25px;
+
+	margin: 5px 0 1px 0;
+	padding: 5px 0 0 0;
+}
+
+.AccionesFicha.IconosYTexto {
+	height: 35px;
+}
+
+.AccionesFicha  ul {
+	list-style-type: none;
+
+	width: auto;
+	margin: 0;
+	pagging: 0;
+}
+
+.AccionesFicha  ul  li {
+	list-style: none;
+	display: inline;
+
+	margin: 0px 5px 0px 0px;
+	padding: 0;
+}
+
+.AccionesFicha  ul  li.noicon {
+	vertical-align: middle;
+	padding: 0 0 10px 0;
+}
+
+.AccionesFicha  ul  li  a {
+	display: inline-block;
+
+	height: auto;
+
+  	background-position: top center;
+	background-repeat: no-repeat;
+
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+
+	vertical-align: baseline;
+	text-decoration: none;
+	min-width: 44px;
+	text-align: center;
+}
+

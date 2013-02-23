@@ -1,0 +1,69 @@
+
+#tabs {
+    float:left;
+    width:100%;
+}
+
+#tabs ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#tabs li {
+    float:left;
+    margin:5;
+    padding:0;
+    background:url("efectos/tab_right.png") no-repeat right top;
+}
+
+#tabs a {
+    display:block;
+    background:url("efectos/tab_left.png") no-repeat left top;
+    padding:5px 15px;
+    text-decoration: none;
+}
+
+#tabs #current {
+    margin:0;
+    padding:0;
+    background-image:url("efectos/tab_right_on.png"); 
+    border-bottom: 0px none;
+}
+
+#tabs #current a {
+    background-image:url("efectos/tab_left_on.png"); 
+}
+
+
+#MenuHorizontal {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: auto;
+	display: block;
+	text-align: left;
+}
+
+#MenuHorizontal div.menuitem {
+	display: inline;
+
+	padding: 0;
+	margin: 0;
+}
+
+#MenuHorizontal div.menuitem a {
+	display: inline;
+
+	margin: 0 0 0 0;
+	padding: 5px 3px 5px 3px;
+	line-height: 250%;
+
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+
+}
+

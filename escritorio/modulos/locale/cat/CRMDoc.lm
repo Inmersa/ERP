@@ -1,0 +1,12 @@
+DOC_NO_DOCROOT	90	Ruta al root de l'aplicació (doc_root) no trobat
+DOC_PATH_NOTFOUND	101	Ruta {{path}} no trobat
+DOC_FILE_NOTFOUND	102	Fitxer {{file}} no trobat
+DOC_FILE_RENAMED	103	El Fitxer {{origen}} ja existeix, es canvia el nom per {{destino}}
+DOC_FILE_NOTRENAMED	104	El Fitxer {{origen}} ja existeix, no es pot canviar el nom
+DOC_RENAME_FAILED	105	El Fitxer {{origen}} no es pot moure {{destino}}.¿Tens problemes d'accés?
+DOC_UPLOAD_FAILED	106	El Fitxer {{file}} no pot pujar-se. ¿Tens problemes d'accés?
+DOC_FILE_NOTDELETED	107	El Fitxer {{file}} no pot pujar-se. ¿Tens problemes d'accés?
+DOC_NO_DEFAULTDOCTYPE	108	No hi ha document predeterminat configurat
+DOC_MAXSIZE_EXCEEDED	109	Grandària màxima de Fitxer. {{size}} Kbs excedits
+DOC_DOCTYPE_UNCHANGED	110	No es pot canviar {{id}} document predeterminat
+DOC_MIME_NOTFOUND	501	Mime tipus {{mime}} no està en la llista

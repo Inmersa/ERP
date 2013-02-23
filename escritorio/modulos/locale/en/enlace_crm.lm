@@ -1,0 +1,4 @@
+CRM_NORETURNLINK	101	It has not been possible to find the return link.	
+CRM_NOVALIDUSER	101	You do nat a valid CRM User	
+CRM_NOCRM	101	You do not have a valid CRM	
+CRM_NOCLIENTUSER 	104	Client {{cliente}} does not have a valid iCRM User	

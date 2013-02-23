@@ -1,0 +1,232 @@
+/* Entidades / Etiquetas */
+page { 
+	size: 8.5in 11in; 
+	margin: 0cm ;
+}
+BODY {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color:#ffffff;
+	margin:10px;
+}
+FORM {
+	margin:0px;
+}
+
+/** input[type="radio"] { background-color: blue } **/
+INPUT,TEXTAREA {
+	border: 0px;
+}
+
+SELECT,OPTION {
+	border: 0px;
+}
+
+/* id's */
+#barra1 {
+	display:block;
+	visibility: visible; 
+	padding-bottom:5px;
+	border-bottom:1px solid #000000;
+}
+#barra2 {
+	visibility: hidden;
+	display: none;
+}
+#barra3 {
+	visibility: hidden;
+	display: none;
+}
+#menu {
+	visibility: hidden;
+	display: none;
+}
+#menu A {
+	visibility: hidden;
+	display: none;
+}
+#usuario {
+	visibility: hidden;
+	display: none;
+}
+#logo {
+  	float:left;
+	width:33%;
+	font-size: 3mm; 
+	font-weight: bold;
+	visibility: hidden;
+	display: none;
+}
+#logoempresa {
+	text-align:right;
+	font-size: 9px;
+	text-decoration: none;
+	visibility: visible;
+}
+#contenido {
+	page-break-after: always;
+	vertical-align: bottom;
+}
+#pie {
+  	float:bottom;
+  	bottom:1;
+	page-break-after: avoid;
+}
+
+/** **/
+DIV.#contenido DIV.#pie {
+	page-break-after: avoid;
+}
+
+.enviar {
+	visibility: hidden;
+}
+/** **/
+
+/* Etiquetas de una clase */
+TD {
+	vertical-align:middle;
+}
+/** cuando este todo maquetado, esto pasarlo a un simple 'TABLE {' **/
+TABLE.full {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: hide;
+	border:1px solid #000000;
+}
+TABLE.fullstruct {
+	border-collapse:collapse;
+	margin:0px 0px 0px 0px;
+	width:100%;
+	empty-cells: hide;
+}
+TABLE.firmas {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: hide;
+	border:1px solid #000000;
+}
+TABLE.firmas TD {
+	border:1px solid #000000;
+	height: 30;
+}
+TABLE.firmas TD.titul1 {
+	text-align: center;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	line-height: normal;
+	height: auto;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px 0px 0px 0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+/** **/
+.fullstruct TD {
+	font-size: 10px;
+	padding:0px;
+	vertical-align:top;
+}
+TABLE.fullstruct TD.left {
+	padding-right:5px;
+	padding-top:5px;
+}
+TABLE.fullstruct TD.right {
+	padding-left:5px;
+	padding-top:5px;
+}
+TABLE.fullstruct TD.middle {
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:5px;
+}
+.full TD {
+	font-size: 9px;
+	font-weight: normal;
+	text-decoration: none;
+	padding-left:2px;
+}
+
+.bordes TD {
+	border:1px solid #000000;
+}
+
+TD.titul1{
+	text-align: right;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	line-height: normal;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+THEAD.encabezado TD {
+	text-align: center;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	font-style: normal;
+	font-variant: normal;
+	line-height: normal;
+
+	color: #000000;
+	background-color:#EBECED;
+
+	padding:0px;
+	padding-left:0px;
+
+	text-transform: capitalize;
+}
+TABLE.full TBODY.centrado {
+	empty-cells: show;
+}
+TBODY.centrado TD {
+	text-align: center;
+}
+TD.tdimgarticulo {
+	padding:10px;
+	text-align:center;
+	vertical-align:middle;
+}
+TD.diafano {
+	padding:0px;
+	text-align:center;
+	vertical-align:middle;
+	align:center;
+	font-size: 3mm;
+	font-weight: bold;
+}
+CAPTION {
+	background-color:#CCD2D7;
+	font-weight:bold;
+	font-size: 3mm;
+	color: #000000;
+	text-align:left;
+}
+
+.texto {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; font-weight: normal; color: #000000; text-decoration: none}
+.texto:hover {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; font-weight: normal; color: #000000; text-decoration: underline}
+.titocho {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 3mm; font-weight: bold; color: #000000}
+.titul {  font-family: Geneva, Arial, Helvetica, san-serif; font-size: 10px; font-weight: bold; color: #000000; font-style: normal; line-height: normal; font-variant: normal; text-transform: capitalize;; background-color: #EBECED}
+.minititulo {  font-family: Geneva, Arial, Helvetica, san-serif; font-size: 8px; font-weight: bold; color: #000000; font-style: normal; line-height: normal; font-variant: normal; text-transform: capitalize;; background-color: #EBECED}
+.miniletra {  font-family: Geneva, Arial, Helvetica, san-serif; font-size: 8px; font-weight: bold; color: #000000; font-style: normal; line-height: normal; font-variant: normal; text-transform: capitalize; }
+ table.SaltoDePagina
+  {
+	     page-break-before: always !important;
+  }
+ table.SaltoDePaginaDespues { page-break-after: always !important; }

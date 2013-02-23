@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>{{titulo_login}}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="modulos/temas/inmersa/base.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="modulos/temas/inmersa/login.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="modulos/temas/inmersa/bordescolores.css" type="text/css" media="screen" >
+<link rel="stylesheet" href="modulos/temas/inmersa/tipografia.css" type="text/css" media="screen" >
+
+<link rel="stylesheet" href="modulos/temas/personalizaciones/eurociber/login.css" type="text/css" media="screen" >
+<link rel="SHORTCUT ICON" href="imag/imagotipo.png">
+
+</head>
+<body >
+
+<div id="pagina" style="left: 30%; position: relative;">
+ <div id="logoempresa" ><img src="imag/pxt.gif" class="null"/></div>
+<div id="login">
+ <div class="fondotela" ><img name="araña" src="imag/login/arana.png" border="0"></div>
+ <div id="logoproducto" class="{{class_idioma}}"><img src="imag/pxt.gif" class="null"/></div>
+ <div id="logomodulo" class="{{class_idioma}}"><img src="imag/pxt.gif" class="null"/></div>
+
+ <form method="post" action="?@%get:_krn_ss_querystring;%@">
+ <table >
+ <tr><td class="titocho" align="right">{{label_idioma}}:</td>
+ <td align="left" ><select name="lang" class="insertext">
+ <option value="">{{label_predef}}</option>
+ @%where:db|conf;tabla|Idiomas;%@
+<option value="@%db:Idiomas.nemonico;%@">@%db:Idiomas.nombre;%@</option>
+ @%end-where:%@
+
+ </select>
+ </td>
+ </tr>
+
+ <tr><td class="titocho" align="right">{{fld_usuario}}:</td>
+ <td align="left" ><input type="text" border="cccccc" name="user" class="insertext" size="20"></td>
+ </tr>
+
+ <tr><td class="titocho" align="right">{{fld_contrasena}}:</td>
+ <td align="left" ><input type="password" border="cccccc" name="pass" class="insertext" size="20"></td>
+ </tr>
+ <tr><td colspan="2" align="center"
+ 	><input type="image" value="Enviar" name="submit" src="imag/login/boton-login.png" class="insertext"></td></tr>
+ </table>
+ <div id="version" >{{label_version}}</div>
+ <div id="logoinmersa" class="{{class_idioma}}" ><img src="imag/pxt.gif" class="null"></div>
+ <div id="copyright" >{{label_copyright}}</div>
+
+</form>
+</div></div>
+
+</body>
+</html>

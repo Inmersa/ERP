@@ -1,0 +1,64 @@
+@%where:tabla|Agentes;where|id_agente = $id_agente_promocion;%@
+<!-- @%db:Agentes.id_agente;%@ -->
+
+<fieldset id="Modif_Agente_Datos" class="fsficha">
+<legend>{{label_datosgenerales}}</legend>
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_tipoagente}}:</td>
+<td>
+@%where:tabla|Tipo_agente;%@
+@%db:Tipo_agente.nombre;%@
+@%end-where:%@
+
+</td>
+</tr>
+</table>
+
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_nombre}}:</td>
+<td>@%db:Agentes.nombre;%@</td>
+<td class="etiqueta">{{fld_telefono1}}:</td>
+<td>@%db:Agentes.telefono1;%@</td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_apellidos}}:</td>
+<td>@%db:Agentes.apellidos;%@</td>
+<td class="etiqueta">{{fld_telefono2}}:</td>
+<td>@%db:Agentes.telefono2;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_direccion}}:</td>
+<td>@%db:Agentes.direccion;%@</td>
+<td class="etiqueta">{{fld_poblacion}}:</td>
+<td>@%db:Agentes.poblacion;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_provincia}}:</td>
+<td>
+ @%where:tabla|Provincias;order|Provincias.nombre;%@
+@%db:Provincias.nombre;%@
+ @%end-where:%@
+
+</td><td class="etiqueta">{{label_cp}}:</td>
+<td>@%db:Agentes.cp;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_comisionbase}}:</td>
+<td>@%db:Agentes.comision_base;%@</td>
+<td class="etiqueta">{{fld_comisiondereparto}}:</td>
+<td>@%db:Agentes.comision_repartida;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_cuentabancaria}}:</td>
+<td colspan="3">@%db:Agentes.cuenta_bancaria;%@</td>
+</tr>
+</table>
+
+</fieldset>
+

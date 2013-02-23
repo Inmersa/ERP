@@ -1,0 +1,5 @@
+#!/bin/bash
+../bin/cifra.inmersa -d $1 scripts/*.php
+../bin/cifra.inmersa -d $1 scripts/buscador/*.php
+#cifra.inmersa -st -c rWQKIYY1KpBg scripts/AccessValidation/*.php
+

@@ -1,0 +1,10 @@
+<div class="barraoscura">
+<div class="titsuperior">&gt; {{frame_MEDIOSDECONTACTO}}</div><div class="alinder">
+@%if:AllowedLink;nuevo_medios_contacto;%@
+<a href="?seccion=nuevo_medios_contacto" class="accesos">{{acc_nuevo}}</a>
+@%end-if:%@
+ </div></div> 
+
+@%plt:Medios_Contacto%@ 
+
+

@@ -1,0 +1,12 @@
+
+
+#encabezadohtml #logoempresa {
+	float: none;
+	display: table-cell;
+}
+
+#encabezadohtml #logoinmersa {
+	display: table-cell;
+	width: 100%;
+}
+

@@ -1,0 +1,107 @@
+<?php
+/*****************************************************************
+** Aplicacion diseñada para Web On Line Studios S.L.            **
+**    Todos los derechos reservados.                            **
+**    Este programa se podra modificar con el consentimiento    **
+**    de Web On Line Studios S.L. Su distribucion queda         **
+**    limitada a Web On Line Studios S.L.								 **
+**    Las posibles modificaciones sobre esta aplicacion ajenas  **
+**    a Web On Line Studios S.L. deberan ser consultadas y		 **
+**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    28014 Madrid. Cualquier otra operacion realizada sobre		**
+**    esta aplicacion queda limitada a Web On Line Studios S.L. **
+**    infringiendo en delito cualquier otra entidad que asi lo	 **
+**    hiciese.																	**
+**																					 **
+** Para mas informacion referente a la licencia de esta			 **
+**    aplicacion referirse al fichero LICENCIA. Caso de que Ud. **
+**    no tenga una copia de este fichero, contacte con Web On	 **
+**    Line Studios S.L. para recibir una copia del mismo			 **
+**																					 **
+** Informacion de Contacto													 **
+**    Josafat Moragrega Fernandez										 **
+**    Engineering																 **
+**    Director Tecnico														 **
+**    tite@wolstudios.com													 **
+**    C/Alcala 18 3º Izda, 28014 Madrid, España						 **
+**																					 **
+**										  (c) Web On Line Studios S.L.	 **
+**                                                              **
+******************************************************************
+*****************************************************************/
+
+
+include("../escritorio/config.php");									/**	  StartUp Config **/
+include("../escritorio/kernel_nocifrado.inc");
+include("../escritorio/modulos/misc.inc");
+include("../escritorio/modulos/document.class.inc");
+include("../escritorio/modulos/order.class.inc");
+include("../escritorio/modulos/invoice.class.inc");
+include("../escritorio/modulos/asiento.class.inc");
+$DEBUG='ON';
+global $id;
+
+$$APP_NAME = new wolSesion($APP_NAME,"Sesion"); 
+$$APP_NAME->init($seccion);
+$oDb = $$APP_NAME->get_db('data');
+$dbcfg = $$APP_NAME->get_db('conf');
+
+if (!is_numeric($id)) {
+	$cons = 'SELECT P.id_pedido FROM Pedidos P LEFT JOIN Pedidos_facturas PF ON (PF.id_pedido=P.id_pedido) JOIN IVAs I ON (P.id_pedido=I.id_pedido) '.
+		'WHERE P.preparado = 1 AND (P.id_proveedor = 0 OR P.id_proveedor IS NULL) AND PF.id_factura IS NULL AND I.monto < 0 GROUP BY P.id_pedido ';
+echo $cons;
+	$tmprs = $oDb->query($cons);
+	if (!$oDb->num_rows($tmprs)) {
+		echo "No he encontrado la referencia de pedido $id ";
+		exit;
+	}
+	debug("Tenemos un total de: ".$oDb->num_rows($tmprs)." Pedidos Pendientes .. ");
+	$lista = array();
+	while ( $aTmp = $oDb->fetch_row($tmprs) ) {
+		array_push($lista,$aTmp[0]);
+	}
+	$oDb->libera($tmprs);
+}
+
+print_r($lista);
+exit;
+if (is_array($lista) AND sizeof($lista)) {
+	foreach ($lista as $id_pedido) {
+		$oPedido = new Order($$APP_NAME->App_Name,'data',inmPed_VENTA);
+		if ($oPedido->dbfill($id_pedido)) {
+			if (!is_array($aPedCli[$oPedido->get_reciever_id()])) $aPedCli[$oPedido->get_reciever_id()] = array();
+			array_push($aPedCli[$oPedido->get_reciever_id()],$oPedido);
+		} else {
+			debug("Error: No se ha podido rellenar el pedido $id_pedido ");
+		}
+		$oPedido = NULL;
+		unset($oPedido);
+	}
+	if (is_array($aPedCli) AND sizeof($aPedCli)) {
+		$aCfg = $$APP_NAME->get_var('_aAppConf');
+		$bResiduo = (bool)$aCfg['invoice_onnew_residual'];
+		$ntot = 0;
+		foreach ($aPedCli as $idcli => $aPeds) {
+			$ntot += sizeof($aPeds);
+			$ts = strtotime('-3 day -17 hours');
+			$fecha = strftime('%Y-%m-%d %H:%M:%S',$ts);
+			debug("Cliente $idcli con : ".sizeof($aPeds)." En: ".$fecha);
+
+			$oFactura = new Invoice($$APP_NAME->App_Name,'data',inmPed_VENTA);
+			if (is_array($aPeds) AND sizeof($aPeds)) {
+				foreach ($aPeds as $oPed) {
+					$oFactura->fillFromOrder($oPed,NULL,$bResiduo);
+				}
+			}
+			if (is_numeric($id_serie_facturacion)) 
+				$oFactura->setSeries($id_serie_facturacion);
+debug("Fecha seria: $fecha");
+			$oFactura->setDate($fecha);
+
+			$oFactura->dbDump();
+			$oFactura=NULL;
+		}
+		debug("En total $ntot pedidos. ");
+	}
+}
+

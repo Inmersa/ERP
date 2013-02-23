@@ -1,0 +1,42 @@
+
+#logoinmersa {
+  background-image:url("imagenes/barragestion.png");
+  background-position: top left;
+  background-repeat: no-repeat;
+  text-align: left;
+}
+
+
+#logoinmersa.internacional {
+  background-image:url("imagenes/barramanagement.png"); 
+}
+
+#logoinmersa.nacional {
+  background-image:url("imagenes/barragestion.png");
+}
+
+#logoinmersa img.null {
+  width: 230px;
+  height: 20px;
+
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#logoempresa {
+  float: right;
+  display: table-cell;
+  text-align:right;
+  background-image:url("imagenes/logo_modulos_defecto.png");
+  background-position: top right;
+  background-repeat: no-repeat;
+}
+
+#logoempresa img.null {
+  width: 199px;
+  height: 19px;
+  margin: 0;
+  padding: 0;
+}
+

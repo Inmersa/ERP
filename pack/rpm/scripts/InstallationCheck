@@ -1,0 +1,169 @@
+#!/bin/bash
+#
+# This installation script just echoes the values of the available 
+# arguments and environmental variables.
+#
+
+function salir() {
+	case $OS in
+		Darwin|darwin)
+			echo "\$retval = $retval"
+			if [ $retval -ne 0 ]; then
+				let "retval=$retval | (3<< 5)";
+			fi;
+		;;
+		Linux|linux|linux-gnu)
+			if [ $retval -ne 0 ]; then
+				echo "Err num; $retval ";
+			fi;
+		;;
+	esac
+
+	echo "END INSTALLCHECK SCRIPT"
+
+	exit $retval
+}
+
+retval=0
+OS=$OSTYPE
+if [ -z "$OS" ]; then OS=`uname -s`; fi;
+echo "START INSTALLCHECK SCRIPT"
+
+MYSQL=`which mysql 2>/dev/null | grep -v "no mysql"`;
+if [ -z "$MYSQL" ]; then 
+	MYSQL=`find /usr -name mysql -type f 2>/dev/null`;
+	if [ -z "$MYSQL" ]; then
+		MYSQL=`find /Library -name mysql -type f 2>/dev/null`;
+	fi;
+	if [ -z "$MYSQL" -o ! -x "$MYSQL" ]; then
+		retval=17; 
+		salir;
+	fi;
+fi;
+
+AWK=`which awk 2>/dev/null | grep -v "no awk"`;
+if [ -z "$AWK" ]; then 
+	retval=16; 
+	salir; 
+fi;
+
+APXS=`which apxs 2>/dev/null | grep -v "no apxs"`;
+if [ -z "$APXS" -a -z "`which httpd 2>/dev/null | grep -v \"no httpd\" `" ]; then
+	retval=19;
+	salir;
+fi;
+
+if [ ! -z "$APXS" ]; then 
+#Buscamod directorio de libreria php
+	PHPDIR=`$APXS -q 'LIBEXECDIR'`;
+	if [ ! -d "$PHPDIR" ]; then
+		retval=19;
+		salir;
+	fi;
+
+	if [ ! -f "$PHPDIR/libphp4.so" ]; then
+		retval=18;
+		salir;
+	fi;
+
+# Buscamos directorio de fichero de configuracion apache
+	APDIR=`$APXS -q 'SYSCONFDIR'`;
+	if [ ! -d "$APDIR" ]; then
+		retval=19;
+		salir;
+	fi;
+
+	if [ ! -f "$APDIR/httpd.conf" ]; then
+		retval=19;
+		salir;
+	fi;
+
+else
+	APFILE=`httpd -V | grep SERVER_CONFIG_FILE| $AWK -F '"' '{{print $2}}'`
+	if [ ! -f "$APFILE" ]; then
+		retval=19;
+		salir;
+	fi;
+
+	PHPFILE=`grep -i LoadModule $APFILE | grep php | $AWK -F ' ' '{{print $3}}'`;
+	if [ -z "$PHPFILE" ]; then
+		retval=19;
+		salir;
+	fi;
+
+	if [ ! -f "$PHPFILE" ]; then
+		retval=18;
+		salir;
+	fi;
+
+fi;
+
+if [ -z "$APFILE" -a ! -z "$APDIR" ]; then APFILE=$APDIR/httpd.conf; fi;
+
+PHPBIN=`which php 2>/dev/null | grep -v "no php"`;
+if [ -z "$PHPBIN" ]; then
+	retval=20;
+	salir;
+fi;
+
+PHPVER=`php -i | grep "^PHP.*Version" | $AWK -F '=>' '{{print $2}}' | $AWK -F ' ' '{{print $1$2$3$4$5$6}}' `
+bUseCurl=0;
+if [ ! -z "$PHPVER" ]; then
+	PHPV1=`echo $PHPVER|$AWK -F '.' '{{print $1}}'`;
+	PHPV2=`echo $PHPVER|$AWK -F '.' '{{print $2}}'`;
+	PHPV3=`echo $PHPVER|$AWK -F '.' '{{print $3}}'|$AWK -F '-' '{{print $1}}'`;
+	if [ "$PHPV1" -ge 4 ]; then
+		if [ "$PHPV2" -ge 3 ]; then
+			if [ "$PHPV3" -ge 5 ]; then
+				bUseCurl=1;
+			fi;
+		fi;
+	fi;
+fi;
+
+if [ $bUseCurl ]; then
+	CURL=`which curl 2>/dev/null | grep -v "no curl"`;
+	if [ -z "$CURL" ]; then
+		retval=21
+		salir;
+	fi;
+	APINIT=`which apachectl 2>/dev/null | grep -v "no apachectl"`;
+	if [ -z "$APINIT" ]; then
+		retval=22
+		salir;
+	fi;
+	DOCROOT=`grep "^DocumentRoot" $APFILE | $AWK -F ' ' '{{print $2}}'`;
+	if [ -z "$DOCROOT" ]; then
+		retval=23;
+		sallir;
+	fi;
+	SERVNAME=`grep "^ServerName" $APFILE | $AWK -F ' ' '{{print $2}}'`;
+	if [ -z "$SERVNAME" ]; then
+		retval=24;
+		sallir;
+	fi;
+	echo "<?php phpinfo(); ?>" > $DOCROOT/tmpinfo.php
+	$APINIT restart 2>&1 >/dev/null
+	RAWPHPCFG=`$CURL http://$SERVNAME/tmpinfo.php 2>/dev/null | grep "Configuration File"`
+	rm -rf $DOCROOT/tmpinfo.php
+else
+	RAWPHPCFG=`$PHPBIN -i | grep "Configuration File" `
+fi;
+
+if [ -z "`echo $RAWPHPCFG | grep td`" ]; then
+	PHPINI=`$PHPBIN -i | grep "Configuration File" | awk -F '=>' '{{print $2}}'`
+	if [ -z "$PHPINI" -o ! -f "$PHPINI" ]; then
+		retval=20;
+		salir;
+	fi;
+else
+	PHPINI=`echo $RAWPHPCFG |awk -F '</td>' '{{print $2}}'|awk -F '>' '{{print $2}}' `
+	if [ -z "$PHPINI" -o ! -f $PHPINI ]; then
+		retval=20;
+		salir;
+	fi;
+fi;
+
+
+salir
+

@@ -1,0 +1,29 @@
+
+. /etc/inmersa.conf
+if [ ! -d "$INMERSA_APP_PATH" ]; then
+   install -d -m 755 $INMERSA_APP_PATH
+fi;
+
+if [ -f $INMERSA_APP_PATH/%{provides}.conf ]; then rm -rf $INMERSA_APP_PATH/%{provides}.conf; fi;
+
+APXS=`which apxs 2>/dev/null | grep -v "no apxs"`;
+if [ ! -z "$APXS" ]; then 
+	APBIN=`$APXS -q 'SBINDIR'`;
+	APBIN=$APBIN/apachectl
+else
+	APBIN='';
+	if [ -f '/etc/init.d/apache' ]; then APBIN='/etc/init.d/apache' 
+	elif [ -f '/etc/init.d/httpd' ]; then APBIN='/etc/init.d/httpd'
+	elif [ -f "`which apachectl 2>/dev/null | grep -i 'no apachectl' `" ]; then APBIN=`which apachectl`
+	fi;
+fi;
+
+if [ -f $APBIN ]; then
+	echo -n "Restarting apache ... "
+	$APBIN restart 
+	echo "ok"
+fi;
+
+exit 0
+
+

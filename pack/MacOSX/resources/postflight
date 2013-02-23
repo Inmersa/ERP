@@ -1,0 +1,94 @@
+#!/bin/bash
+
+PKGPATH=$1;
+DESTDIR=$2;
+MOUNTPOINT=$3;
+SYSROOT=$4;
+retval=0;
+
+function salir() {
+	exit $retval;
+}
+
+if [ ! -z "$TMPDIR" ]; then
+   TEMP=$TMPDIR;
+else 
+   TEMP=$INSTALLER_TEMP;
+fi;
+
+APXS=`which apxs | grep -v "no apxs"`;
+if [ -z "$APXS" ]; then 
+	retval=16; 
+	salir; 
+fi;
+APBIN=`$APXS -q 'SBINDIR'`;
+
+APDIR=`$APXS -q 'SYSCONFDIR'`;
+if [ ! -d "$APDIR" ]; then
+	retval=19;
+	salir;
+fi;
+if [ ! -f "$APDIR/httpd.conf" ]; then
+	retval=19;
+	salir;
+fi;
+HTTPDCONF="$APDIR/httpd.conf";
+
+PHPDIR=`$APXS -q 'LIBEXECDIR'`;
+if [ ! -d "$PHPDIR" ]; then
+	retval=19;
+	salir;
+fi;
+
+if [ ! -f "$PHPDIR/libphp4.so" ]; then
+	retval=18;
+	salir;
+fi;
+PHPLIB="$PHPDIR/libphp4.so";
+
+PHPINI=`php -i | grep "^Configuration File" | awk -F '=>' '{{print $2}}'`
+if [ -z "$PHPINI" -o ! -f $PHPINI ]; then
+	retval=20;
+	salir;
+fi;
+
+if [ ! -d "$DESTDIR/httpdapps" ]; then
+	mkdir $DESTDIR/httpdapps
+fi;
+
+if [ ! -d "$DESTDIR/backup" ]; then
+   mkdir $DESTDIR/backup
+fi;
+
+if [ ! -f $DESTDIR/backup/httpd_conf.bak ]; then
+   cp $HTTPDCONF $DESTDIR/backup/httpd_conf.bak;
+fi;
+
+echo "dandole al httpd... " >> /tmp/install.log;
+
+awk -v vhostfile="$DESTDIR/httpdapps/*.conf" -v libdir="$PHPDIR" -f $PKGPATH/Contents/Resources/httpd_conf.awk $HTTPDCONF > $TEMP/httpd.conf && cp $TEMP/httpd.conf $HTTPDCONF;
+
+if [ ! -f $DESTDIR/backup/php_ini.bak ]; then
+   cp $PHPINI $DESTDIR/backup/php_ini.bak
+fi;
+awk -f $PKGPATH/Contents/Resources/php_ini.awk $PHPINI > $TEMP/php.ini && cp $TEMP/php.ini $PHPINI;
+
+CLIENTE='macosx'
+VHOST='iempresa'
+
+VHOSTFILE=$DESTDIR/httpdapps/IEmpresa-$CLIENTE.conf
+
+echo "Generando vhost ... $VHOSTFILE" >> /tmp/install.log
+cat<<EOF>$VHOSTFILE
+<VirtualHost *:80>
+    ServerAdmin carlos@biomundo.com
+    DocumentRoot $DESTDIR/IEmpresa-$CLIENTE/vhost/
+    ServerName $VHOST
+</VirtualHost>
+EOF
+
+if [ -f $APBIN/apachectl ]; then
+   $APBIN/apachectl restart
+fi;
+exit 0
+

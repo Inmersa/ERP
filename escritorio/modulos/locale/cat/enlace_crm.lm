@@ -1,0 +1,4 @@
+CRM_NORETURNLINK	101	No s'ha pogut trobar l'enllaç de retorn.
+CRM_NOVALIDUSER	101	No té usuari CRM vàlid
+CRM_NOCRM	101	No té usuari CRM vàlid
+CRM_NOCLIENTUSER 	104	El Client {{cliente}} non té un usuari vàlid en el CRM

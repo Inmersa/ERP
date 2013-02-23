@@ -1,0 +1,52 @@
+@%where:Albaranes;where|id_albaran = $id_albaran;%@
+<!-- @%db:Albaranes.id_albaran;%@ @%db:Pedidos.id_direccion;%@ -->
+<fieldset id="DatosAlbaran" class="fsficha">
+<legend>{{frame_cabeceraalbaran}}</legend>
+<table class="full">
+<tr>
+<td class="etiqueta" colspan="2">{{label_referencia}}:</td>
+<td colspan="2">@%db:Albaranes.referencia;%@</td>
+<td class="etiqueta" colspan="2">{{label_almacen}}:</td>
+<td colspan="2">@%db:Almacenes.nombre;%@</td>
+</tr>
+<tr>
+<td class="etiqueta" colspan="2">{{label_refpedido}}:</td>
+<td colspan="2">
+@%if:esta_vacio;Pedidos.id_direccion;%@
+<a href="?seccion=bo_pedido_proveedor&id_pedido=@%db:Pedidos.id_pedido;%@">@%db:Pedidos.referencia;%@</a>
+@%else:%@
+<a href="?seccion=bo_pedido_cliente&id_pedido=@%db:Pedidos.id_pedido;%@">@%db:Pedidos.referencia;%@</a>
+@%end-if:%@
+</td>
+<td class="etiqueta" colspan="2">{{label_bultos}}:</td>
+<td  colspan="2">@%db:Albaranes.bultos;%@</td>
+</tr>
+<tr><td class="etiqueta" colspan="2">{{fld_observaciones}}:</td>
+<td colspan="6" >@%db:reemplazar_salto{Albaranes.observaciones};%@</td> 
+</tr>
+<tr><td class="etiqueta" colspan="2">{{label_fecha}}:</td>
+<td>@%db:colocar_fecha{Albaranes.fecha};%@</td>
+<td class="etiqueta" colspan="2">{{fld_transportista}}:</td>
+<td colspan="3"><!-- @%db:Albaranes.id_transportista;%@ -->
+@%where:tabla|Transportistas;nombre|transporte;%@
+@%db:Transportistas.nombre;%@
+@%end-where:%@
+
+</td></tr>
+
+<tr>
+<td class="titulotb" colspan="8">{{label_estados}} </td>
+</tr>
+<tr>
+<td class="etiqueta">{{label_P}}</td>
+<td class="check">@%db:si_no_flag{Albaranes.preparado}%@</td>
+<td class="etiqueta">{{label_E}}</td>
+<td class="check">@%db:si_no_flag{Albaranes.enviado}%@</td>
+<td class="etiqueta">{{label_C}}</td>
+<td class="check">@%db:si_no_flag{Albaranes.confirmacion}%@</td>
+<td class="etiqueta">{{label_D}}</td>
+<td class="check">@%db:si_no_flag{Albaranes.devolucion}%@</td>
+</tr>
+</table>
+</fieldset>
+

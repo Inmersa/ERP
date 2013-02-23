@@ -1,0 +1,7 @@
+
+<div class="tituloseccion">&gt; {{frame_recorridos}}</div>
+
+@%plt:buscador_seccion;%@
+
+@%plt:Listado_Recorridos%@ 
+

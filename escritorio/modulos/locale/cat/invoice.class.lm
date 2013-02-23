@@ -1,0 +1,23 @@
+INVOICE_NODB	100	No s'ha trobat instància vàlida de conexió a la BDD ({{dbname}}).
+INVOICE_LOCKED	100	Factura bloquejada. Verifique els dats d'emissor i receptor.
+INVOICE_NODISCOUNT_ORDER	100	Línea {{idx}} no es pot descomptar de la referència {{ref}} al pertànyer a una comanda ({{pedido}}).
+INVOICE_COMPANY_NOTFOUND	100	No s´ha pogut trobar l'empresa {{id}}.
+INVOICE_PENDING_CONTRACT	100	Impossible emetre la Fra {{fra}} per no coneixer quantitats i/o imports d'algun dels contractes que contany.
+INVOICE_ISSUED_DRAFTS	100	Alguns dels efectes de la factura ja han segut emetres el receptor.
+INVOICE_NODBRECORD_NOACENTRY	100	Factura no comptabilitzada per no existir identificador en la BDD.
+INVOICE_NODBRECORD	100	Factura no registrada en la BDD.
+INVOICE_ACENTRY_FAILED	100	No s'ha pogut obtindre/crear l'instancia de l'apunt comptable.
+INVOICE_ACENTRY_EXISTS	100	Factura terminada. (ID:{{id}}).
+INVOICE_NODOCUMENT_PARAM	100	{{fnc}} ha rebut un paràmetre de tipus erroni al no pertànyer a una subclasse de tipus document.
+INVOICE_ORDER_MODE_MISMATCH	100	Modes íncompatibles amb la comanda. No es pot facturar en vendes una comanda de compres, ni veceversa.
+INVOICE_ORDER_ISSUER_MISMATCH	100	L'emisor de la comanda no concideix amb el de la Factura.
+INVOICE_ORDER_RECIEVER_MISMATCH	100	El receptor de la comanda no concideix amb el de la Factura.
+INVOICE_ORDER_CURRENCY_MISMATCH	100	La divisa de la comanda no concideix amb la de la Factura.
+INVOICE_ORDER_PAYMENT_MISMATCH	100	La Factura de paga de la comanda no concideix amb la de la Factura.
+INVOICE_CONTRACT_NOPERIOD	100	El contract {{contract}} no pot ésser processat al mancar d'informació sobre els termes de facturació.
+INVOICE_NOHEADERS	100	No s'ha pogut obtindre els capçels de la factura.
+INVOICE_NODETAILS	100	No s´ha pogut obtindre els detalls de la factura.
+INVOICE_NOISSUER	100	Factura {{ref}} sense emissor.
+INVOICE_NORECIEVER	100	Factura {{ref}} sense receptor.
+INVOICE_NOIDPRODUCT	100	Referència de producte inexistent en línea {{idx}}.
+INVOICE_DBFILL	101	No s'ha pogut obtindre la faiço ID {{id}} sollicitzada.

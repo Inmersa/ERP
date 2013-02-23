@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+# This installation script just echoes the values of the available 
+# arguments and environmental variables.
+#
+
+function salir() {
+	if [ $retval -ne 0 ]; then
+		let "retval=$retval | (3<< 5)"
+	fi;
+
+	echo "\$retval = $retval"
+	echo "END INSTALLCHECK SCRIPT"
+
+	exit $retval
+}
+
+retval=0
+echo "START INSTALLCHECK SCRIPT"
+
+APXS=`which apxs | grep -v "no apxs"`;
+if [ -z "$APXS" ]; then 
+	retval=16; 
+	salir; 
+fi;
+
+MYSQL=`which mysql | grep -v "no mysql"`;
+if [ -z "$MYSQL" ]; then 
+	MYSQL=`find /usr -name mysql -type f 2>/dev/null`;
+	if [ -z "$MYSQL" ]; then
+		MYSQL=`find /Library -name mysql -type f 2>/dev/null`;
+	fi;
+	if [ -z "$MYSQL" -o ! -x "$MYSQL" ]; then
+		retval=17; 
+		salir;
+	fi;
+fi;
+
+PHPDIR=`$APXS -q 'LIBEXECDIR'`;
+if [ ! -d "$PHPDIR" ]; then
+	retval=19;
+	salir;
+fi;
+
+if [ ! -f "$PHPDIR/libphp4.so" ]; then
+	retval=18;
+	salir;
+fi;
+
+APDIR=`$APXS -q 'SYSCONFDIR'`;
+if [ ! -d "$APDIR" ]; then
+	retval=19;
+	salir;
+fi;
+
+if [ ! -f "$APDIR/httpd.conf" ]; then
+	retval=19;
+	salir;
+fi;
+
+PHPINI=`php -i | grep "^Configuration File" | awk -F '=>' '{{print $2}}'`
+if [ -z "$PHPINI" -o ! -f $PHPINI ]; then
+	retval=20;
+	salir;
+fi;
+
+salir
+

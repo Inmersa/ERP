@@ -1,0 +1,38 @@
+
+<table width="644" border="0" cellspacing="0" cellpadding="0">
+ <tr>
+ <td bgcolor="#DBE0E3" class="etiqueta" align="center"></td>
+ <td bgcolor="#DBE0E3" width="120" class="etiqueta">Referència</td>
+ <td bgcolor="#DBE0E3" class="etiqueta" >Usuari</td>
+ <td bgcolor="#DBE0E3" class="etiqueta" align="center" width="120">Data de alta</td>
+ <td bgcolor="#DBE0E3" class="etiqueta" align="center" width="120">Data aproximada finalìtzació</td>
+ <td bgcolor="#DBE0E3" class="etiqueta" width="50" align="center">Estat</td>
+ </tr>
+ <form name="borrar_incidencias" action="?@%env:QUERY_STRING%@" method="post">
+@%where:tabla|Albaranes_Incidencias_CRM;nolink|1;where|id_albaran = $id_documento;%@
+<!-- @%db:Albaranes_Incidencias_CRM.id_incidencia;%@ @%set:id_incidencia=Albaranes_Incidencias_CRM.id_incidencia;%@ -->
+@%where:db|db_crm;tabla|Incidencias;where|id_incidencia = $id_incidencia;%@ 
+<!-- AND Incidencias.id_prioridad=Margenes_tiempo.id_prioridad; -->
+ <tr>
+ <td bgcolor="#DBE0E3" height="22" class="etiqueta"> </td>
+ <td class="etiqueta">
+ <a href="@%get:LinkCRM;%@/?seccion=incidencia&id=@%db:Incidencias.id_incidencia%@"
+ >INC-@%db:Incidencias.id_incidencia%@ @%db:Incidencias.nota_apertura%@</a></td>
+ <td align="center" class="texto">
+ <!-- @%db:Incidencias.id_usuario_gestor;%@ @%set:id_gestor=Incidencias.id_usuario_gestor%@ -->
+ @%where:db|db_crm;tabla|Usuarios;where|id_usuario = $id_gestor;nolink|1;%@ @%db:Usuarios.nombre%@ @%db:Usuarios.apellidos%@ @%end-where:%@ </td>
+ <td align="center" class="texto">@%db:colocar_fecha{Incidencias.fecha}%@</td>
+ <!-- @%wdb:Margenes_tiempo.horas_estimadas%@ -->
+ <td align="center"> <!-- @%wdb:DATE_ADD(Incidencias.fecha,INTERVAL Margenes_tiempo.horas_estimadas HOUR) as 'fecha_estimada'%@ -->
+ </td>
+ <td align="center"><!-- @%db:Incidencias.estado%@ -->
+ <img src="imag/@%func:luz_estado_incidencia;Incidencias.estado;triangulo.png;verde.jpg%@">
+ </td>
+ </tr>
+ @%end-where:%@
+
+ @%end-where:%@
+
+</form></table>
+
+ 

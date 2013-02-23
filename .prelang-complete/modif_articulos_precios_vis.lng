@@ -1,0 +1,81 @@
+@%where:tabla|Articulos;where|Articulos.id_articulo = $id_articulo and Empresas_articulos.id_empresa = $id_empresa;%@
+<fieldset class="fsficha">
+<legend>{{frame_preciosarticulo}}</legend>
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_ultimamodificacion}}:</td>
+<td>@%db:colocar_fecha{Empresas_articulos.ultima_modificacion}%@</td>
+<td class="etiqueta">{{fld_fechadealta}}:</td>
+<td >@%db:colocar_fecha{Empresas_articulos.fecha_alta};%@</td>
+<td class="etiqueta">{{fld_baja}} :</td>
+<td class="check">
+@%if:!esta_vacio;Empresas_articulos.fecha_baja;%@
+@%db:descolocar_fecha{Empresas_articulos.fecha_baja};%@
+@%end-if:%@
+</td>
+</tr>
+</table>
+
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_fabricacionpropia}}</td>
+<td class="check">@%db:si_no_flag{Empresas_articulos.fabricacion_propia}%@</td>
+<td class="etiqueta">{{fld_stock}}</td>
+<td class="check">@%db:si_no_flag{Empresas_articulos.stock}%@</td>
+<td class="etiqueta">{{fld_webtpv}}</td>
+<td class="check">@%db:si_no_flag{Empresas_articulos.frecuente}%@</td>
+</tr>
+</table>
+
+<table class="full">
+<tr><td class="etiqueta" >{{fld_ref}}:</td>
+<td colspan="5">@%db:Empresas_articulos.referencia;%@</td></tr>
+
+<tr><td class="etiqueta" >{{label_descripcion}}:</td>
+<td colspan="5">@%db:reemplazar_salto{Empresas_articulos.descripcion};%@</td></tr>
+
+<tr><td class="etiqueta">{{fld_pesotransporte}}:</td>
+<td colspan="5">@%db:Articulos.peso_unidad;%@</td></tr>
+
+<tr><td class="etiqueta">{{fld_dtoporvolumen}}:</td>
+<td >@%db:Empresas_articulos.dto_vol;%@ %</td>
+<td class="etiqueta">{{fld_bultosminimos}} :</td>
+<td colspan="3">@%db:Empresas_articulos.dto_vol_bultos;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_stockestimado}}:</td>
+<td >@%db:Empresas_articulos.stock_ficticio;%@</td>
+<td class="etiqueta">{{fld_stockminimo}}:</td>
+<td>@%db:Empresas_articulos.stock_minimo;%@</td>
+<td class="etiqueta">{{fld_stockmaximo}}:</td>
+<td>@%db:Empresas_articulos.stock_maximo;%@</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_udsbulto}}:</td>
+<td>@%db:Empresas_articulos.unidades_bulto%@</td>
+<td class="etiqueta">{{fld_bultoscapa}}:</td>
+<td>@%db:Empresas_articulos.bultos_capa_palet%@</td>
+<td class="etiqueta">{{fld_capaspalet}}:</td>
+<td>@%db:Empresas_articulos.capas_palet%@</td>
+</tr>
+
+<tr><td class="etiqueta">{{label_precio1}}:</td>
+<td >@%db:Empresas_articulos.precio_costo%@</td>
+<td class="etiqueta">{{label_precio2}}:</td>
+<td>@%db:Empresas_articulos.precio_standard%@</td>
+<td class="etiqueta">{{label_precio3}}:</td>
+<td>@%db:Empresas_articulos.precio_venta%@</td>
+</tr>
+
+<tr><td class="etiqueta">{{label_precio4}}:</td>
+<td >@%db:Empresas_articulos.precio_4%@</td>
+<td class="etiqueta">{{label_precio5}}:</td>
+<td>@%db:Empresas_articulos.precio_5%@</td>
+<td class="etiqueta">{{label_precio6}}:</td>
+<td>@%db:Empresas_articulos.precio_6%@</td>
+</tr>
+
+</table></fieldset>
+

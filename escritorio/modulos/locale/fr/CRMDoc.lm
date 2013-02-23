@@ -1,0 +1,12 @@
+DOC_NO_DOCROOT	90	Path à la racine d'application (doc_root) non trouvée
+DOC_PATH_NOTFOUND	101	Path {{path}} non trouvée
+DOC_FILE_NOTFOUND	102	File {{file}} non trouvée
+DOC_FILE_RENAMED	103	File {{origen}} existe déjà, retitrant à {{destino}}
+DOC_FILE_NOTRENAMED	104	File {{origen}} déjà existe, ne pourrait pas le retitrer
+DOC_RENAME_FAILED	105	File {{origen}} n'a pas pu être déplacé à {{destino}}. Des problèmes d'accès?
+DOC_UPLOAD_FAILED	106	File {{file}} n'a pas pu être téléchargé. Des problèmes d'accès?
+DOC_FILE_NOTDELETED	107	File {{file}} n'a pas pu être téléchargé. Des problèmes d'accès?
+DOC_NO_DEFAULTDOCTYPE	108	Aucun type de document de défaut n'a configuré
+DOC_MAXSIZE_EXCEEDED	109	Volume de fichier maximum de {{size}} Kbs excédé
+DOC_DOCTYPE_UNCHANGED	110	N'a pas pu changer en {{id}} le type de document
+DOC_MIME_NOTFOUND	501	Mime type {{mime}} il n'est pas dans ma liste

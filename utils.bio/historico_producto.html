@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<TITLE>Historico de Clientes</TITLE>
+</HEAD>
+<BODY>
+<H1>Solicitar Informe Historico de Ventas en un periodo para un Cliente</H1>
+<FORM ACTION="historico_cliente.php" METHOD="post">
+<TABLE celspacing=4 cellpadding=5>
+<TR> <TD>ID Cliente</TD> <TD>Fecha Inicio</TD> <td>Fecha Fin</td><td>N Columnas Extra</td> </TR>
+<TR>
+<TD align="center"><INPUT TYPE="text" NAME="data[id_cliente]" SIZE=8></TD>
+<TD align="center"><INPUT TYPE="text" NAME="data[Desde]" SIZE=20 value="01/01/2005" ></TD>
+<TD align="center"><INPUT TYPE="text" NAME="data[Hasta]" SIZE=20></TD>
+<TD align="center"><INPUT TYPE="text" NAME="data[num_extra]" SIZE=5 value="4"></TD>
+</TR>
+
+<TR><TD COLSPAN=2 align="center">
+<INPUT TYPE=SUBMIT VALUE="Enviar">
+</TD></TR>
+</table>
+</FORM>
+</BODY>
+</HTML>

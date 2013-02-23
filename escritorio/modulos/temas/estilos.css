@@ -1,0 +1,211 @@
+
+BODY {
+	margin:10px;
+}
+FORM {
+	margin:0px;
+	padding:0px;
+	vertical-align: top;
+}
+INPUT.num {
+	text-align: right;
+}
+INPUT.fecha {
+	text-align: right;
+}
+DIV.spacer {
+	clear: both;
+	padding:0px 0px 0px 0px;
+}
+#cabecera {
+	text-align:right;
+	padding:4px;
+}
+#cuerpo {
+	position:relative;
+	padding:1px 0px 0px 0px;
+}
+#contenido {
+	clear: both;
+}
+#buscadorgeneral {
+	clear:both;
+	text-align: right;
+	margin: 1px 0 1px 0;
+	padding: 5px 0 5px 2px;
+	display: block;
+	background-color:#ebeced;
+}
+
+.enviar {
+	text-align:center;
+	padding:10px;
+}
+.error {
+	margin:1px 0px 0px 1px;
+	padding:4px;
+	float:bottom;
+}
+.barraoscura {
+	padding:6px 10px 6px 10px;
+	margin:1px 0px 0px 0px;
+	text-align:right;
+	height:15px;
+	vertical-align:baseline;
+}
+.barraoscurai {
+	padding:6px 20px 6px 20px;
+	margin:1px 0px 0px 0px;
+	display: run-in;
+	padding:6px 10px 6px 10px;
+	height:15px;
+	vertical-align:baseline;
+}
+.titsuperior {
+	float:left;
+}
+.alinder {
+	text-align:right;
+	display: run-in;
+}
+.buscadorinterior {
+	text-align:right;
+	display: run-in;
+	padding:6px 20px 6px 20px;
+	margin:1px 0px 0px 0px;
+}
+.botonera {
+	text-align:left;
+	float:left;
+	margin:0px 0px 0px 5px;
+}
+
+.resultados {
+	margin:1px 0px 0px 0px;
+	padding:4px 20px 4px 20px;
+}
+
+/*cabecera*/
+#logo {
+	float: left;
+	text-align:left;
+}
+#logoempresa {
+	text-align:right;
+}
+
+#barra1 {
+	clear:both;
+	display:inline;
+}
+#barra2 {
+	clear:both;
+	padding:6px;
+	height:auto;
+	display:run-in;
+}
+#accesosdir {
+	margin:0px 0px 0px 10px;
+	float: left;
+}
+#botbarra2 {
+	text-align:right;
+	white-space: nowrap;
+}
+#usuario {
+	text-align: right;
+	float: left;
+}
+
+.fondotela {
+	text-align:right;
+}
+
+/*tablas*/
+.full TD {
+	padding:5px;
+}
+.fullstruct TD {
+	padding:5px;
+}
+TD {
+	vertical-align:top;
+}
+TABLE {
+	border-collapse:collapse;
+	width:100%;
+}
+TABLE.login {
+	border-collapse:collapse;
+	width:500px; 
+	float:bottom;
+	vertical-align:baseline;
+}
+
+.titulotb {
+	text-align:center;
+	padding:3px;
+}
+.caption {
+	text-align:center;
+	padding:10px;
+}
+.check {
+	text-align:center;
+	padding:2px;
+	width:30px;
+}
+TABLE.full {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: hide;
+}
+.titul1{
+	text-align:right;
+}
+.rail{
+	text-align:right;
+}
+
+/* Titulo 1 Alineado a la izda */
+.titul1al{
+	text-align:left;
+}
+
+/*imagenes*/
+#accesosdir IMG {
+	vertical-align:middle;
+	margin:0px 10px 0px 10px;
+}
+.imgaccesosdir {
+	width:15px;
+	height:15px;
+	border:none;
+	background-image:url('../../imag/accesosdirectos.png');
+}
+.imgayuda {
+	width:19px;
+	height:17px;
+	border:none;
+	background-image:url('../../imag/ayuda.jpg');
+}
+.imgprint {
+	width:19px;
+	height:17px;
+	border:none;
+	background-image:url('../../imag/impri.gif');
+}
+.imgnoayuda {
+	width:19px;
+	height:17px;
+	border:none;
+	background-image:url('../../imag/noayuda.jpg');
+}
+
+/*imagenes articulos*/
+.tdimgarticulo {
+	padding:10px;
+	text-align:center;
+}
+

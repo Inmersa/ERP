@@ -1,0 +1,124 @@
+
+FORM {
+	margin:0;
+	padding:0;
+	white-space: nowrap;
+}
+
+/**** TIPOS DE DATO ****/
+/* Numericos */
+TD.longnum INPUT, INPUT.longnum {
+	text-align: right;
+	width: 85px;
+}
+
+TD.num INPUT, INPUT.num {
+	text-align: right;
+	width: 45px;
+}
+
+TD.mininum INPUT, INPUT.mininum {
+	text-align: right;
+	width: 30px;
+}
+
+TD.nanonum INPUT, INPUT.nanonum {
+	text-align: right;
+	width: 17px;
+}
+
+/* Tiempo */
+TD.fecha INPUT, INPUT.fecha {
+	text-align: right;
+	width: 65px;
+}
+
+TD.fechahora INPUT, INPUT.fechahora {
+	text-align: right;
+	width: 100px;
+}
+
+
+/* Texto */
+TD.longtext INPUT, INPUT.longtext {
+	width: 300px;
+	margin: 0;
+	padding: 0;
+}
+
+TD.texto INPUT, INPUT.texto {
+	width: 200px;
+	margin: 0;
+	padding: 0;
+}
+
+TD.minitext INPUT, INPUT.minitext, TD.minitexto INPUT, INPUT.minitexto {
+	width: 100px;
+}
+
+TD.nanotexto INPUT, INPUT.nanotexto {
+	width: 50px;
+	text-align: right;
+}
+
+TD.desc TEXTAREA, TEXTAREA.desc {
+	width: 280px;
+	height: 75px;
+	margin: 0;
+	padding: 0;
+}
+
+TD.longdesc TEXTAREA, TEXTAREA.longdesc {
+	width: 680px;
+	height: 75px;
+	margin: 0;
+	padding: 0;
+}
+
+
+/*** Campos especificos ***/
+TD.importe INPUT, INPUT.importe {
+	text-align: right;
+	width: 65px;
+	/** background-color: #CA8664; **/
+}
+
+TD.descuento INPUT, INPUT.descuento, TD.pto INPUT, INPUT.pto {
+	text-align: right;
+	width: 40px;
+}
+
+TD.cantidad INPUT, INPUT.cantidad {
+	text-align: right;
+	width: 55px;
+}
+
+TD.bultos INPUT, INPUT.bultos {
+	text-align: right;
+	width: 35px;
+}
+
+TD.cc INPUT, INPUT.cc {
+	text-align: right;
+	width: 75px;
+}
+
+TD.bban INPUT, INPUT.bban {
+	text-align: right;
+	width: 135px;
+}
+
+TD.telefono INPUT, INPUT.telefono {
+	text-align: right;
+	width: 75px;
+}
+
+
+TD.email INPUT, INPUT.email {
+	width: 180px;
+}
+
+TD.url INPUT, INPUT.url {
+	width: 180px;
+}
+

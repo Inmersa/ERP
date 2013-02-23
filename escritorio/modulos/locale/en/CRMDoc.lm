@@ -1,0 +1,12 @@
+DOC_NO_DOCROOT	90	path to the application root (doc_root) not found.
+DOC_PATH_NOTFOUND	101	path {{path}} not found
+DOC_FILE_NOTFOUND	102	file {{file}} not found
+DOC_FILE_RENAMED	103	file {{origen}} already exists, renaming to {{destino}}
+DOC_FILE_NOTRENAMED	104	file {{origen}} already exists, could not rename it
+DOC_RENAME_FAILED	105	file {{origen}} could not be moved to {{destino}}. Access problem?
+DOC_UPLOAD_FAILED	106	file {{file}} could not be uploaded. Access problem?
+DOC_FILE_NOTDELETED	107	file {{file}} could not be uploaded. Access problem?
+DOC_NO_DEFAULTDOCTYPE	108	no default document type configured.
+DOC_MAXSIZE_EXCEEDED	109	Maximum file size of {{size}} Kbs exceeded.
+DOC_DOCTYPE_UNCHANGED	110	Could not change to {{id}} the DocumentType.
+DOC_MIME_NOTFOUND	501	mime type {{mime}} is not in my list.

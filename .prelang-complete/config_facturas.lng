@@ -1,0 +1,38 @@
+
+<fieldset class="fsficha">
+<legend>{{frame_cfgfacturas}}</legend>
+
+<table class="full"><tbody><tr>
+<td class="etiqueta" >{{cfg_defaultinstallment}}</td>
+<td ><select name="_main[invoice_default_installment]" >
+<option value="1" 
+	@%if:equals;_aAppConf[invoice_default_installment];1;%@
+	selected="selected" 
+	@%end-if:%@
+>{{fld_abonoenefectosycuenta}}</option>
+<option value="2" 
+	@%if:equals;_aAppConf[invoice_default_installment];2;%@
+	selected="selected" 
+	@%end-if:%@
+>{{fld_abonoenefectosydevolucion}}</option>
+<option value="3" 
+	@%if:equals;_aAppConf[invoice_default_installment];3;%@
+	selected="selected" 
+	@%end-if:%@
+>{{fld_abonoendevolucion}}</option>
+<option value="4" 
+	@%if:equals;_aAppConf[invoice_default_installment];4;%@
+	selected="selected" 
+	@%end-if:%@
+>{{fld_abonoencuenta}}</option>
+
+</select></td>
+
+<td class="etiqueta" >{{cfg_consolidar_pedidoresidual}}</td>
+<td class="check" ><input type="checkbox" name="_main[invoice_onnew_residual]" value="1"
+	@%func:check_flag;_aAppConf[invoice_onnew_residual];%@ /></td>
+
+</tr></tbody></table>
+
+</fieldset>
+

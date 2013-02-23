@@ -1,0 +1,15 @@
+
+%attr(777,-,-) %dir %{install_path}/vhost/catalogo
+
+%attr(700,-,-) %docdir %{install_path}/doc
+%attr(777,-,-) %dir %{install_path}/vhost/escritorio/documentos/
+%attr(755,-,-) %dir %{install_path}/vhost/escritorio/imag/
+%attr(755,-,-) %dir %{install_path}/vhost/escritorio/imag/iconos/
+%attr(755,-,-) %dir %{install_path}/vhost/escritorio/imag/login/
+
+%attr(666,-,-) %{install_path}/vhost/catalogo/*.*
+%attr(444,-,-) %{install_path}/vhost/escritorio/imag/*.*
+%attr(755,-,-) %{install_path}/vhost/escritorio/imag/login/arana.png
+%attr(755,-,-) %{install_path}/vhost/escritorio/imag/login/boton-login.png
+%attr(444,-,-) %{install_path}/vhost/escritorio/imag/iconos/*.*
+

@@ -1,0 +1,8 @@
+MISC_STOCK_LOC_MOVED	500	Article (Lot:{{lote}}/Caducité:{{fcad}}) placé dans une autre localisation (Plante:{{planta}} Couloir:{{pasillo}} File:{{fila}} Colonne:{{columna}}).
+MISC_STOCK_LOC_UNDEFINED	101	Erreur indéfinie en obtenant les possibles localisations du produit {{referencia}}.
+MISC_STOCK_LOC_NEW	500	Article (Lot:{{lote}}/Caducité:{{fcad}}) asignado en localisation (Plante:{{planta}} Couloir:{{pasillo}} File:{{fila}} Colonne:{{columna}}).
+MISC_STOCK_LOC	500	Article (Lot:{{lote}}/Caducité:{{fcad}}) colocado dans sa localisation (Plante:{{planta}} Couloir:{{pasillo}} File:{{fila}} Colonne:{{columna}}).
+MISC_PRODUCT_INVOICED	501	 L'article {{referencia}} a été facturé, it's imposible pour changer n'importe quoi. 
+MISC_EFLBL_TOTAL	505	Total Effets
+MISC_EFLBL_PAGADO	506	Quantité Payée
+MISC_ALLBL_VALOR	507	Évaluation

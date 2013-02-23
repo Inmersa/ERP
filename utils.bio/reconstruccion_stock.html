@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<TITLE>Cambio de varios Stocks Estimados de distintos IDs Articulo</TITLE>
+</HEAD>
+<BODY>
+<H1>Cambiar Stock de Lista de Referencias</H1>
+<form action="reconstruccion_stock.php" method="post" enctype="multipart/form-data">
+
+Fecha de Inventario: <input type="text" name="fecha" value="dd/mm/aaaa"><br>
+Inventario: <input type="file" name="inventario" > <br>
+
+<input type="checkbox" name="solo_estimado" value="1">: Reconstruccion _SOLO_ del Stock Estimado <br>
+<fieldset class="fsficha" >
+<legend > Reconstruccion Stock Real</legend>
+Fecha FIN de Periodo _valido_ de _facturacion_ : <input type="text" name="fecha_fin" value="dd/mm/aaaa"><br>
+<input type="checkbox" name="usar_facturas" value="1">: Reconstruccion en base a Facturas (sino, se hara en base a Albaranes) <br>
+</fieldset>
+
+<br>
+Texto separado por :
+<input type="radio" name="sep" value="\t" selected="selected" >Tabulador
+<input type="radio" name="sep" value="," >Coma <br>
+
+<input type="submit" value="Enviar">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+BUDGET_NODB	100	Não encontrado uma conexão válida BDD ({{dbname}}).
+BUDGET_LOCKED	100	Orçamento Bloqueado. Verifiquem os dados de l'émetteur e o receptor.
+BUDGET_NODISCOUNT_ORDER	100	A linha {{idx}} que pertence à referência  {{ref}}  não pode ser deduzida na encomenda ({{pedido}}).
+BUDGET_COMPANY_NOTFOUND	100	Foi impossível encontrar l'entreprise {{id}}.
+BUDGET_PENDING_CONTRACT	100	Foi impossível d'émettre o orçamento {{fra}} porque algumas quantidades são desconhecidas.
+BUDGET_ISSUED_DRAFTS	100	Alguns Ordems de Pagamento foram emitidos ao receptor.
+BUDGET_NODBRECORD_NOACENTRY	100	"Orçamento não contabilizado; não identificador BDD"
+BUDGET_NODBRECORD	100	Orçamento não registado em BDD.
+BUDGET_ACENTRY_FAILED	100	Foi impossível criar/obter l'enregistrement pedido.
+BUDGET_NODOCUMENT_PARAM	100	{{fnc}} recebeu um parâmetro errado non relacionado à nenhum documento sous-classe.
+BUDGET_ORDER_MODE_MISMATCH	100	Não compatível com a encomenda é impossível facturar em vendas ou compras ou à o que é oposto.
+BUDGET_ORDER_ISSUER_MISMATCH	100	L'émetteur da encomenda n'est não o mesmo que l'émetteur do orçamento.
+BUDGET_ORDER_RECIEVER_MISMATCH	100	O receptor da encomenda n'est não o mesmo que o receptor do orçamento.
+BUDGET_ORDER_CURRENCY_MISMATCH	100	A Divisa da encomenda n'est não a mesma que a moeda do orçamento.
+BUDGET_ORDER_PAYMENT_MISMATCH	100	O método de pagamento da encomenda n'est não o mesmo que o do orçamento.
+BUDGET_CONTRACT_NOPERIOD	100	O contrato {{contract}} não pode ser acusado por falta d'information sobre os períodos de facturação.
+BUDGET_NOHEADERS	100	Foi impossível d'obtenir as cabeças do orçamento.
+BUDGET_NODETAILS	100	Foi impossível d'obtenir os detalhes do orçamento.
+BUDGET_NOISSUER	100	Orçamento {{ref}} sem emissor.
+BUDGET_NORECIEVER	100	Orçamento {{ref}} sans récepteur.
+BUDGET_NOIDPRODUCT	100	A referência d'article n'existe não em linha: {{idx}}.
+BUDGET_DBFILL    	101	Orçamento impossível d'obtenir: ID {{id}}.
+	 	

@@ -1,0 +1,4 @@
+<div class="tituloseccion">&gt; {{frame_LISTADODEARTICULOS}}</div>
+
+@%plt:Listado_Articulos%@ 
+

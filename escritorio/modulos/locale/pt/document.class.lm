@@ -1,0 +1,9 @@
+
+DOCUMENT_LOCKED  100     O Documento está bloqueado. Não pode ser alterado.
+DOCUMENT_NODB  100     Não foi possível efectuar conexão à Base de Dados
+DOCUMENT_NO_AGENTS_RECIEVER  100     O Receptor {{id}} não está associado ao Agente seleccionado.
+DOCUMENT_NO_RECIEVERS_AGENT  100     O Agente {{id}} não está associado ao Receptor seleccionado.
+DOCUMENT_NOISSUER	100	Documento sem Emissor.
+DOCUMENT_NORECIEVER	100	Documento sem Receptor.
+DOCUMENT_AGENT_NOTFOUND	100 	Não foi possível encontrar o Agente {{id}}
+

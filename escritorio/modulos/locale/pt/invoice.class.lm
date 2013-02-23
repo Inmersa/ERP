@@ -1,0 +1,23 @@
+INVOICE_NODB	100	Não se localizou uma ligação válida à BD ({{dbname}})
+INVOICE_LOCKED	100	Factura bloqueada. Verifique os dados de Emissor e Receptor
+INVOICE_NODISCOUNT_ORDER	100	A Linha {{idx}} não se pode retirar da Referência {{ref}} por pertencer à Encomenda ({{pedido}})
+INVOICE_COMPANY_NOTFOUND	100	Não foi possível encontrar a Empresa. {{id}}
+INVOICE_PENDING_CONTRACT	100	Impossível emitir a Factura {{fra}} por se desconhecerem quantidades e/ou valores de algum dos Produtos que contém.
+INVOICE_ISSUED_DRAFTS	100	Alguns dos elementos da Factura já foram emitidos pelo Receptor.
+INVOICE_NODBRECORD_NOACENTRY	100	Factura não contabilizada por não estar registada na Base de Dados.
+INVOICE_NODBRECORD	100	Factura não registada na Base de Dados.
+INVOICE_ACENTRY_FAILED	100	Não foi possível obter/criar o Registo Contabilístico.
+INVOICE_ACENTRY_EXISTS	100	Factura já registada. (ID:{{id}})
+INVOICE_NODOCUMENT_PARAM	100	{{fnc}} recebeu um parâmetro errado por não pertencer a uma subclasse do tipo de Documento
+INVOICE_ORDER_MODE_MISMATCH	100	Incompatibilidade na Encomenda. Não se pode facturar em vendas uma Encomenda de compras nem o inverso.
+INVOICE_ORDER_ISSUER_MISMATCH	100	O emissor da Encomenda não coincide com o da Factura.
+INVOICE_ORDER_RECIEVER_MISMATCH	100	O receptor da Encomenda não coincide com o da Factura.
+INVOICE_ORDER_CURRENCY_MISMATCH	100	A divisa da Encomenda não coincide com a da Factura.
+INVOICE_ORDER_PAYMENT_MISMATCH	100	A forma de pagamento da Encomenda não coincide com a da Factura.
+INVOICE_CONTRACT_NOPERIOD	100	O contrato {{contract}} não pode ser processado porque falta informação sobre os prazos de facturação.
+INVOICE_NOHEADERS	100	Não foi possível obter os cabeçalhos da factura
+INVOICE_NODETAILS	100	Não foi possível obter os detalhes da factura
+INVOICE_NOISSUER	100	Factura {{ref}} sem Emissor.
+INVOICE_NORECIEVER	100	Factura {{ref}} sem Receptor.
+INVOICE_NOIDPRODUCT	100	Referência de produto inexistente {{idx}}
+INVOICE_DBFILL    	101	Não foi possível obter a Factura ID {{id}} solicitada

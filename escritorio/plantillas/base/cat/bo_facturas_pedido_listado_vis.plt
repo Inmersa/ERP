@@ -1,0 +1,90 @@
+<table width="647" border="0" cellspacing="0" cellpadding="0">
+ <tr> <td height="30"> <table width="644" border="0" cellspacing="0" cellpadding="0">
+ <tr align="center"> <td colspan="4" height="22" > <table width="644" border="0" cellspacing="0" cellpadding="0">
+ <tr> <td colspan="13" height="22" bgcolor="#CCD2D7"></td>
+ </tr>
+ <tr> <td colspan="13" height="1"></td>
+ </tr>
+ <tr> <td width="1" height="20" bgcolor="#DBE0E3"></td>
+ <td bgcolor="#DBE0E3" height="20" class="etiqueta">Ref.</td>
+ <td width="1" height="20"></td>
+ <td bgcolor="#DBE0E3" align="center" height="20" class="etiqueta" width="90">Data</td>
+ <td width="1" height="20"></td>
+ <td bgcolor="#DBE0E3" align="center" height="20" class="etiqueta" width="90">Base imposable</td>
+ <td width="1" height="20"></td>
+ <td bgcolor="#DBE0E3" class="etiqueta" align="center" width="90">Imposts</td>
+ <td width="1"></td>
+ <td bgcolor="#DBE0E3" height="20" class="etiqueta" align="center" width="90">Totals</td>
+ <td width="1" height="20"></td>
+ <td bgcolor="#DBE0E3" align="center" height="20" class="etiqueta" width="50">Estat</td>
+ <td width="1" bgcolor="#DBE0E3" height="20"></td>
+ </tr>
+ @%where:tabla|Pedidos_facturas;where|id_pedido = $id_pedido;%@
+
+<!-- @%db:Pedidos_facturas.id_pedido;%@ -->
+ <tr> <td height="1" colspan="13"></td>
+ </tr>
+ <tr> <td bgcolor="#DBE0E3" height="24" width="1"></td>
+ <td class="texto" height="24"><a href="?seccion=bo_factura_cliente&id_factura=@%db:Pedidos_facturas.id_factura;%@" class="accesos">@%db:Facturas.referencia;%@</a></td>
+ <td height="24" bgcolor="#DBE0E3"></td>
+ <td class="texto" align="center" height="24">@%db:colocar_fecha{Facturas.fecha};%@</td>
+ <td bgcolor="#DBE0E3" height="24"></td>
+ <td class="texto" align="center" height="24">@%db:Facturas.base_imponible;%@</td>
+ <td bgcolor="#DBE0E3" height="24"></td>
+ <td align="center" class="texto" height="24">@%db:Facturas.total_impuestos;%@</td>
+ <td bgcolor="#DBE0E3" height="24"> </td>
+ <td class="texto" align="center" height="24" width="90">@%db:Facturas.monto_total;%@</td>
+ <td bgcolor="#DBE0E3" height="24"></td>
+ <td class="texto" align="center" height="24"> <!--@%db:Facturas.estado;%@-->
+ @%func:estado_factura%@ </td>
+ <td bgcolor="#DBE0E3" height="24"></td>
+ </tr>
+ <tr> <td height="1" colspan="13"></td>
+ </tr>
+ <tr> <td colspan="13" height="1" bgcolor="#DBE0E3"></td>
+ </tr>
+ @%end-where:%@ 
+ </table>
+ </td>
+ </tr>
+ <tr align="center"> <td colspan="4" height="10" ></td>
+ </tr>
+ </table>
+ </td>
+ </tr>
+ <tr> <td>
+ <table width="644" border="0" cellspacing="0" cellpadding="0">
+ <tr> <td height="20" align="center" bgcolor="#DBE0E3"></td>
+ <td height="20" align="center" bgcolor="#DBE0E3"></td>
+ <td class="etiqueta" colspan="9" height="20" bgcolor="#DBE0E3">Llegenda</td>
+ <td class="etiqueta" height="20" width="1" bgcolor="#DBE0E3"></td>
+ </tr>
+ <tr> <td class="etiqueta" width="1" bgcolor="#DBE0E3"></td>
+ <td class="etiqueta" width="10" height="20"></td>
+ <td class="etiqueta"><span class="texto">Factures</span></td>
+ <td><img src="imag/verde.gif" width="14" height="14"></td>
+ <td class="texto">Emesa</td>
+ <td><img src="imag/amarillo.gif" width="14" height="14"></td>
+ <td class="texto">Sense emetre</td>
+ <td><img src="imag/rojo.gif" width="14" height="14"></td>
+ <td class="texto">Sense factura</td>
+ <td width="20"></td>
+ <td class="texto" width="100"></td>
+ <td class="texto" bgcolor="#DBE0E3"></td>
+ </tr>
+ <tr> <td class="etiqueta" bgcolor="#DBE0E3"></td>
+ <td colspan="10" height="1" bgcolor="#DBE0E3"></td>
+ <td class="texto" bgcolor="#DBE0E3"></td>
+ </tr>
+ <tr> <td colspan="12" height="10"></td>
+ </tr>
+ </table>
+
+</td>
+ </tr>
+</table>
+
+
+
+
+

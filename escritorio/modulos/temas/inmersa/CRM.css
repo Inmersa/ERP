@@ -1,0 +1,85 @@
+
+.fsficha DIV.usuario {
+	text-align:left;
+	width: auto;
+	padding:0px;
+	margin:10px 0px 10px 0px;
+}
+
+#ComentariosIncidencia DIV.documentos {
+	text-align:right;
+	width: auto;
+	vertical-align: top;
+	margin:10px 0px 10px 0px;
+	color: #004A6F;
+}
+
+.fsficha DIV.encabezado {
+	text-align:left;
+	padding:5px;
+	color: #004A6F;
+	background-color:#EBECED;
+}
+
+.notaapertura {
+	text-align:left;
+	padding:10px 10px 20px 5px;
+	margin:0px 0px 1px 0px;
+	color: #004A6F;
+	background-color:#EBECED;
+}
+
+.fsficha DIV.comentariopublico {
+	text-align:left;
+	padding:10px 10px 20px 5px;
+	margin:0px 0px 1px 0px;
+	color: #004A6F;
+	background-color:#CCCCFF;
+}
+
+.fsficha DIV.comentarioprivado {
+	text-align:left;
+	padding:10px 10px 20px 5px;
+	margin:0px 0px 1px 0px;
+	color: #004A6F;
+	background-color:#FFCC66;
+}
+
+#NuevosComentarios DIV.nuevocomentario {
+	text-align:left;
+	padding:10px 10px 20px 5px;
+	margin:0px 0px 1px 0px;
+	color: #004A6F;
+	background-color:#CCCCFF;
+}
+
+#NuevosComentarios DIV.documentos {
+	text-align: left;
+	padding:5px;
+	width: auto;
+	color: #004A6F;
+	background-color:#CCCCFF; 
+}
+
+DIV.notas {
+	padding:5px 0px 15px 10px;
+	margin:10px 0px 10px 0px;
+	color: #000000;
+	background-color:#ffffff;
+	border:1px solid #000000;
+}
+
+TABLE.full TBODY TR.fueraplazo {
+	background-color:#ffcc00;
+}
+
+TABLE.full TBODY TR.pendiente {
+	background-color:#cc91ff;
+}
+
+TABLE.full TBODY TR.filacolor {
+	background-color:#bbbbbb;
+	color: #006699;
+}
+
+

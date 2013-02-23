@@ -1,0 +1,6 @@
+ACENTRY_NOCC	101	The {{cc}} Account does not exist.
+ACENTRY_NOTAXCC	101	The {{cc}} Tax Account of taxes does not exist.
+ACENTRY_TAX_WITHOUT_BASE	300	The tax account on the journal is not identical to the entry.
+ACENTRY_LOCKED	100	The entry is blocked. You can not work with it.
+ACENTRY_NODBID	100	It does not exist an identifier BDD related to {{entidad}}.
+ACENTRY_DBFILL_FAIL	100	It has been impossible to obtain the entry  {{id}}.

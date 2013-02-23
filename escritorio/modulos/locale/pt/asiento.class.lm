@@ -1,0 +1,9 @@
+
+ACENTRY_NOCC	101	A Conta Contabilística {{cc}} não existe.
+ACENTRY_NOTAXCC	101	A Conta Contabilística de Impostos {{cc}} não existe.
+ACENTRY_TAX_WITHOUT_BASE	300	A Conta Contabilística do Livro de Impostos não coincide com o valor do registo
+ACENTRY_LOCKED	100	O registo está bloqueado. Não pode ser alterado.
+ACENTRY_NODBID	100	Não existe registo na Base de Dados correspondente a {{entidad}}
+ACENTRY_DBFILL_FAIL	100	Não foi possível encontrar o registo {{id}}
+
+

@@ -1,0 +1,13 @@
+ORDER_DBFILL	101	It has not been possible to obtain the order ID {{id}}.
+ORDER_INVOICE_EXISTS	101	Order already billed.
+ORDER_INCORRECT	101	Order {{id}} does not correct.
+ORDER_NORECIEVER	100	Order {{ref}} without recipient.
+ORDER_RECIEVER_NODELIVERYADDRESS	100	The recipient {{id}} does not have delivery address.
+ORDER_NOISSUER	100	Order {{id}} without emitter.
+ORDER_NODELIVERYADDRESS	100	Order {{ref}} without delivery address.
+ORDER_CONTRACT_DUPLICATE	101	The article {{prod}}  already exist with the selected service {{contract}}.
+ORDER_PRODUCT_NOTINCONTRACT	101	The article {{prod}}  does not exist with the selected service {{contract}}.
+ORDER_NOHEADERS	100	It has not been possible to obtain the order headings.
+ORDER_NODETAILS	100	It has not been possible to obtain the order details.
+ORDER_NODBRECORD	100	Order not registered in the BDD.
+ORDER_CONTRACT_FEE	100	Opening fee

@@ -1,0 +1,46 @@
+
+<form name="nuevo_coordinadores" action="?seccion=bo_coordinadores" method=post>
+<div class="barraoscura">
+<div class="titsuperior">&gt; {{frame_NUEVOCOORDINADOR}}</div>
+</div>
+
+<fieldset id="Nuevo_Coordinador" class="fsficha">
+<legend>{{frame_datoscontacto}}</legend>
+<table class="full">
+<tr> 
+<td class="etiqueta" >{{fld_nombre}}:</td>
+<td ><input type="text" name="registro[nombre]" size="30"></td>
+<td class="etiqueta">{{fld_apellidos}}:</td>
+<td ><input type="text" name="registro[apellidos]" size="20"></td>
+</tr>
+
+<tr> 
+<td class="etiqueta" >{{fld_dni}}:</td>
+<td ><input type="text" name="registro[dni]" size="20"></td>
+<td class="etiqueta" >{{fld_log}}:</td>
+<td ><input type="text" name=registro[login] size="30"></td>
+</tr>
+
+<tr>
+<td class="etiqueta" >{{fld_direccion}}:</td>
+<td ><input type="text" name="registro[direccion]" size="30"></td>
+<td class="etiqueta" >{{fld_pass}}:</td>
+<td ><input type="password" name=registro[passwd] size="20"></td>
+</tr>
+
+<tr>
+<td class="etiqueta" >{{fld_email}}:</td>
+<td ><input type="text" name="registro[email]" size="30"></td>
+<td class="etiqueta" >{{fld_repetirpass}}:</td>
+<td ><input type="password" name=registro[passwd2] size="20"></td>
+</tr>
+</table>
+
+
+</fieldset>
+<div class="enviar"><input 
+type="hidden" name="accion_ejecutar" 
+value="Nuevo" /><a href="#" 
+onClick="return sendForm('nuevo_coordinadores');" >{{acc_guardar}}</a></div>
+
+</form>

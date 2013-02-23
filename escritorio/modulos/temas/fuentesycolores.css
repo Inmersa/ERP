@@ -1,0 +1,148 @@
+BODY {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color:#ffffff;
+}
+
+INPUT,SELECT,TEXTAREA,OPTION {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+INPUT.num {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+INPUT.fecha {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+#cabecera {
+	background-color:#689830;
+}
+
+#menu {
+	background-color:#ebeced;
+}
+
+.enviar {
+	background-color:#aaaaae;
+	border:2px solid #990033;
+}
+
+.error {
+	background-color:#a40;
+	color:#fff;
+	font-weight:bold;
+}
+
+.barraoscura {
+	background-color:#CCD2D7;
+}
+
+.barraoscurai {
+	background-color:#CCD2D7;
+}
+
+.titsuperior {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.alinder {
+	background-color:invisible;
+}
+
+.buscadorinterior {
+	/** background-color:#CCD2D7; **/
+	background-color:invisible;
+}
+
+.botonera {
+	color:#000;
+}
+
+.botdestacado {
+	color:#c7c7c7;
+	font-weight:bold;
+}
+
+.resultados {
+	background-color:invisible;
+	border:1px solid #CCD2D7;
+}
+
+#usuario {
+	font-size:13px;
+	font-weight:bold;
+}
+
+#barra2 {
+	background-color:#ebeced;
+}
+
+#accesosdir {
+	font-weight:bold;
+}
+
+.fondotela {
+	background-image:url('../../imag/login/telaarana.png');
+	background-repeat:no-repeat;
+}
+
+.full TD {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	border:1px solid #CCD2D7;
+}
+.fullstruct TD {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+.titulotb {
+	background-color:#aaaaaa;
+	color:#000;
+	font-weight:bold;
+	border:2px solid #bbbbbb;
+}
+.caption {
+	background-color:#CCD2D7;
+	font-weight:bold;
+	border:1px solid #bbbbbb;
+}
+.check {
+	background-color:#CCD2D7;
+	border:1px solid #bbbbbb;
+}
+
+.titul1{
+	background-color:#EBECED;
+}
+
+.rail{
+	background-color:#EBECED;
+}
+
+.titul1al{
+	background-color:#EBECED;
+}
+
+.titul2{
+	background-color:#CCD2D7;
+	font-weight:bold;
+}
+
+.trnormal {
+	background-color:#none;
+}
+.trsobre {
+	background-color:#91c800;
+}
+
+.tdimgarticulo {
+	background-color:#CCD2D7;
+}
+

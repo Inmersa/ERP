@@ -1,0 +1,34 @@
+INC_NOID	90	Event id {{id}} could not be found
+INC_MDEP_NOTFOUND	101	The managing department of event {{id}} could not be found.
+INC_PRIORITY_TIME	102	No estimated resolution time for priority {{prioridad}}
+INC_NOEMAIL	103	email not set. Please do so
+INC_EMAIL_NEWINTRO	502	There is a new Event on the System:
+INC_EMAIL_EDITINTRO	503	There has been some changes on the following event:
+INC_EMAIL_CLOSEDINTRO	503	There is one active Even less on the System:
+INC_EMAIL_CHGINTRO	504	These are the changes made:
+INC_EMAIL_CHGPRIORITY	505	"Priority has changed from ""{{anterior}}"" to ""{{actual}}"""
+INC_EMAIL_CHGTYPE	506	"Type has changed from ""{{anterior}}"" to ""{{actual}}"""
+INC_EMAIL_CHGMANAGER	507	"Event has been scaled from ""{{anterior}}"" to another manager: ""{{actual}}"""
+INC_EMAIL_CHGSTATUS	529	"Event status has changed from ""{{anterior}}"" to ""{{actual}}"""
+INC_EMAILFLD_NUMERO	508	Event Num: {{valor}}
+INC_EMAILFLD_TIPO	509	Event Type: {{valor}}
+INC_EMAILFLD_PRIORIDAD	510	Priority: {{valor}}
+INC_EMAILFLD_FECHA	511	Date: {{valor}}
+INC_EMAILFLD_FECHAINI	512	StartUp Date: {{valor}}
+INC_EMAILFLD_FECHAEST	513	Due Date: {{valor}}
+INC_EMAILFLD_FECHAFIN	514	Closing Date: {{valor}}
+INC_EMAILFLD_NOTA	515	Opening Note: {{valor}}
+INC_EMAILFLD_APERTURA	516	Opening User: {{valor}}
+INC_EMAILFLD_IMPLICADO	517	User Involved: {{valor}}
+INC_EMAILFLD_GESTOR	518	Manager : {{valor}}
+INC_EMAILFLD_COORDINADOR	519	Coordinator : {{valor}}
+INC_EMAILFLD_STATUS	530	Status : {{valor}}
+INC_EMAILST_PENDING	520	Pending revision
+INC_EMAILST_OPEN	521	Running
+INC_EMAILST_CLOSED	522	Closed
+INC_EMAILST_DUE	523	Due
+INC_EMAIL_NEWCOMMENT	524	"\n ""{{usuario}}"" has entered the following comments ({{fecha}}):"
+INC_EMAIL_PUBLICTEXT	525	Text: \n {{texto}}
+INC_EMAIL_PRIVATETEXT	526	Private Comments : \n {{texto}}
+INC_EMAIL_COMMENTDOCS	527	Comment has the following related documents:
+INC_EMAIL_DOCUMENT	528	ID: {{id}} \nDocument: {{documento}} \nDate : {{fecha}} \nCreated By: {{usuario}} \nAuthor: {{autor}}

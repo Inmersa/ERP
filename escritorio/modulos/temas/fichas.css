@@ -1,0 +1,16 @@
+
+/*fieldsets*/
+.fsficha {
+	padding:5px;
+	margin:5px 0px 10px 0px;
+	border:1px solid #c7c7c7;
+}
+.fsficha legend {
+	padding:4px;
+	border:1px solid #c7c7c7;
+	// background-color:#CCD2D7;
+	font-weight:bold;
+	margin-bottom:12px;
+}
+
+

@@ -1,0 +1,57 @@
+1406a1407
+>     json = decodeURIComponent(escape(json));
+1408d1408
+<       json = decodeURIComponent(escape(json));
+4291,4292c4291,4294
+< 		if (value.substring(0,1) == '0' && value.length>1) var2 = value.ltrim('0');
+< 		else var2 = value;
+---
+> 		if (value.substring(0,1) == '0' && value.length>1) {
+> 			var2 = value.ltrim('0');
+> 			if (!var2.length) var2 = '0';
+> 		} else var2 = value;
+6054a6057
+> 					//alert("setting up value: "+aLoc[k]+" in fld: "+k);
+6064,6065c6067,6074
+< 		if (strCode.indexOf(':')==-1) return;
+< 		aRetVal = {};
+---
+> 		try {
+> 			//if (isUdefined(strCode) || !isString(strCode)) return;
+> 			//alert("por mas ");
+> 			if (strCode.indexOf(':')==-1) return;
+> 		} catch (e) {
+> 			//alert("Err: "+e.description+" tipo: "+(typeof strCode)+" es: "+strCode);
+> 		}
+> 		var aRetVal = {};
+7104a7114
+> 				if (isFunction(k)) continue;
+7108a7119
+> 					//alert("A por el primero! ");
+7129a7141
+> 				if (isFunction(k)) continue;
+7155a7168
+> 				if (isFunction(k)) continue;
+7179a7193
+> 				if (isFunction(k)) continue;
+7401c7415,7417
+< 		var strMsg = "", strLog;
+---
+> 		var strMsg = ""; 
+> 		var strLog = "";
+> 		var doDebug = false;
+7402a7419
+> 		if (doDebug) alert("response seems ok. processing .. ");
+7406a7424
+> 			if (doDebug) alert(strDebug);
+7417c7435
+< 			//alert(" las opts: "+originalRequest.request.options+"\n"+tmpMsg);
+---
+> 			if (doDebug) alert(" las opts: "+originalRequest.request.options+"\n"+tmpMsg);
+7423c7441,7444
+< 		//this.ajaxLogDiv.innerHTML = originalRequest.responseText+"<hr width='50%' /><br/>\n"+this.ajaxLogDiv.innerHTML;
+---
+> 		if (doDebug) {
+> 			alert("stat-> "+strMsg);
+> 			this.ajaxLogDiv.innerHTML = originalRequest.responseText+"<hr width='50%' /><br/>\n"+this.ajaxLogDiv.innerHTML;
+> 		}

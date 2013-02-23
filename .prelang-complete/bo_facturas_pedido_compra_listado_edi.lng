@@ -1,0 +1,59 @@
+<table class="full">
+<tr>
+<td class="caption">{{label_ref}}</td>
+
+<td class="caption">{{label_fecha}}</td>
+
+<td class="caption">{{label_bimponible}}</td>
+
+<td class="caption">{{label_impuestos}}</td>
+
+<td class="caption">{{label_total}}</td>
+
+<td class="caption">{{label_estado}}</td>
+
+</tr>
+ @%where:tabla|Pedidos_facturas;where|id_pedido = $id_pedido;%@
+<!-- @%db:Pedidos_facturas.id_pedido;%@ -->
+<tr>
+<td><a href="?seccion=bo_factura_proveedor&id_factura=@%db:Facturas.id_factura;%@">
+ @%if:esta_vacio;Facturas.referencia;%@
+ - -
+ @%else:%@
+ @%db:Facturas.referencia;%@
+ @%end-if:%@
+ </a></td>
+
+<td>@%db:colocar_fecha{Facturas.fecha};%@</td>
+
+<td>@%db:Facturas.base_imponible;%@</td>
+
+<td>@%db:Facturas.total_impuestos;%@</td>
+
+<td>@%db:Facturas.monto_total;%@</td>
+
+<td><!--@%db:Facturas.estado;%@-->
+@%func:estado_factura%@ </td>
+
+</tr>
+@%end-where:%@
+
+
+</table>
+<div class="barraoscura">{{label_leyenda}}</div>
+<table class="full">
+
+<tr>
+<td class="etiqueta">{{label_factura}}</td>
+<td><img src="imag/verde.gif" width="14" height="14" /></td>
+<td class="etiqueta">{{label_emitida}}</td>
+<td><img src="imag/amarillo.gif" width="14" height="14" /></td>
+<td class="etiqueta">{{label_sinemitir}}</td>
+<td><img src="imag/rojo.gif" width="14" height="14" /></td>
+<td class="etiqueta">{{label_sinfactura}}</td>
+</tr>
+
+</table>
+
+
+

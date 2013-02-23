@@ -1,0 +1,20 @@
+
+
+
+
+#AccionesGenerales ul li a, .AccionesEnvio  ul  li  a, #AccionesListado  ul  li  a, #AccionesEncabezado  ul  li  a, .AccionesFicha  ul  li  a {
+	display: table-cell;
+}
+/** **
+#AccionesListado ul li a, #AccionesEncabezado ul li a, .AccionesFicha ul li a, .AccionesEnvio ul li a {
+	width: 100px;
+}
+/** **/
+
+.IconosYTexto #AccionesEncabezado a.revisar {
+	padding: 0px 3px 0px 0px;
+}
+
+div.grafica div.barra div.valorbarra {
+	display: inline;
+}

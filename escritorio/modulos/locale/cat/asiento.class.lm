@@ -1,0 +1,6 @@
+ACENTRY_NOCC	101	El compte comptable {{cc}} no existeix.
+ACENTRY_NOTAXCC	101	El compte comptable d'imposts {{cc}} no existeix.
+ACENTRY_TAX_WITHOUT_BASE	300	No concideix el compte comptable en Llibre d'imposts amb la base de l'apunt.
+ACENTRY_LOCKED	100	L'apunt esta bloquejat. No es pot operar amb ell.
+ACENTRY_NODBID	100	No existeix identificador de BDD correspondient a  {{entidad}}.
+ACENTRY_DBFILL_FAIL	100	No es pot obtindre l'apunt {{id}}.

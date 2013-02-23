@@ -1,0 +1,23 @@
+INVOICE_NODB	100	On n'a pas trouvé une instance valable de connexion à la BDD ({{dbname}}).
+INVOICE_LOCKED	100	Facture bloquée. Vérifiez les données émetteur et récepteur.
+INVOICE_NODISCOUNT_ORDER	100	Ligne {{idx}} il ne peut pas être déduit de la référence  {{ref}} en appartenant á une commande ({{pedido}}).
+INVOICE_COMPANY_NOTFOUND	100	N'a pas pu se trouver l'entreprise {{id}}.
+INVOICE_PENDING_CONTRACT	100	Impossible émettre la facture  {{fra}} pour ne pas être connues de quantités et/ou de montants de certains des contrats qu'il contient.
+INVOICE_ISSUED_DRAFTS	100	Certains des effets de la facture ont été déjà émis au récepteur.
+INVOICE_NODBRECORD_NOACENTRY	100	Facture non comptabilisée n'existant pas identificateur dans la BDD.
+INVOICE_NODBRECORD	100	Facture non enregistrée dans la BDD.
+INVOICE_ACENTRY_FAILED	100	N'a pas pu obtenir / créer l'instance du siège comptable.
+INVOICE_ACENTRY_EXISTS	100	Facture terminée. (ID:{{id}}).
+INVOICE_NODOCUMENT_PARAM	100	{{fnc}} il a reçu un paramètre erroné. il n'appartient pas à une classe de document type.
+INVOICE_ORDER_MODE_MISMATCH	100	Manières incompatibles avec la commande. On ne peut pas facturer dans des ventes une commande d'achats ni viceversa.
+INVOICE_ORDER_ISSUER_MISMATCH	100	L'émetteur de la commande ne coïncide pas avec celui de la facture.
+INVOICE_ORDER_RECIEVER_MISMATCH	100	Le récepteur de la commande ne coïncide pas avec celui de la facture.
+INVOICE_ORDER_CURRENCY_MISMATCH	100	Le devisa de la commande ne coïncide pas avec celui de la facture.
+INVOICE_ORDER_PAYMENT_MISMATCH	100	La forme de paiement de la commande ne coïncide pas avec celle de la facture.
+INVOICE_CONTRACT_NOPERIOD	100	Le contrat {{contract}} net peut pas être accusé en manquant d'information sur les délais de facturation.
+INVOICE_NOHEADERS	100	N'ont pas pu être obtenues les têtes de la facture.
+INVOICE_NODETAILS	100	N'ont pas pu être obtenues les détails de la facture
+INVOICE_NOISSUER	100	Factures {{ref}} sans émetteur.
+INVOICE_NORECIEVER	100	Factures {{ref}} sans récepteur.
+INVOICE_NOIDPRODUCT	100	Référence de produit existant en ligne {{idx}}.
+INVOICE_DBFILL	101	Na pas pu étre obtenue facture ID {{id}}.

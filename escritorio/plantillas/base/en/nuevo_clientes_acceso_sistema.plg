@@ -1,0 +1,22 @@
+
+<fieldset id="NuevoCliente_AccesoSistema" class="fsficha">
+<legend>{{label_accesosistema}}</legend>
+
+ <table class="full">
+ <tr>
+ <td class="titul1">{{fld_log}}:</td>
+ <td><input type="text" name="registro[login]" size="20" /></td> 
+ </tr>
+
+ <tr>
+ <td class="titul1">{{fld_contrasena}}:</td>
+ <td><input type="password" name="registro[passwd]" size="20" /></td>
+ </tr>
+
+ <tr>
+ <td class="titul1">{{fld_repetircontrasena}}:</td>
+ <td><input type="password" name="registro[passwd2]" size="20" /></td>
+ </tr>
+ </table>
+</fieldset>
+

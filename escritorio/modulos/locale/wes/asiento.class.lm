@@ -1,0 +1,9 @@
+
+ACENTRY_NOCC	101	La Cuenta contable {{cc}} no existe.
+ACENTRY_NOTAXCC	101	La Cuenta contable de Impuestos {{cc}} no existe.
+ACENTRY_TAX_WITHOUT_BASE	300	No coincide la cuenta contable en libro de impuestos con la base del asiento
+ACENTRY_LOCKED	100	El asiento esta bloqueado. No se puede operar con el.
+ACENTRY_NODBID	100	No existe identificador de BDD correspondiente a {{entidad}}
+ACENTRY_DBFILL_FAIL	100	No se ha podido obtener el Asiento {{id}}
+
+

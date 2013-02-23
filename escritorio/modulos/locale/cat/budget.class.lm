@@ -1,0 +1,22 @@
+BUDGET_NODB	100	No ha estat trobada una connexió vàlida a la BDD ({{dbname}}).
+BUDGET_LOCKED	100	Pressupost Bloquejat. Verifiqui les dades de l'emissor i el receptor. 
+BUDGET_NODISCOUNT_ORDER	100	La línia {{idx}}pertenecient a la referència  {{ref}}  no pot ser descomptada en la comanda  ({{pedido}}).
+BUDGET_COMPANY_NOTFOUND	100	Ha estat impossible trobar l'empresa {{id}}.
+BUDGET_PENDING_CONTRACT	100	Ha estat impossible emetre el pressupost {{fra}} perquè algunes quantitats són desconegudes.
+BUDGET_ISSUED_DRAFTS	100	Alguns efectes han estat emesos al receptor.
+BUDGET_NODBRECORD_NOACENTRY	100	Pressupost no comptabilitzat perquè no hi ha identificador de BDD.
+BUDGET_NODBRECORD	100	Pressupost no registrat en la BDD.
+BUDGET_ACENTRY_FAILED	100	Ha estat impossible crear/obtenir el registre sol·licitat.
+BUDGET_NODOCUMENT_PARAM	100	{{fnc}} ha rebut un paràmetre erroni perquè no pertany a cap document subclasse.
+BUDGET_ORDER_MODE_MISMATCH	100	No compatible amb la comanda.És impossible facturar en vendes o compres o al revés.
+BUDGET_ORDER_ISSUER_MISMATCH	100	L'emissor de la comanda no és el mateix que l'emissor del pressupost. 
+BUDGET_ORDER_RECIEVER_MISMATCH	100	El receptor de la comanda no és el mateix que el receptor del pressupost.
+BUDGET_ORDER_CURRENCY_MISMATCH	100	La divisa de la comanda no és la mateixa que la moneda del pressupost.
+BUDGET_ORDER_PAYMENT_MISMATCH	100	El mètode de pagament de la comanda no és el mateix que el del pressupost.
+BUDGET_CONTRACT_NOPERIOD	100	El contracte {{contract}} no pot ser processat per falta d'informació sobre els períodes de facturació.
+BUDGET_NOHEADERS	100	Ha estat impossible obtenir les capçaleres del pressupost. 
+BUDGET_NODETAILS	100	Ha estat impossible obtenir els detalls del pressupost. 
+BUDGET_NOISSUER	100	Pressupost {{ref}} sense emissor. 
+BUDGET_NORECIEVER	100	Pressupost {{ref}} sense receptor. 
+BUDGET_NOIDPRODUCT	100	La referència d'article no existeix en línia: {{idx}}.
+BUDGET_DBFILL    	101	Pressupost impossible d'obtenir: ID {{id}}.

@@ -1,0 +1,99 @@
+
+Soporte de Servicios en la version 1.5:
+
+A continuacion se descirbira el sistema de seguimiento y facturacion  de los servicios o contratos. 
+Este es un documento interno y sera usado como guia para la fase beta-testing y documentacion, pero nunca 
+documentacion final.
+
+1.- Configuracion de Maestros:
+
+En la seccion de configuracion tenemos una parte denominada Servicios. Este es el punto de partida donde se configuran
+las distintas modalidades contractuales de la empresa, tanto para compras como para ventas. Una modalidad contractual viene
+definida por 2 parametros: 
+	1.- Duracion del servicio (en dias) :
+	Este parametro indica la duracion del contrato. Es decir, durante cuanto tiempo se prolongara la facturacion.
+
+	2.- Intervalo/plazo de facturacion (en dias) :
+	El plazo de facturacion nos indica cuanto tiempo habra de pasar entre factura y factura.
+
+	En ambos casos existen 2 numeros con significado especial. Estos son 365 y 30, para denotar años o meses respectivamente. Es
+	decir, cualquier multipo de 365 sera tomado como n años. Pongamos por ejemplo que indicamos en un servicio una duracion de 730
+	dias, ello implicaria que la facturacion cubriria desde la primera factura (o inicio de periodo contractual) hasta el mismo
+	dia 2 años mas adelante, independientemente de que eso sean efectivamente 730 dias o no (por estar en año bisiesto por ej).
+	El comportamiento con los multipos de 30 es identico. Asi por ej, si indicamos un plazo de facturacion de 60 dias, las
+	facturas estaran datas todas el mismo dia del mes, cada 2 meses, independientemente de que se haya facturado un mes de 28, 30
+	o 31 dias.
+
+Una vez configurados nuestros servicios/contratos, habremos de indicar en la ficha de articulo , por referencia, cuales son los
+posibles contratos que acompañen a cada referencia.
+
+2.- Parametrizacion de producto:
+
+Empezaremos primero por la descripcion sobre ventas, para a posteriori ver las diferencias existentes en las compras. El proceso
+de insercion y borrado de servicios/contratos por referencia no sera explicado por mantener uniformidad con el interfaz general
+de la aplicacion.
+
+Justo encima de la vista de servicios/contratos asociados a la referencia actual, tenemos la posibilidad de configurar en que
+modo afectan los precios(todos) del producto actual, a los servicios(tambien todos). 
+
+- Con la seleccion del primer radio, indicamos que todos los precios del producto vienen indicados por unidad, esto quiere decir,
+  que antes de emitir una factura que incluya algunos de los contratos para esta referencia, habra de indicarse el numero de
+  unidades que aplican al periodo que afecte la factura. No se permitira emitir una factura de esta referencia de producto en un
+  contrato sin que previamente se indiquen las cantidades a facturar. Asi por ejemplo, una empresa que facturase mediante este
+  sistema su servicio de trafico de intercambio entre redes en un nodo neutro de internet, y las unidades viniesen dadas por GB,
+  no seria posible emitir factura a ningun cliente de este servicio sin previamente haber indicado el numero de GB de
+  transferencia que este ha consumido.
+
+- Con la seleccion del segundo radio button, a la inversa que en la modalidad anterior, se indica que cualquiera de los precios
+  para este producto viene dado para un plazo de X dias, donde X es el valor que se indique en la caja de texto a la derecha de
+  este radio. Asi por ejemplo, la empresa A ha calculado los precios de trafico de intercambio, sobre los cuales ofrecera la
+  posibilidad de contratacion a sus clientes, en base a una duracion de 30 dias. Si un cliente se acogiese a una modadlidad de
+  contratacion que implique un periodo de facturacion de 60 dias, el importe de esta referencia seria de 2 x precio_de_producto
+
+En el listado de servicios/contratos asociados a este producto podemos ver 2 parametros:
+
+	1.- Cuota de alta:
+	La cuota de alta sera del importe indicado (aplicando la tarifa del cliente, y sus descuentos), y se incluira en el momento 
+	de facturacion en una factura datada. Asimismo, tambien se incluira un comentario en la factura indicando que dicho importe es
+	la cuota de alta.
+
+	2.- Facturacion por adelantado:
+	Mediante esta ultima checbox , indicamos si es cierto o no que este servicio sera facturado por adelantado. Caso de marcarse
+	como cierto, las facturas se generaran para las fechas iniciales de cada periodo. Es decir, si al cliente A se acoge a un
+	contrato de duracion anual con facturacion mensual el dia 5 de enero de un año, ese mismo dia se facturara el periodo
+	comprendido entre el 5 de enero y el 5 de febrero, repitiendo la operacion hasta el 5 de diciembre, fecha en la que se le
+	facture el ultimo periodo comprendido entre el 5 de diciembre y el 5 de enero del año siguiente (fecha fin de contrato).
+
+El proceso de compras es exactamente el mismo, con la salvedad de que solo es posible escoger un servicio/contrato por proveedor.
+
+3.- Alta de contrato:
+
+El proceso de facturacion de los servicios/contratos es el siguiente:
+
+Habremos de realizar un pedido que incluya la referencia de producto que desea contratar el cliente del pedido. Una vez insertada
+la referencia, en la pantalla de confirmacion de pedido, disponemos de la posibilidad de seleccionar la modalidad de contrato
+(entre los posibles del producto) a la cual se atiene el cliente (si quiere alguna). Cuando confirmemos el pedido, el importe del
+producto adquirira el valor de la cuota de alta de dicho contrato, si algun usuario del escritorio de empresa desea cambiar el
+importe de la cuota de alta, no tiene mas que cambiarlo antes de la confirmacion del pedido, bien sea en tiempo de creacion del
+pedido, o de modificacion del mismo, pero siempre precio a la consolidacion del pedido.
+
+Cuando estemos listos para facturar el contrato, procederemos a consolidad el pedido que contiene dicha referencia. Con este
+proceso realizamos las siguientes operaciones:
+
+	a.- Obtenemos una primera factura con las referencias de producto no incluidas en ningun contrato (si existen), la cuota de
+	alta del contrato (si existe) y el primer periodo de facturacion (caso de cobrarse por adelantado). En el supuesto caso de que
+	no se cumpla ninguno de los casos aqui mentados, no se generara ninguna factura datada con la fecha de hoy y referenciada.
+
+	b.- Se generan las facturas correspondientes a todo el periodo del contrato, reciclando (a ser posible) facturas para  el
+	cliente sin emitir y coincidentes en fecha con la fecha que ha de tener la factura que se este generando. Todas las facturas
+	futuras de servicios estaran datadas con su fecha, pero no tendran referencia hasta que estas no sean emitidas, momento en el
+	cual se le asignara una correspondiente a la numeracion que toque en el momento de emision. Para poder ver estas facturas sin
+	referencia, existe una seleccion en los desplegables de estado de los listados de facturas, este es 'Futuras' (o Contratos, no
+	me acuerdo). Es necesario notar, que si el producto tiene precios por unidad, la cantidad de prducto en las facturas sera de
+	0, no pudiendose emitir dichas facturas hasta que sea modificada la cantidad.
+
+	El proceso de emision de facturas, en esta version es manual.
+
+Una vez emitira una factura, se comporta como cualquier otra factura del sistema.
+
+

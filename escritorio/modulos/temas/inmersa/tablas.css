@@ -1,0 +1,85 @@
+
+/** General **/
+TABLE {
+	border-collapse:collapse;
+	width:100%;
+}
+
+TD {
+	vertical-align:top;
+}
+
+TD.estado {
+	width: 40px;
+}
+
+/** Full (General) **/
+TABLE.full {
+	border-collapse:collapse;
+	width:100%;
+	margin:2px 0px 2px 0px;
+	empty-cells: show;
+}
+
+TABLE.full TD {
+	padding:5px;
+}
+
+TABLE.full THEAD TD {
+	text-align:center;
+	padding:5px;
+}
+
+TABLE.full TBODY TR.filacolor {
+	empty-cells: show;
+}
+
+TABLE.full TBODY TR.caption {
+	text-align: left;
+}
+
+/** Full Struct **/
+TABLE.fullstruct {
+	width:100%;
+	border-style:none;
+}
+
+TABLE.fullstruct TD {
+	padding:5px;
+}
+
+/** DashBoards **/
+TABLE.full THEAD.dashboard TD {
+	text-align: left;
+}
+
+/** Clases para Celdas **/
+.caption {
+	text-align:center;
+	padding:10px;
+}
+
+.check {
+	text-align:center;
+	padding:2px;
+	width:30px;
+}
+
+.etiqueta {  
+	text-align: right;
+}
+
+.etiquetacheck {  
+	text-align: left;
+}
+
+.importe {  
+	text-align: right;
+}
+
+/*imagenes articulos*/
+.tdimgarticulo {
+	padding:10px;
+	text-align:center;
+}
+

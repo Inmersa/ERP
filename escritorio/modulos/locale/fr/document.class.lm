@@ -1,0 +1,7 @@
+DOCUMENT_LOCKED	100	Le document est bloqué, il ne peut pas être opéré avec le.
+DOCUMENT_NODB	100	il n'existe pas d'instance de connexion à la BDD.
+DOCUMENT_NO_AGENTS_RECIEVER     	100	Le récepteur {{id}} n'est pas associé à l'agent choisi.
+DOCUMENT_NO_RECIEVERS_AGENT    	100	L'agent {{id}} n'est pas associé à l'agent choisi.
+DOCUMENT_NOISSUER	100	Document sans émetteur.
+DOCUMENT_NORECIEVER	100	Document sans récepteur.
+DOCUMENT_AGENT_NOTFOUND	100	N'a pas pu se trouver l'agent {{id}}

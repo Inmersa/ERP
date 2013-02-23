@@ -1,0 +1,117 @@
+
+<div class="tituloseccion">&gt; {{acc_nuevoagente}} </div>
+
+<form name="nuevo_agentes" action="?seccion=bo_agentes" method="post">
+<fieldset id="Nuevo_Agentes" class="fsficha">
+<legend>{{frame_datoscontacto}}</legend>
+<table class="full">
+<tr>
+<td class="etiqueta">{{fld_nombre}}</td>
+<td><input type="text" name="registro[nombre]" size="30" /></td>
+<td class="etiqueta">{{fld_telefono1}}</td>
+<td><input type="text" name="registro[telefono1]" size="12" /></td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_apellidos}}
+</td>
+<td>
+<input type="text" name="registro[apellidos]" size="30" />
+</td>
+<td class="etiqueta">{{fld_telefono2}}
+</td>
+<td>
+<input type="text" name="registro[telefono2]" size="12" />
+</td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_direccion}}
+</td>
+<td>
+<input type="text" name="registro[direccion]" size="30" />
+</td>
+<td class="etiqueta">{{fld_poblacion}}
+</td>
+<td>
+<input type="text" name="registro[poblacion]" size="12" />
+</td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_provincia}}
+</td>
+<td>
+<select name="registro[id_provincia]">
+@%where:tabla|Provincias;order|nombre;nolink|1;%@
+<option value="@%db:Provincias.id_provincia;%@">@%db:Provincias.nombre;%@</option>
+@%end-where:%@
+
+</select>
+</td>
+<td class="etiqueta">{{label_cp}}
+</td>
+<td>
+<input type="text" name="registro[cp]" size="6" />
+</td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_usuario}}
+</td>
+<td>
+<input type="text" name="registro[login]" size="16" />
+</td>
+<td class="etiqueta">{{fld_tipoagente}}
+</td>
+<td>
+<select name="registro[id_tipo_agente]">
+@%where:tabla|Tipo_agente;order|nombre;nolink|1;%@
+<option value="@%db:Tipo_agente.id_tipo_agente%@">@%db:Tipo_agente.nombre%@</option>
+@%end-where:%@
+
+</select>
+</td>
+</tr>
+<tr>
+<td class="etiqueta">{{fld_contrasena}}</td>
+<td><input type="password" name="registro[passwd]" size="14" /></td>
+<td class="etiqueta">{{acc_confirmacion}}</td>
+<td><input type="password" name="registro[passwd2]" size="12" /></td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{fld_comisionbase}}</td>
+<td><input type="text" name="registro[comision_base]" size="6" /></td>
+<td class="etiqueta">{{fld_comisiondereparto}}</td>
+<td><input type="text" name="registro[comision_repartida]" size="6" /></td>
+</tr>
+
+</table>
+
+ <table class="full">
+ <tr>
+   <td class="caption" colspan="6">{{fld_cuentabancaria}}</td>
+ </tr>
+<tr>
+ <td class="etiqueta">{{fld_paisdc}}</td>
+ <td><input type="text" name="registro[entidad]" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta">{{fld_oficina}}</td>
+ <td><input type="text" name="registro[oficina]" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta" >{{fld_dccuenta}}</td>
+ <td><input type="text" name="registro[dc_ccc]" size="2" maxlength="3" class="insertext">
+ <input type="text" name="registro[cuenta_bancaria]" class="insertext" size="11" maxlength="10"></td>
+</tr>
+ <tr>
+ <td class="etiqueta">{{fld_entidad}}</td>
+ <td><input type="text" name="registro[iban]" size="5" maxlength="4" class="insertext"></td>
+ <td class="etiqueta">{{fld_bic}}</td>
+ <td><input type="text" name="registro[bic]" size="13" maxlength="12" class="insertext"></td>
+ <td class="etiqueta">{{fld_bban}}</td>
+ <td><input type="text" name="registro[bban]" size="27" maxlength="26" class="insertext"></td>
+ </tr>
+</table>
+</fieldset>
+<input type="hidden" name="accion_ejecutar" value="Modificar" />
+</form>
+
+<div class="AccionesEnvio"><ul>
+<li><a href="" onClick="return sendForm('nuevo_agentes');" class="guardar" ><img src="imag/pixel.png" class="icono" /><span>{{acc_nuevo}}</span></a></li>
+</ul></div>
+

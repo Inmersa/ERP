@@ -1,0 +1,8 @@
+IKRN_SYS_NODIR	300	El directori {{dir}} no existeix.
+IKRN_SYS_NOFILE	300	El fitxer {{file}} no existeix {{ruta}} .
+IKRN_MSG_NOTFOUND	300	El missatge {{msg}} no s'ha pogut trobar.
+IKRN_MSG_YES	500	Si
+IKRN_MSG_NO	500	No
+IKRN_AUTH_NODESK	500	No s'ha trobat el desktop {{desktop}}
+IKRN_AUTH_NOLOGIN	500	No s'ha indicat nom d'usuari
+IKRN_AUTH_USR_EXISTS	500	El nom d'usuari {{login}} ja existeix en la BDD

@@ -1,0 +1,23 @@
+
+
+<div class="tituloseccion">{{frame_contadores}}</div>
+
+<form name="contadores_empresa" method="post" action="?seccion=bo_contadores">
+<fieldset >
+<legend>{{frame_contadoresdeventa}}</legend>
+@%plt:Contadores_Venta%@
+</fieldset>
+
+<fieldset>
+<legend>{{frame_contadoresdecompra}}</legend>
+@%plt:Contadores_Compra%@
+</fieldset>
+</form>
+
+<div class="AccionesEnvio"><ul>
+<li><a href="#" OnClick="return sendForm('contadores_empresa');" class="guardar" ><img src="imag/pixel.png" class="icono" /><span>{{acc_guardarcambios}}</span></a></li>
+</ul></div>
+
+
+
+

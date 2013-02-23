@@ -1,0 +1,66 @@
+
+<table class="full">
+<thead class="encabezado">
+<tr>
+ <td >{{label_recibo}} </td>
+ <td >{{label_tipo}} </td>
+ <td >{{label_fechavencimiento}} </td>
+ <td >{{label_importe}} </td>
+</tr>
+</thead>
+<tbody class="centrado">
+ <tr >
+ <td >@%db:Efectos.id_efecto;%@</td>
+ <td><!-- @%db:Efectos.pago_cobro;%@ -->
+ @%if:esta_vacio;Efectos.pago_cobro%@
+	{{label_efectopago}}
+ @%else:%@
+ 	{{label_efectocobro}}
+ @%end-if:%@
+ </td>
+ <td >@%db:colocar_fecha{Efectos.fecha_vencimiento};%@</td>
+ <!-- @%db:Efectos.monto;%@ @%db:Efectos.monto_pagado;%@ -->
+ @%if:!esta_vacio;id_efecto_parcial;%@
+ 	@%where:tabla|Efectos_parciales;where|id_efecto_parcial = $id_efecto_parcial;%@
+	<!-- @%db:Efectos_parciales.monto_satisfecho;%@ @%set:importe=Efectos_parciales.monto_satisfecho;value|var;%@ -->
+	@%end-where:%@
+
+ @%else:%@
+ 	@%calc:importe = Efectos.monto - Efectos.monto_pagado;%@
+ @%end-if:%@
+ <td >@%get:importe;%@</td>
+ </tr>
+</tbody>
+</table>
+
+@%where:nodb|nodb_order_data;%@
+<table class="full">
+<thead class="encabezado">
+<tr>
+ <td >{{label_factura}} 
+ @%if:esta_vacio;es_proforma;%@
+	 @%if:!esta_vacio;es_abono;%@
+	{{label_abono}}
+	@%end-if:%@
+ @%else:%@
+ {{label_proforma}} 
+ @%end-if:%@
+ </td>
+ <td >{{label_refext}}</td>
+ <td >{{label_fecha}}</td>
+ <td >{{label_formapago}}</td>
+ <td >{{label_divisa}}</td>
+</tr>
+</thead>
+<tbody class="centrado">
+ <tr >
+ <td >@%db:referencia;%@</td>
+ <td >@%db:referencia_externa;%@</td>
+ <td >@%db:colocar_fecha{fecha};%@</td>
+ <td >@%db:nombre_forma_pago%@</td>
+ <td >@%db:nombre_divisa;%@</td>
+ </tr>
+</tbody>
+</table>
+@%end-where:%@
+

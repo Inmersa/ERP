@@ -1,0 +1,373 @@
+<?php
+
+/**Crear un albaran a partir de un pedido de ventas
+Seleccionamos la localizacionde los articulos por almacen logico ordenados por fecha de caducidad mas cercana.
+Para todas las lineas de detalla tendremos que actualizar el albaran el lote y el almacen logico
+del ke vienen asi como la cantidad recibida escoger del almacen logico , crear albaran por almacen
+Todo en ello en funcion del control de stock de el articulo y la permisividad de stock nevatigo de la empresa
+El stock se usa solo para las cantidades , no para la generacion de albaranes
+Al lorito con esto ultimo hay diferenciar por las cantidades
+
+global $identificador_pedido;
+global $Generar;
+
+global $id_transportista;
+global $ref_externa;
+global $confirmacion;
+global $enviado;
+global $preparado;
+
+Acciones :Generar
+
+*/
+
+function pre_albaranes_venta (&$Sesion) {
+	$identificador_pedido=$Sesion->fetchVar('identificador_pedido','POST SESSION');
+	$Generar=$Sesion->fetchVar('Generar','POST SESSION');
+
+	$id_transportista=$Sesion->fetchVar('id_transportista','POST');
+	$id_almacen_pedido=$Sesion->fetchVar('id_almacen','POST');
+	$ref_externa=$Sesion->fetchVar('ref_externa','POST');
+	$confirmacion=$Sesion->fetchVar('confirmacion','POST');
+	$enviado=$Sesion->fetchVar('enviado','POST');
+	$preparado=$Sesion->fetchVar('preparado','POST');
+
+	$usuario = identifica_usuarios ($Sesion);
+	$oDb = $Sesion->get_db ('data');
+
+	if (isset ($Generar)) {
+		$id_empresa = $usuario['id'];
+
+		$consulta = 'Select Ld.id_detalle,Ld.id_articulo,Ld.cantidad, Ld.cantidad_recibida, Ld.id_servicio, '.
+						'Ea.stock, Ea.stock_maximo, Ea.stock_minimo, E.stock_negativo, '.
+						'A.nombre as "nombre_articulo", P.referencia_externa as "referencia_externa"  '.
+						'FROM Lineas_detalle Ld, Empresas_articulos Ea, Articulos A, Empresas E, Pedidos P '.
+						'WHERE Ld.id_pedido = '.$identificador_pedido.
+						' AND Ld.id_articulo = A.id_articulo AND Ea.id_articulo = A.id_articulo AND E.id_empresa = Ea.id_empresa '.
+						'AND Ld.id_pedido = P.id_pedido AND Ea.id_empresa = '.$usuario['id'];
+		$linea_idrs = $oDb->query ($consulta);
+		$aLinea = array();
+		$aDetAlb = array();
+		if ($oDb->num_rows($idrs)) {
+			while ($aTmp = $oDb->fetch_assoc($linea_idrs)) {
+				if (empty($ref_externa) AND !empty($aTmp['referencia_externa'])) $ref_externa = $aTmp['referencia_externa'];
+				array_push($aLinea,$aTmp);
+				$w_det .= ((!empty($w_det)) ? ' OR ' : ' ').'id_detalle = '.$aTmp['id_detalle'];
+				$aStock[$aTmp['id_detalle']]['stock'] = $aTmp['stock'];
+				$aStock[$aTmp['id_detalle']]['stock'] = 1;
+				$aStock[$aTmp['id_detalle']]['stock_maximo'] = $aTmp['stock_maximo'];
+				$aStock[$aTmp['id_detalle']]['stock_minimo'] = $aTmp['stock_minimo'];
+				$aStock[$aTmp['id_detalle']]['stock_negativo'] = $aTmp['stock_negativo'];
+			}
+			$cons = 'SELECT id_detalle,SUM(cantidad) as "cantidad" FROM Detalles_albaran WHERE '.$w_det.' GROUP BY id_detalle ';
+			// debug($cons);
+			$alb_rs = $oDb->query($cons);
+			if ($oDb->num_rows($alb_rs)) {
+				while ($aTmp = $oDb->fetch_assoc($alb_rs)) {
+					if (!is_numeric($aDetAlb[$aTmp['id_detalle']])) $aDetAlb[$aTmp['id_detalle']]['cantidad'] = 0;
+					$aDetAlb[$aTmp['id_detalle']]['cantidad'] += $aTmp['cantidad'];
+				}
+			}
+			// debug("Albaranes con: ");
+			// print_r($aDetAlb);
+		} else {
+			debug("No se puede generar albaranes de un pedido sin detalle. ");
+			return;
+		}
+
+
+		// aki guardare los albaranes ke sean necesarios crear
+		$albaranes = array ();
+		// Vector con las actualizaciones necesarias al stock estimado:
+
+		//INICIO DE TRATAMIENTO DE LA LINEA DE DETALLE
+		foreach ($aLinea as $linea ) {
+			// SI EL ALBARAN ESTABA GENERADO, calculamos lo que nos falta por servir.
+
+			if (is_numeric($aDetAlb[$linea['id_detalle']]['cantidad']) AND !empty($aDetAlb[$linea['id_detalle']]['cantidad'])) {
+				// debug("Tenemos ya esta referencia en algun albaran ... ped:".$linea['cantidad'].' - yaservido: '.$aDetAlb[$linea['id_detalle']]['cantidad']);
+				// cogemos las lineas de detalle de pedido y de destalles albaran
+				$acumulador = $linea['cantidad'] - $aDetAlb[$linea['id_detalle']]['cantidad'];
+				$cantidad_pendiente = $acumulador;
+			} else {
+				$acumulador = $linea['cantidad'];
+				$cantidad_pendiente = 0;
+			}
+			// debug("id_detalle  $linea[id_detalle] , acumulador $acumulador , id_articulo $linea[id_articulo] ");
+
+			if (empty($acumulador)) continue;
+			$stock = $aStock[$linea['id_detalle']];
+			// debug("Stock: ");
+			// print_r($stock);
+
+			// debug("control stock $stock[stock]");
+			// coger el control de stock
+			// falta saber donde se aplika el stock minimo y maximo
+
+
+			// si es un servicio lo tratamos como tal
+			// pillamos el almacen por defecto y lo metemos
+			if ($linea['id_servicio'] != 0) {
+//         No de mete en los albaranes solo se actualiza el stock ficticio
+
+/*         $consulta = "select Almacenes_logicos.id_almacen_logico
+                       from Empresas , Almacenes , Almacenes_logicos
+                       where Empresas.id_empresa= $usuario[id] and
+                       Almacenes.id_empresa = Empresas.id_empresa and
+                       Almacenes.id_almacen = Almacenes_logicos.id_almacen";
+         $resul1l=$oDb->query($consulta);
+         $almacen_defecto=$oDb->fetch_array($resull1);
+
+         $traspaso[id_detalle] = $linea[id_detalle];
+         $traspaso[id_almacen_logico] = $almacen_defecto[0];
+         $traspaso[lote] = 'serv';
+         $traspaso[cantidad] = 0;
+         $albaranes[$almacen_defecto[0]][] = $traspaso;
+         */
+				$consulta = "update Lineas_detalle set cantidad_recibida = cantidad where id_detalle = $linea[id_detalle]";
+				$oDb->query ($consulta);
+			} else {
+				if ($stock['stock'] == 1) {
+					// debug("Con control ");
+					// CREAMOS UN ACUMULADOR PARA IR RESTANDO
+					// tiene ke haber control de stock para los albaranes
+					$consulta = 'select Localizacion_articulos.id_almacen_logico , '.
+                       'Localizacion_articulos.id_articulo ,'.
+                       'Localizacion_articulos.lote ,'.
+                       'Localizacion_articulos.planta ,'.
+                       'Localizacion_articulos.fila ,'.
+                       'Localizacion_articulos.pasillo ,'.
+                       'Localizacion_articulos.columna ,'.
+                       'Localizacion_articulos.fecha_caducidad ,'.
+                       'Localizacion_articulos.cantidad ,'.
+                       'Almacenes.id_almacen '.
+                       'FROM Empresas , Almacenes , Almacenes_logicos , Localizacion_articulos '.
+                       'WHERE Empresas.id_empresa= '.$usuario['id'].' and '.
+                       'Almacenes.id_empresa = Empresas.id_empresa and '.
+                       'Almacenes.id_almacen = Almacenes_logicos.id_almacen and '.
+                       'Localizacion_articulos.id_almacen_logico = Almacenes_logicos.id_almacen_logico and '.
+                       'Localizacion_articulos.id_articulo = '.$linea['id_articulo'].' '.
+							  ( (is_numeric($id_almacen_pedido)) ? ' AND Almacenes_logicos.id_almacen = '.$id_almacen_pedido.' ' : '').
+							  ( (!(int)$stock['stock_negativo']) ? ' AND Localizacion_articulos.cantidad > 0 ' : '').
+                       'ORDER BY Localizacion_articulos.fecha_caducidad asc, Localizacion_articulos.cantidad desc';
+					// debug($consulta);
+					$resul1 = NULL;
+					$resul1 = $oDb->query ($consulta);
+					$n_res = $oDb->num_rows($resul1);
+					// debug("art $linea[id_articulo] , acumulador $acumulador  numero: ".$n_res);
+					// Si no hay localizacion, le creamos una en el primero almacen que encontremos
+					if ($n_res > 0) {
+
+						// debug("Dentro... Y esoooooooooo.....!! (mas de una localizacion)");
+						// tenemos el articulo en almacenes logicos ordenados por fecha de caducidad
+						for ($i=0;$almacenes_logicos = $oDb->fetch_array ($resul1) AND $acumulador != 0;$i++) {
+
+							// Las fechas de caducidad a 0 solo cuentan en _ultimo_ caso
+							if (!strcasecmp($almacenes_logicos['fecha_caducidad'],'0000-00-00') AND $i<($n_res-1)) {
+								// debug("Fecha 0 .. y no es el ultimo, continuamos. ");
+								continue;
+							}
+
+							// Si no estamos en la ultima referencia y no es una devolucion (acumulador > 0)
+							// 	==> nos saltamos las localizaciones con cantidad negativa
+							if ( $i<($n_res-1) AND 
+									($acumulador > 0 AND $almacenes_logicos['cantidad']<0)
+									) continue;
+
+							$bUltimo = false;
+							if ($i==($n_res-1)) $bUltimo = true;
+							elseif (strcasecmp($almacenes_logicos['fecha_caducidad'],'0000-00-00')) {
+								// debug("Fecha 0 .. comprobando restantes .. ");
+								// Esta fecha existe... si no existen mas, este es el ultimo registro
+								$bUltimo = true;
+								for ($j=($i+1); $j<$n_res; $j++) {
+									$oDb->data_seek($resul1,$j);
+									$aTmp = $oDb->fetch_array($resul1);
+									if (!strcasecmp($almacenes_logicos['fecha_caducidad'],'0000-00-00')) {
+										$bUltimo = false;
+										break;
+									}
+								}
+								$oDb->data_seek($resul1,$i+1);
+							}
+
+							// Si nos basta con lo que tiene esta localizacion ... 
+							if ( $acumulador<0 OR ($acumulador>0 AND ($almacenes_logicos['cantidad']-$acumulador) > 0)  
+									OR ($bUltimo AND (int)$stock['stock_negativo']) ) {
+								$cantidad_albaran = $acumulador;
+								$acumulador = 0;
+							} else {
+								$acumulador -= $almacenes_logicos['cantidad'];
+								$cantidad_albaran = $almacenes_logicos['cantidad'];
+							}
+							if ($cantidad_albaran == 0) continue;
+
+							// debug("tenemos stock pero no el suficiente de id_articulo $linea[id_articulo] SEGUIR crearnueva linea de detalle");
+							$consulta = 'update Localizacion_articulos set cantidad = cantidad - \''.$cantidad_albaran.'\' '.
+											"WHERE id_almacen_logico = $almacenes_logicos[id_almacen_logico] and ".
+											"id_articulo = $linea[id_articulo] and ".
+											"lote = '$almacenes_logicos[lote]' AND ".
+											"planta = '$almacenes_logicos[planta]' AND ".
+											"pasillo = '$almacenes_logicos[pasillo]' AND ".
+											"fila = '$almacenes_logicos[fila]' AND ".
+											"columna = '$almacenes_logicos[columna]' AND ".
+											"fecha_caducidad = '$almacenes_logicos[fecha_caducidad]'";
+							$oDb->query ($consulta);
+							if ((int)$preparado) {
+								// La cantidad _RECIBIDA_ sera establecida al dar por preparado el albaran. (para poder facturarlo)
+								$consulta = 'UPDATE Lineas_detalle SET cantidad_recibida = cantidad_recibida + \''.$cantidad_albaran.'\' '.
+												'WHERE id_detalle = '.$linea['id_detalle'];
+								// debug($consulta);
+								$oDb->query ($consulta);
+							}
+
+							$traspaso['id_detalle'] = $linea['id_detalle'];
+							$traspaso['id_almacen_logico'] = $almacenes_logicos['id_almacen_logico'];
+							$traspaso['lote'] = $almacenes_logicos['lote'];
+							$traspaso['planta'] = $almacenes_logicos['planta'];
+							$traspaso['pasillo'] = $almacenes_logicos['pasillo'];
+							$traspaso['fila'] = $almacenes_logicos['fila'];
+							$traspaso['columna'] = $almacenes_logicos['columna'];
+							$traspaso['fecha_caducidad'] = $almacenes_logicos['fecha_caducidad'];
+							// Si no hay cantidad bastante. ponemos la de esta posicion
+							$traspaso['id_detalle'] = $linea['id_detalle'];
+							$traspaso['cantidad'] = $cantidad_albaran;
+							$albaranes[$almacenes_logicos['id_almacen']][] = $traspaso;
+							$Sesion->set_var('id_almacen_promocion',$almacenes_logicos['id_almacen'],'SECCION');
+
+						}  // FIN DE TRATAMIENTO DE ALMACENES LOGICOS con acumulador
+
+						if ($acumulador > 0) {	// tenenmos control de stock y localizacion pero se nos acabo
+							$Sesion->lcMessage('LCS_OUTSTOCK',array('cantidad' => $acumulador, 'referencia' => $linea['nombre_articulo'].' ('.$linea['id_articulo'].') '));
+						}
+						$oDb->libera($resul1);
+					} else {
+						// tenemos control de stock pero no tenemos localizacion de ese articulo (pasamos de el para este bkp)
+
+						if ((int)$stock['stock_negativo']) 
+							$Sesion->lcMessage('LCS_NOREF_WHEREHOUSE',array('referencia' => $linea['nombre_articulo'].' ('.$linea['id_articulo'].') '));
+						else 
+							$Sesion->lcMessage('LCS_OUTSTOCK',array('cantidad' => $acumulador, 'referencia' => $linea['nombre_articulo'].' ('.$linea['id_articulo'].') '));
+
+						$oDb->libera($resul1);
+						continue;
+					}
+
+					// FIN DEL CONTROL DE STOCK
+				} else {				  // el articulo no lleva control de stock , simplemente meterlo
+					// pillamos el almacen por defecto y metemos la linea de detalle
+					// debug("Sin trol ");
+					$consulta = "select Almacenes_logicos.id_almacen_logico
+                       from Empresas , Almacenes , Almacenes_logicos
+                       where Empresas.id_empresa= $usuario[id] and
+                       Almacenes.id_empresa = Empresas.id_empresa and
+                       Almacenes.id_almacen = Almacenes_logicos.id_almacen";
+					$resul1l = $oDb->query ($consulta);
+					$almacen_defecto = $oDb->fetch_array ($resull1);
+
+					$traspaso['id_detalle'] = $linea['id_detalle'];
+					$traspaso['id_almacen_logico'] = $almacen_defecto[0];
+					$traspaso['cantidad'] = $acumulador;
+					$traspaso['lote'] = '';
+					$albaranes[$almacen_defecto[0]][] = $traspaso;
+					$Sesion->set_var('id_almacen_promocion',$almacen_defecto[0],'SECCION');
+					if ((int)$preparado) {
+						// La cantidad_recibida se establece al dar por preparado albaran (para que se pueda facturar).
+						$consulta = "update Lineas_detalle set cantidad_recibida = cantidad where id_detalle = $linea[id_detalle]";
+						// debug($consulta);
+						$oDb->query ($consulta);
+					}
+				}
+			}							  // fin del else de servicio
+
+		}								  // FIN DE TRATAMIENTO DE LA LINEA DE DETALLE
+
+
+
+//comenzar a generar lo ke sea oportuno
+//       depurar_array($albaranes);
+		if (!is_array ($albaranes) OR ! sizeof ($albaranes)) {
+			$Sesion->lcMessage('LCS_EMPTY_DELIVERY');
+		} else {
+			debug("Creando albaranes... ");
+			foreach ($albaranes as $id_almacen => $traspaso_linea) {
+				$registro["id_pedido"] = $identificador_pedido;
+				// $registro["id_direccion"]= $identificador_pedido;
+				$registro["id_almacen"] = $id_almacen;
+				$registro["fecha"] = date ("Y-m-d H:i:s");
+				$oPer = &Periodo::factoryActivePeriod();
+				if (is_a($oPer,'Periodo')) $registro = $oPer->getAssignments($registro,'Albaranes');
+
+				// Fixme: Falta variable de configuracion "observaciones_pedido_en_albaran"
+				if (true) {
+					$cons = 'SELECT observaciones FROM Pedidos WHERE id_pedido = '.$identificador_pedido;
+					$pedrs = $oDb->query($cons);
+					$aTmp = $oDb->fetch_row($pedrs);
+					if (!empty($aTmp[0])) $registro['observaciones'] = $aTmp[0];
+					$oDb->libera($pedrs);
+				}
+
+				$registro["id_transportista"] = $id_transportista;
+				$registro["referencia_externa"] = $ref_externa;
+				$registro["confirmacion"] = $confirmacion;
+				$registro['preparado'] = (int)$preparado;
+				$registro["enviado"] = (int)$enviado;
+				if ($registro['enviado']) $registro['fecha_envio'] = date ("Y-m-d H:i:s");
+				else $registro['fecha_envio'] = 'null';
+
+				// print_r($registro);
+				// crear la referencia e incrementar el contador
+				$consulta = "select prefijo_alb_ventas as 'prefijo_alb' , sufijo_alb_ventas as 'sufijo_alb', ".
+					"contador_alb_ventas as 'contador_alb' , digitos_alb_ventas as 'digitos_alb' ".
+					"FROM  Empresas where id_empresa = $usuario[id]";
+				$resul2 = $oDb->query ($consulta);
+				$row2 = $oDb->fetch_array ($resul2);
+
+				// relleno de digitos para la numeracion del pedido
+				$temporal = pow (10, ($row2['digitos_alb'] ));
+				$temporal += $row2['contador_alb'];
+				$t = substr ((string) $temporal, 1);
+
+				$registro["referencia"] = $row2['prefijo_alb'].$t.$row2['sufijo_alb'];
+				$consulta = "update Empresas set contador_alb_ventas = contador_alb_ventas + 1 where id_empresa = $usuario[id]";
+				$oDb->query ($consulta);
+				if (!$oDb->tb_replace ("Albaranes", $registro)) {
+			  		$Sesion->lcMessage('LCS_DBERR',array('entidad' => 'Albaranes'));
+				} else $iden_alb = $oDb->last_insert_id();
+
+				foreach ($traspaso_linea as $id_detalle => $detalle) {
+					$detalle["id_albaran"] = $iden_alb;
+					if (!$oDb->tb_replace ("Detalles_albaran", $detalle))
+						$Sesion->lcMessage('LCS_DBERR',array('entidad' => 'Detalles_albaran'));
+				}
+			}
+			if ((int)$preparado) {
+				$tmpcons = 'SELECT id_albaran FROM Albaranes WHERE id_pedido = '.$identificador_pedido.' and preparado = '.!(int)$preparado;
+				$tmprs = $oDb->query($tmpcons);
+				if (!$oDb->num_rows($tmprs)) {
+					$oDb->tb_update('Pedidos',array('preparado' => (int)$preparado,'id_pedido' => $identificador_pedido));
+				}
+			} else {
+				$oDb->tb_update('Pedidos',array('preparado' => (int)$preparado,'id_pedido' => $identificador_pedido));
+			}
+		}
+
+	} // FIN DEL GENERAR
+
+}										  // fin del precode
+
+function cf_estado_albaran (&$Sesion, &$aData) {
+//depurar_array($aDatos);
+	if ($aData['Albaranes.confirmacion'] AND !$aData['Albaranes.devolucion']) {
+		$aData['estado_albaran'] = 'ok';
+	} elseif($aData['Albaranes.devolucion']) {
+		$aData['estado_albaran'] = 'bad';
+	} elseif($aData['Albaranes.enviado']) {
+		$aData['estado_albaran'] = 'ok';
+	} elseif($aData['Albaranes.preparado']) {
+		$aData['estado_albaran'] = 'do';
+	} else $aData['estado_albaran'] = 'none';
+	return TRUE;
+}
+
+?>

@@ -1,0 +1,8 @@
+IKRN_SYS_NODIR	300	Le directif  {{dir}} n'existe déjà pas.
+IKRN_SYS_NOFILE	300	Le fichier {{file}} n'existe déjà pas {{ruta}} .
+IKRN_MSG_NOTFOUND	300	Le message  {{msg}} n'a pas pu se trouver.
+IKRN_MSG_YES	500	Oui
+IKRN_MSG_NO	500	No
+IKRN_AUTH_NODESK	500	On n'a pas trouvé le desktop {{desktop}}
+IKRN_AUTH_NOLOGIN	500	On n'a indiqué aucun nom d'utilisateur
+IKRN_AUTH_USR_EXISTS	500	Le nom d'utilisateur {{login}} déjà dans la BDD

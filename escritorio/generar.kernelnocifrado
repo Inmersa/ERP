@@ -1,0 +1,27 @@
+#!/bin/bash
+../bin/cifra.inmersa -st kernel/*.inc
+#../bin/cifra.inmersa -st modulos/*.inc
+#../bin/cifra.inmersa -st modulos/*.php
+
+cat kernel/db.inc > kernel.inmersa
+cat kernel/accesos.inc >> kernel.inmersa
+cat kernel/buscador.inc >> kernel.inmersa
+cat kernel/sesiones.inc >> kernel.inmersa
+cat kernel/plantillas.inc >> kernel.inmersa
+# Donde esta este modulo? (tiasa?) cat modulos/notifica.inc >> modulos.clean
+cat kernel/errores.inc >> kernel.inmersa
+cat kernel/misc.inc >> kernel.inmersa
+#cat modulos/pedidos.class.inc >> kernel.clean
+#cat modulos/enlace_crm.php >> kernel.clean
+
+if [ ! -z "$1" ]; then
+../bin/cifra.inmersa -c $1 kernel.inmersa
+else
+echo "<?php" > kernel_nocifrado.inc
+cat kernel.inmersa >> kernel_nocifrado.inc
+echo "?>" >> kernel_nocifrado.inc
+fi
+
+#rm -rf kernel/
+#rm -rf modulos/pedidos.class.inc
+#rm -rf modulos/enlace_crm.php

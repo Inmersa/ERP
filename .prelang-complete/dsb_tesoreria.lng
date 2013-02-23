@@ -1,0 +1,79 @@
+
+<div class="tituloseccion" >{{frame_dashboard_tesoreria}} [@%func:colocar_fecha;dsb_fecha;%@]</div>
+
+<div id="DSBPeriodos" >
+<div class="item" >
+@%if:equals;dsb_term;semana;%@
+{{dsb_frame_por_sermana}} (@%get:nombre_periodo_actual;%@)
+@%else:%@
+<a href="?seccion=@%get:_krn_ss_name;%@&periodo=semana" >{{dsb_frame_por_sermana}}</a>
+@%end-if:%@
+</div>
+
+<div class="item" >
+@%if:equals;dsb_term;mes;%@
+{{dsb_frame_por_mes}} (@%get:nombre_periodo_actual;%@)
+@%else:%@
+<a href="?seccion=@%get:_krn_ss_name;%@&periodo=mes" >{{dsb_frame_por_mes}}</a>
+@%end-if:%@
+</div>
+
+<div class="item" >
+@%if:equals;dsb_term;trimestre;%@
+{{dsb_frame_por_trimestre}} (@%get:nombre_periodo_actual;%@)
+@%else:%@
+<a href="?seccion=@%get:_krn_ss_name;%@&periodo=trimestre" >{{dsb_frame_por_trimestre}}</a>
+@%end-if:%@
+</div>
+
+<div class="item" >
+@%if:equals;dsb_term;anyo;%@
+{{dsb_frame_por_anyo}} (@%get:nombre_periodo_actual;%@)
+@%else:%@
+<a href="?seccion=@%get:_krn_ss_name;%@&periodo=anyo" >{{dsb_frame_por_anyo}}</a>
+@%end-if:%@
+</div></div>
+
+
+<div class="PIIFichaBase" id="Indicadores_Generales" >
+@%plt:IndicadoresGenerales;%@
+</div>
+
+<div class="PIIContainer" id="FichaTab_DashboardTesoreria" 
+@%if:!equals;dsb_term;anyo;%@
+@%if:AllowedPII;VencimientosComparados;%@
+><div name="VencimientosComparados" class="activo" >{{dsb_frame_vencimientos}}</div
+@%end-if:%@
+@%if:AllowedPII;AbonosComparados;%@
+><div name="AbonosComparados" >{{dsb_frame_abonos}}</div
+@%end-if:%@
+@%if:AllowedPII;PendienteComparados;%@
+><div name="PendienteComparados" >{{dsb_frame_pendiente}}</div
+@%end-if:%@
+@%if:AllowedPII;DevolucionesComparadas;%@
+><div name="DevolucionesComparadas" >{{dsb_frame_devoluciones}}</div
+@%end-if:%@
+@%end-if:%@
+></div>
+
+@%if:!equals;dsb_term;anyo;%@
+<div class="PIIFicha" id="VencimientosComparados" >
+@%plt:VencimientosComparados;%@
+</div>
+<div class="PIIFicha" id="AbonosComparados" >
+@%plt:AbonosComparados;%@
+</div>
+<div class="PIIFicha" id="PendienteComparados" >
+@%plt:PendienteComparados;%@
+</div>
+<div class="PIIFicha" id="DevolucionesComparadas" >
+@%plt:DevolucionesComparadas;%@
+</div>
+@%end-if:%@
+
+<script >
+<!-- 
+TabDashboardTesoreria = new TabGroup(document.getElementById('FichaTab_DashboardTesoreria'));
+// -->
+</script>
+

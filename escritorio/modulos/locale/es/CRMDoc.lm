@@ -1,0 +1,12 @@
+DOC_NO_DOCROOT	90	Ruta al root de la aplicación (doc_root) no se encontró
+DOC_PATH_NOTFOUND	101	Ruta {{path}} no encontrado
+DOC_FILE_NOTFOUND	102	Fichero {{file}} no encontrado
+DOC_FILE_RENAMED	103	El Fichero {{origen}} ya existe, se renombra como {{destino}}
+DOC_FILE_NOTRENAMED	104	El Fichero {{origen}} ya existe, no se puede renombrar
+DOC_RENAME_FAILED	105	El Fichero {{origen}} no se puede mover {{destino}}.¿Problemas de acceso?
+DOC_UPLOAD_FAILED	106	El Fichero {{file}} no puede subirse. ¿Problemas de acceso?
+DOC_FILE_NOTDELETED	107	El Fichero {{file}} no puede subirse. ¿Problemas de acceso?
+DOC_NO_DEFAULTDOCTYPE	108	No hay documento predeterminado configurado
+DOC_MAXSIZE_EXCEEDED	109	Máximo Tamaño de Fichero. {{size}} Kbs excedidos
+DOC_DOCTYPE_UNCHANGED	110	No se puede cambiar {{id}} el documento tipo
+DOC_MIME_NOTFOUND	501	Mime type {{mime}} no está en la lista

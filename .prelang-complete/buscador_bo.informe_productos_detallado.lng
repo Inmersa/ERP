@@ -1,0 +1,839 @@
+
+<form method=post action="?seccion=informe_producto_detallado">
+<input type="hidden" name="nom_bus" value="informe_productos_detallado">
+<table class="full" >
+  <tr> 
+  <td class="caption">{{frame_inf_prod_venta}}</td>
+  <td align="right" class="caption">
+        <input type="submit" name=Buscar value="{{buscar_submit}}" class="insertext" accesskey="{{ak_search}}" >
+		 <select name="hp">
+		@%where:nodb|nodb_hits_page;%@
+		<option value="@%db:value;%@"
+		@%if:equals;st_hp;value;%@
+		selected="selected"
+		@%end-if:%@
+		>@%db:name;%@</option>
+		@%end-where:%@
+
+		</select>
+  </td></tr>
+</table>
+<br>
+<table class="full">
+  <td align="right" class="check" >
+  <input type="checkbox" name="mc_search" value="1"
+  @%if:esta_vacio;st[mc_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td align="left" class="caption" colspan="11">{{inf_group_marcas}}</td>
+  </tr>
+
+  <td class="etiqueta">{{label_id}}:</td>
+  <td colspan="4"><input type="text" name="mc_id" size="30" class="insertext" value="@%get:st[mc_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="4"><input type="text" name="mc_nombre" size="30" class="insertext" value="@%get:st[mc_nombre];%@"></td>
+  </tr>
+  <tr><td class="titulotb" colspan="11">{{label_totales}}</td></tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadpedida}} 
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][field]" value="Lineas_detalle.cantidad">
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadpedida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadfacturada}} 
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][field]" 
+  		value="IF(Facturas.factura_abono,(Facturas_detalle.cantidad*-1),Facturas_detalle.cantidad)" />
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Marcas.id_marca;Facturas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Marcas.id_marca;Facturas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Marcas.id_marca;Facturas_detalle.cantidad;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Marcas.id_marca;Facturas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadfacturada}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Marcas.id_marca;Facturas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadrecibida}} 
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][field]" value="Lineas_detalle.cantidad_recibida">
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad_recibida;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad_recibida;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad_recibida;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad_recibida;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_cantidadrecibida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.cantidad_recibida;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_precioventa}}
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][field]" value="Lineas_detalle.precio_articulo">
+  <input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.precio_articulo;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.precio_articulo;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.precio_articulo;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.precio_articulo;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Marcas.id_marca][{{inf_fld_precioventa}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Marcas.id_marca;Lineas_detalle.precio_articulo;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+</table>
+
+<br>
+<table class="full">
+  <td class="check" >
+  <input type="checkbox" name="fm_search" value="1"
+  @%if:esta_vacio;st[fm_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td class="caption" colspan="10">{{inf_group_familias}}</td></tr>
+
+  <td class="etiqueta">{{label_id}}:</td>
+  <td colspan="4"><input type="text" name="fm_id" size="30" class="insertext" value="@%get:st[fm_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="4"><input type="text" name="fm_nombre" size="30" class="insertext" value="@%get:st[fm_nombre];%@"></td>
+  </tr>
+
+  <tr><td class="titulotb" colspan="11" align="left">Totales</td></tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadpedida}} 
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][field]" value="Lineas_detalle.cantidad">
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadpedida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadfacturada}} 
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][field]" 
+  		value="IF(Facturas.factura_abono,(Facturas_detalle.cantidad*-1),Facturas_detalle.cantidad)" />
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Facturas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Facturas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Facturas_detalle.cantidad;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Facturas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadfacturada}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Facturas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadrecibida}} 
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][field]" value="Lineas_detalle.cantidad_recibida">
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad_recibida;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad_recibida;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad_recibida;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad_recibida;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_cantidadrecibida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.cantidad_recibida;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_precioventa}}
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][field]" value="Lineas_detalle.precio_articulo">
+  <input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.precio_articulo;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.precio_articulo;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.precio_articulo;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.precio_articulo;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Familia_articulos.id_familia][{{inf_fld_precioventa}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Familia_articulos.id_familia;Lineas_detalle.precio_articulo;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+</table>
+
+<br>
+<table class="full">
+  <tr><td class="caption" colspan="11">{{inf_group_articulos}}</td></tr>
+
+  <tr>
+  <td class="etiqueta">{{label_id}}:</td>
+  <td colspan="4"><input type="text" name="ar_id" size="20" class="insertext" value="@%get:st[ar_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="4"><input type="text" name="ar_nombre" size="30" class="insertext" value="@%get:st[ar_nombre];%@"></td>
+  </tr>
+
+  <tr><td class="caption" colspan="11">{{inf_group_facturas}}</td></tr>
+
+  <tr><td class="etiqueta">{{label_ref}}:</td>
+  <td colspan="2"><input type="text" name="fr_ref" size="20" class="insertext" value="@%get:st[fr_ref];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_refexterna}}:</td>
+  <td colspan="2"><input type="text" name="fr_ref_ext" size="30" class="insertext" value="@%get:st[fr_ref_ext];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_serie}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[fr_serie];%@ -->
+  <select name="fr_serie" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Series_facturacion;nolink|1;nombre|seriesfra;where|ventas=1;%@
+  <option value="@%db:Series_facturacion.id_serie;%@"
+  @%db:selected_value{Series_facturacion.id_serie}%@
+  >@%db:Series_facturacion.nombre;%@ 
+  (@%db:si_no_flag{Series_facturacion.contabilizable}%@)</option>
+  @%end-where:%@
+
+  </select>
+  </tr>
+
+  <tr><td class="etiqueta">{{fld_desde}}:</td>
+  <td colspan="2"><input type=text name="fr_fecha_inicio" size="20" class="insertext" value="@%get:st[fr_fecha_inicio];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_hasta}}:</td>
+  <td colspan="2"><input type=text name="fr_fecha_fin" size="20" class="insertext" value="@%get:st[fr_fecha_fin];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_baseimp}} > :</td>
+  <td colspan="2"><input type=text name="fr_basei" size="20" class="insertext" value="@%get:st[fr_basei];%@"></td>
+  </tr>
+
+  <tr><td class="titulotb" colspan="11">{{label_ordenacion}}</td></tr>
+  <!-- @%set:_iterate_times=5;%@ -->
+  <tr>
+
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="orden[precio][accion]" value="1"
+  @%if:esta_vacio;orden[precio];%@
+  @%else:%@
+  checked="checked"
+  @%end-if:%@
+  >&nbsp;
+  <input type="hidden" name="orden[precio][field]" value="precio_medio">
+  </td>
+  <td class="etiqueta" colspan="2">
+  {{label_preciomedio}}
+  </td><td colspan="2" >
+  <!-- @%set:_selected_value=orden[precio_posicion];%@ -->
+  <!-- @%set:_iterate_reset=1;%@ -->
+  <select class="insertext" name="orden[precio][posicion]">
+  @%where:nodb|nodb_iterate;%@
+  <option value="@%db:iterate_num;%@"
+  @%db:selected_value{iterate_num};%@
+  >@%db:iterate_num;%@</option>
+  @%end-where:%@
+
+  </select>
+  </td>
+  <td class="etiqueta" colspan="2" align="right">{{label_asc}}</td>
+  <td class="check" align="right">
+  <input type="radio" class="insertext" name="orden[precio][direccion]" value="asc"
+  @%if:equals;orden[precio];asc;%@
+  checked="checked" 
+  @%end-if:%@
+  >
+  </td><td align="left" class="check">
+  <input type="radio" class="insertext" name="orden[precio][direccion]" value="desc"
+  @%if:equals;orden[precio];desc;%@
+  checked="checked" 
+  @%end-if:%@
+  >
+  </td>
+  <td colspan="2" class="titul1al" >{{label_desc}}</td>
+  </tr>
+
+  <tr>
+  <td class="check" align="right" >
+  <input type="checkbox" class="insertext" name="orden[cantidad][accion]" value="1"
+  @%if:esta_vacio;orden[cantidad];%@
+  @%else:%@
+  checked="checked"
+  @%end-if:%@
+  >&nbsp;
+  <input type="hidden" name="orden[cantidad][field]" value="cantidad_pedida">
+  </td>
+  <td class="etiqueta" colspan="2" >{{inf_label_cantidadpedida}}</td>
+
+  <td colspan="2" >
+  <!-- @%set:_selected_value=orden[cantidad_posicion];%@ -->
+  <!-- @%set:_iterate_reset=1;%@ -->
+  <select class="insertext" name="orden[cantidad][posicion]">
+  @%where:nodb|nodb_iterate;%@
+  <option value="@%db:iterate_num;%@"
+  @%db:selected_value{iterate_num};%@
+  >@%db:iterate_num;%@</option>
+  @%end-where:%@
+
+  </select>
+  <td class="etiqueta" colspan="2" >{{label_asc}}</td>
+  <td class="check">
+  <input type="radio" class="insertext" name="orden[cantidad][direccion]" value="asc"
+  @%if:equals;orden[cantidad];asc;%@
+  checked="checked" 
+  @%end-if:%@
+  >
+  </td><td class="check" align="left">
+  <input type="radio" class="insertext" name="orden[cantidad][direccion]" value="desc"
+  @%if:equals;orden[cantidad];desc;%@
+  checked="checked" 
+  @%end-if:%@
+  ></td>
+  <td class="titul1al" colspan="2">{{label_desc}}</td>
+  </tr>
+
+  <tr>
+  <td class="check">
+  <input type="checkbox" class="insertext" name="orden[nombre][accion]" value="1"
+  @%if:esta_vacio;orden[nombre];%@
+  @%else:%@
+  checked="checked"
+  @%end-if:%@
+  ><input type="hidden" name="orden[nombre][field]" value="Articulos.nombre">
+  </td>
+  <td class="etiqueta" colspan="2">{{label_articulo}}</td>
+
+  <td colspan="2" >
+  <!-- @%set:_selected_value=orden[nombre_posicion];%@ -->
+  <!-- @%set:_iterate_reset=1;%@ -->
+  <select class="insertext" name="orden[nombre][posicion]">
+  @%where:nodb|nodb_iterate;%@
+  <option value="@%db:iterate_num;%@"
+  @%db:selected_value{iterate_num};%@
+  >@%db:iterate_num;%@</option>
+  @%end-where:%@
+
+  </select>
+  </td>
+
+  <td class="etiqueta" colspan="2" >{{label_asc}}</td>
+  <td class="check" >
+  <input type="radio" class="insertext" name="orden[nombre][direccion]" value="asc"
+  @%if:equals;orden[nombre];asc;%@
+  checked="checked" 
+  @%end-if:%@
+  >
+  </td><td class="check" >
+  <input type="radio" class="insertext" name="orden[nombre][direccion]" value="desc"
+  @%if:equals;orden[nombre];desc;%@
+  checked="checked" 
+  @%end-if:%@
+  ></td>
+  <td class="titul1al">{{label_desc}}</td>
+
+</table>
+<br>
+<table class="full">
+  <td class="check" >
+  <input type="checkbox" name="ag_search" value="1"
+  @%if:esta_vacio;st[ag_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  ></td>
+  <td class="caption" colspan="10">{{inf_group_agentes}}</td>
+  </tr>
+
+  <tr><td class="etiqueta">{{label_id}}:</td>
+  <td colspan="2"><input type="text" name="ag_id" size="20" class="insertext" value="@%get:st[ag_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="2"><input type="text" name="ag_nombre" size="30" class="insertext" value="@%get:st[ag_nombre];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_tipo}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[ag_tipo];%@ -->
+  <select name="ag_tipo" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Tipo_agente;nolink|1;nombre|tipos;%@
+  <option value="@%db:Tipo_agente.id_tipo_agente;%@"
+  @%db:selected_value{Tipo_agente.id_tipo_agente}%@
+  >@%db:Tipo_agente.nombre;%@</option>
+  @%end-where:%@
+
+  </select>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadpedida}} 
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][field]" value="Lineas_detalle.cantidad">
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadpedida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadfacturada}} 
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][field]" 
+  		value="IF(Facturas.factura_abono,(Facturas_detalle.cantidad*-1),Facturas_detalle.cantidad)" />
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas_detalle.cantidad;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Facturas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadrecibida}} 
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][field]" value="Lineas_detalle.cantidad_recibida">
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad_recibida;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad_recibida;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad_recibida;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad_recibida;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.cantidad_recibida;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_precioventa}}
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][field]" value="Lineas_detalle.precio_articulo">
+  <input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.precio_articulo;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.precio_articulo;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.precio_articulo;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.precio_articulo;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Agentes.id_agente][{{inf_fld_precioventa}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Agentes.id_agente;Lineas_detalle.precio_articulo;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+</table>
+
+<br>
+<table class="full">
+  <td class="check" >
+  <input type="checkbox" name="cl_search" value="1"
+  @%if:esta_vacio;st[cl_search];%@
+  @%else:@
+  checked="checked"
+  @%end-if:%@
+  >
+  </td>
+  <td class="caption" colspan="10">{{inf_group_clientes}}</td>
+  </tr>
+
+  <tr><td class="etiqueta">{{label_id}}:</td>
+  <td colspan="2"><input type="text" name="cl_id" size="20" class="insertext" value="@%get:st[cl_id];%@"></td>
+  <td class="etiqueta" colspan="2">{{label_nombre}}:</td>
+  <td colspan="2"><input type="text" name="cl_nombre" size="30" class="insertext" value="@%get:st[cl_nombre];%@"></td>
+  <td class="etiqueta" colspan="2">{{fld_tipo}}:</td>
+  <td colspan="2"><!-- @%set:_selected_value=st[cl_tipo];%@ -->
+  <select name="cl_tipo" class="insertext">
+  <option value="">{{label_ningunaseleccion}}</option>
+  @%where:tabla|Tipo_cliente;nolink|1;nombre|tiposcl;%@
+  <option value="@%db:Tipo_cliente.id_tipo_cliente;%@"
+  @%db:selected_value{Tipo_cliente.id_tipo_cliente}%@
+  >@%db:Tipo_cliente.nombre;%@</option>
+  @%end-where:%@
+
+  </select>
+  </td>
+  </tr>
+
+  <tr><td class="titulotb" colspan="11">{{label_totales}}</td></tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadpedida}} 
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][field]" value="Lineas_detalle.cantidad">
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadpedida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadfacturada}} 
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][field]" 
+  		value="IF(Facturas.factura_abono,(Facturas_detalle.cantidad*-1),Facturas_detalle.cantidad)" />
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas_detalle.cantidad;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas_detalle.cantidad;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <!-- input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas_detalle.cantidad;avg;%@ -->
+  </td><td>
+  <!-- {{inf_fnclabel_avg}} -->
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas_detalle.cantidad;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadfacturada}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Facturas_detalle.cantidad;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_cantidadrecibida}} 
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][field]" value="Lineas_detalle.cantidad_recibida">
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad_recibida;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad_recibida;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad_recibida;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad_recibida;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_cantidadrecibida}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.cantidad_recibida;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+  <tr>
+  <td class="etiqueta" >{{inf_label_precioventa}}
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][field]" value="Lineas_detalle.precio_articulo">
+  <input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][round]" value="2">
+  <!-- input type="hidden" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][erase_without]" value="ag_search" -->
+  </td>
+  <td class="check" >
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][{{inf_fnc_max}}]" value="max"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.precio_articulo;max;%@>
+  </td><td>
+  {{inf_fnclabel_max}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][{{inf_fnc_min}}]" value="min"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.precio_articulo;min;%@>
+  </td><td>
+  {{inf_fnclabel_min}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][{{inf_fnc_avg}}]" value="avg"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.precio_articulo;avg;%@>
+  </td><td>
+  {{inf_fnclabel_avg}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][{{inf_fnc_count}}]" value="count"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.precio_articulo;count;%@>
+  </td><td>
+  {{inf_fnclabel_count}}
+  </td><td class="check">
+  <input type="checkbox" class="insertext" name="totales[Clientes.id_cliente][{{inf_fld_precioventa}}][{{inf_fnc_sum}}]" value="sum"
+  @%func:checkbox_mark;Clientes.id_cliente;Lineas_detalle.precio_articulo;sum;%@>
+  </td><td>
+  {{inf_fnclabel_sum}}
+  </td>
+  </tr>
+
+</table>
+<br>
+  </form>
+

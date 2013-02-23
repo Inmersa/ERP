@@ -1,0 +1,23 @@
+BUDGET_NODB	100	It has not been finded a valid connection request to the BDD ({{dbname}}).
+BUDGET_LOCKED	100	Budget blocked. Verify the recipient and emitter data.
+BUDGET_NODISCOUNT_ORDER	100	The line {{idx}} cannot be discounted from the reference  {{ref}}  when belonging to the order ({{pedido}}).
+BUDGET_COMPANY_NOTFOUND	100	It has not been possible to find the company {{id}}.
+BUDGET_PENDING_CONTRACT	100	It has not been possible to emit the budget {{fra}} because some amounts are unknow .
+BUDGET_ISSUED_DRAFTS	100	Some budget bank drafts has been emited to the recipient.
+BUDGET_NODBRECORD_NOACENTRY	100	Budget not accounted because there is not BDD identifier.
+BUDGET_NODBRECORD	100	Budget not registered in the BDD.
+BUDGET_ACENTRY_FAILED	100	It has not been possible to create/obtain the requested entry.
+BUDGET_ACENTRY_EXISTS	100	Budget already on journal. (ID:{{id}})
+BUDGET_NODOCUMENT_PARAM	100	{{fnc}} has received a wrong parameter because does not belong to a subclass document.
+BUDGET_ORDER_MODE_MISMATCH	100	Not compatible with the order.It is imposible to bill in sales and purchase order or the other way around.
+BUDGET_ORDER_ISSUER_MISMATCH	100	The order emitter is not the same from the budget emitter.
+BUDGET_ORDER_RECIEVER_MISMATCH	100	The order recipient is not the same from the budget recipient.
+BUDGET_ORDER_CURRENCY_MISMATCH	100	The order currency is not the same from the budget currency.
+BUDGET_ORDER_PAYMENT_MISMATCH	100	The method of payment is not the same from the budget method of payment.
+BUDGET_CONTRACT_NOPERIOD	100	The contract {{contract}} can not be processed because lack of information about the billing periods.
+BUDGET_NOHEADERS	100	It has not been possible to obtain the budget headings.
+BUDGET_NODETAILS	100	It has not been possible to obtain the budget details.
+BUDGET_NOISSUER	100	Budget {{ref}} without emitter.
+BUDGET_NORECIEVER	100	Budget {{ref}} without recipient.
+BUDGET_NOIDPRODUCT	100	Article reference does not exist in line: {{idx}}.
+BUDGET_DBFILL    	101	Budget has been impossible to reach: ID {{id}}.

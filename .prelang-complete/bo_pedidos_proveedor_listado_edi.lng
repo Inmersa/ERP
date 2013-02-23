@@ -1,0 +1,65 @@
+
+@%plt:botonera%@
+<table class="full">
+<tr>
+<td class="caption">{{label_referencia}}</td>
+<td class="caption">{{label_fecha}}</td>
+<td class="caption">{{label_baseimp}}</td>
+<td class="caption">{{label_p}}</td>
+<td class="caption">{{label_a}}</td>
+<td class="caption">{{label_f}}</td>
+</tr>
+<!-- @%set:none=triangulo.png%@ @%set:do=cuadrado.png%@ @%set:ok=circulo.png%@ @%set:bad=negro.gif%@ -->
+ @%where:tabla|Pedidos;nombre|busc;no_results|1;cfunc|cf_pedidos;order|Pedidos.fecha desc;%@
+<tr>
+<td><a href="?seccion=bo_pedido_proveedor&id_pedido=@%db:Pedidos.id_pedido;%@">@%db:Pedidos.referencia;%@</a></td>
+<td>@%db:colocar_fecha{Pedidos.fecha};%@</td>
+<td>@%db:monto_pedido;%@</td>
+<td><img src="imag/@%func:switch_alfa_dec;estado_pedido;none;do;ok;%@" /></td>
+<td><img src="imag/@%func:switch_alfa_dec;estado_albaran;none;do;ok;bad;%@" /></td>
+<td><img src="imag/@%func:switch_alfa_dec;estado_factura;none;do;ok;%@" /></td>
+</tr>
+ @%end-where:%@
+
+</table>
+
+@%plt:botonera%@ 
+
+<div class="barraoscura">{{label_leyenda}}</div>
+<table class="full">
+
+<tr>
+<td class="etiqueta">{{label_pconguion}}{{label_pedidominuscula}}</td>
+<td><img src="imag/triangulo.png" width="14" height="14" /></td>
+<td>{{label_enpreparacion}}</td>
+<td><img src="imag/cuadrado.png" width="14" height="14" /></td>
+<td>{{label_preparado}}</td>
+<td><img src="imag/circulo.png" width="14" height="14" /></td>
+<td>{{label_recibido}} </td>
+</tr>
+<tr>
+<td class="etiqueta">{{label_aconguion}} <span>{{label_albaran}}</span></td>
+<td><img src="imag/triangulo.png" width="14" height="14" /></td>
+<td>{{label_nuloenproceso}}</td>
+<td><img src="imag/cuadrado.png" width="14" height="14" /></td>
+<td>{{label_preparado}}</td>
+<td><img src="imag/circulo.png" width="14" height="14" /></td>
+<td>{{label_enviado}}</td>
+<td><img src="imag/negro.gif" width="14" height="14" /></td>
+<td>{{label_devuelto}}</td>
+</tr>
+
+<tr>
+<td class="etiqueta">{{label_fconguion}} <span>{{label_factura}}</span></td>
+<td><img src="imag/triangulo.png" width="14" height="14" /></td>
+<td>{{label_sinfactura}}</td>
+<td><img src="imag/cuadrado.png" width="14" height="14" /></td>
+<td>{{label_sinemitir}}</td>
+<td><img src="imag/circulo.png" width="14" height="14" /></td>
+<td>{{label_emitida}}</td>
+
+</tr>
+</table>
+
+
+

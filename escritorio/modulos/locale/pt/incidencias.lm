@@ -1,0 +1,34 @@
+INC_NOID	90	A identificação do Incidência  {{id}} não poderia ser encontrada.
+INC_MDEP_NOTFOUND	101	O departamento controlando Incidência {{id}} não podia ser encontrado.
+INC_PRIORITY_TIME	102	Nenhum tempo estimado da definição para a prioridade {{prioridad}}.
+INC_NOEMAIL	103	Email não ajustado. Por favor assim.
+INC_EMAIL_NEWINTRO	502	Há um Incidência nova no sistema:
+INC_EMAIL_EDITINTRO	503	Houve algumas mudanças no seguinte Incidência:
+INC_EMAIL_CLOSEDINTRO	503	Há um ativo Incidência menos no sistema:
+INC_EMAIL_CHGINTRO	504	Estes são as mudanças feitas:
+INC_EMAIL_CHGPRIORITY	505	"A prioridade mudou de ""{{anterior}}"" a ""{{actual}}"""
+INC_EMAIL_CHGTYPE	506	"Tipo mudou de ""{{anterior}}"" a ""{{actual}}"""
+INC_EMAIL_CHGMANAGER	507	"Incidência foi escalado ""{{anterior}}"" a um outro gerente: ""{{actual}}"""
+INC_EMAIL_CHGSTATUS	529	"O status do Incidência mudou de ""{{anterior}}"" a ""{{actual}}"""
+INC_EMAILFLD_NUMERO	508	Incidência Nm: {{valor}}
+INC_EMAILFLD_TIPO	509	Tipo de Incidência: {{valor}}
+INC_EMAILFLD_PRIORIDAD	510	Prioridade: {{valor}}
+INC_EMAILFLD_FECHA	511	Data: {{valor}}
+INC_EMAILFLD_FECHAINI	512	Data de início: {{valor}}
+INC_EMAILFLD_FECHAEST	513	Data Aproximada de Conclusão: {{valor}}
+INC_EMAILFLD_FECHAFIN	514	Data Final: {{valor}}
+INC_EMAILFLD_NOTA	515	Nota de Abertura: {{valor}}
+INC_EMAILFLD_APERTURA	516	Utilizador de Abertura: {{valor}}
+INC_EMAILFLD_IMPLICADO	517	Utilizador Envolvido: {{valor}}
+INC_EMAILFLD_GESTOR	518	Gerente : {{valor}}
+INC_EMAILFLD_COORDINADOR	519	Coordenador : {{valor}}
+INC_EMAILFLD_STATUS	530	Estado : {{valor}}
+INC_EMAILST_PENDING	520	Pending revision
+INC_EMAILST_OPEN	521	Aberta
+INC_EMAILST_CLOSED	522	Fechadas
+INC_EMAILST_DUE	523	Devido
+INC_EMAIL_NEWCOMMENT	524	"\n ""{{usuario}}"" Incorporou os seguintes comentários ({{fecha}}):"
+INC_EMAIL_PUBLICTEXT	525	Texto: \n {{texto}}
+INC_EMAIL_PRIVATETEXT	526	Comentário Privado : \n {{texto}}
+INC_EMAIL_COMMENTDOCS	527	O comentário tem os seguintes  documentos relacionados:
+INC_EMAIL_DOCUMENT	528	ID: {{id}} \n Documento: {{documento}} \n Data : {{fecha}} \n Criado Perto: {{usuario}} \n Autor: {{autor}}

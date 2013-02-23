@@ -1,0 +1,86 @@
+BODY {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+/* Tablas */
+
+TABLE.full THEAD TD {
+	font-weight:bold;
+}
+
+TABLE.full THEAD TD.fieldvalue {
+	font-weight:normal;
+}
+
+TABLE.full TD {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+TABLE.fullstruct TD {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+
+/* Formularios */
+INPUT.fecha {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+INPUT,SELECT,TEXTAREA,OPTION {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+.error {
+	font-weight:bold;
+}
+
+#usuario {
+	font-size:13px;
+	font-weight:bold;
+}
+
+.fondotela {
+	background-image:url('../../imag/login/telaarana.png');
+	background-repeat:no-repeat;
+}
+
+.caption {
+	font-weight:bold;
+}
+
+/** Pendientes de revisar y cambiar nombre **/
+
+/** por numerico **/
+INPUT.num {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+/** por titulosuperior o algo mas apropiado **/
+.titsuperior {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.tituloseccion {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.botdestacado {
+	font-weight:bold;
+}
+
+.titulotb {
+	font-weight:bold;
+}
+
+.titul2{
+	font-weight:bold;
+}
+

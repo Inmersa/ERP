@@ -1,0 +1,95 @@
+
+<form name="nuevo_clientes" action="?seccion=modif_clientes" method="post">
+<div class="tituloseccion">&gt; {{frame_NUEVOCLIENTE}}</div>
+
+<fieldset id="NuevoCliente_DatosGenerales" class="fsficha">
+<legend>{{label_datosgenerales}}</legend>
+ <table class="full">
+ <tr>
+ <td class="etiqueta">{{fld_nombre}}:</td>
+ <td><input type="text" name="registro[nombre]" size="30" /></td>
+ <td class="etiqueta">{{fld_nifintracom}} :</td>
+ <td><input type="text" name="registro[prefijo_cif]" size="2" maxlength="2" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_apellidos}}:</td>
+ <td><input type="text" name="registro[apellidos]" class="insertext" size="30" /></td>
+ <td class="etiqueta">{{fld_nifcif}}:</td>
+ <td><input type="text" name="registro[cif]" size="20" maxlength="12" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_razonsocial}}:</td>
+ <td><input type="text" name="registro[razon_social]" class="insertext" size="30" /></td>
+ <td class="etiqueta">{{fld_poblacion}}:</td>
+ <td><input type="text" name="registro[poblacion]" size="20" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_direccionfacturacion}}:</td>
+ <td>
+ <input type="text" name="registro[direccion_facturacion]" size="30" /></td>
+ <td class="etiqueta">{{fld_cp}}:</td>
+ <td><input type="text" name="registro[cp]" size="6" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_provincia}}:</td>
+ <td>
+ <select name="registro[id_provincia]">
+ @%where:tabla|Provincias;order|nombre;nolink|1;%@
+ <option value="@%db:Provincias.id_provincia;%@">@%db:Provincias.nombre;%@</option>
+ @%end-where:%@
+
+ </select></td>
+ <td class="etiqueta">{{fld_email}}:</td>
+ <td><input type="text" name="registro[email]" size="20" /></td>
+ </tr>
+
+
+ <tr>
+ <td class="etiqueta">{{fld_personacontacto}}:</td>
+ <td>
+ <input type="text" name="registro[persona_contacto]" size="30" /></td>
+ <td class="etiqueta">{{fld_telefono1}}:</td>
+ <td><input type="text" name="registro[telefono1]" size="14" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_cargopersonacontacto}}:</td>
+ <td>
+ <input type="text" name="registro[cargo_persona_contacto]" size="30" /></td>
+ <td class="etiqueta">{{fld_telefono2}}:</td>
+ <td>
+ <input type="text" name="registro[telefono2]" size="14" /></td>
+ </tr>
+
+ <tr>
+ <td class="etiqueta">{{fld_web}}:</td>
+ <td>
+ <input type="text" name="registro[web]" size="30" /></td>
+ <td class="etiqueta">{{fld_fax}}:</td>
+ <td>
+ <input type="text" name="registro[fax]" size="14" /></td>
+ </tr>
+</table>
+</fieldset>
+
+@%plt:Acceso_Sistema;%@
+
+@%plt:Cliente_Empresa;%@
+
+@%plt:Cuentas_Contables;%@
+
+@%plt:Mostrar_Ofertas%@
+
+@%plt:Observaciones%@
+
+ <input type="hidden" name="accion_ejecutar" value="Nuevo" />
+</form>
+
+<div class="AccionesEnvio"><ul>
+<li><a href="#" onClick="return sendForm('nuevo_clientes');" class="guardar"><img src="imag/pixel.png" class="icono" /><span>{{acc_guardar}}</span></a></li>
+</ul></div>
+

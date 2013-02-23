@@ -1,0 +1,7 @@
+<div class="barraoscura">
+<div class="titsuperior">&gt; {{frame_TIPOSDEIVA}}</div><div class="alinder">
+@%if:AllowedLink;nuevo_tipos_iva;%@
+ <a href="?seccion=nuevo_tipos_iva" class="accesos">{{acc_nuevo}}</a>
+ @%end-if:%@
+</div></div>
+@%plt:Tipos_Iva%@ 
