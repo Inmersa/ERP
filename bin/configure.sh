@@ -32,7 +32,7 @@ fi
 # comment does some pretty-printing
 #
 #						comment 'xxx'
-# 
+#
 comment () {
   echo ""
   echo "*-----------------------------------------------------------------------------";
@@ -41,22 +41,22 @@ comment () {
 }
 
 function check_bool() {
-						_bool='';
-						if [ "$1" = "s" -o "$1" = "si" -o "$1" = "S" -o "$1" = "Si" -o "$1" = "SI"  -o "$1" = "y" -o "$1" = "yes" -o "$1" = "Y" -o "$1" = "Yes" -o "$1" = "YES" -o "$1" = "1" ]; then 
-													  _bool=1;
-						else
-													  if [ "$1" = "n" -o "$1" = "no" -o "$1" = "N" -o "$1" = "No" -o "$1" = "NO" -o "$1" = "0" ]; then 
-																					 _bool=0;
-													  else
-																					 test ! -z "$2" && _bool=$2 || _bool=0;
-													  fi;
-						fi;
+    _bool='';
+    if [ "$1" = "s" -o "$1" = "si" -o "$1" = "S" -o "$1" = "Si" -o "$1" = "SI"  -o "$1" = "y" -o "$1" = "yes" -o "$1" = "Y" -o "$1" = "Yes" -o "$1" = "YES" -o "$1" = "1" ]; then
+        _bool=1;
+    else
+        if [ "$1" = "n" -o "$1" = "no" -o "$1" = "N" -o "$1" = "No" -o "$1" = "NO" -o "$1" = "0" ]; then
+            _bool=0;
+        else
+            test ! -z "$2" && _bool=$2 || _bool=0;
+        fi;
+    fi;
 }
 
 #
 # readln reads a line into $ans.
 #
-#						readln macro prompt default oldval
+#	readln macro prompt default oldval
 #
 readln () {
   echo $1 | $AWK '{ printf("%-20.20s: ", $1); }'
@@ -76,292 +76,292 @@ readln () {
 }
 
 parse_arguments() {
-						for arg do
-													  case "$arg" in
-																					 -q|--quiet=*)
-																											 QUIET=1;
-																					 ;;
-																					 --prefix=*)
-																											 INSTALL_DIR=`echo "$arg" | sed -e "s;--prefix=;;"`;
-																											 srcdir=$INSTALL_DIR;
-																					 ;;
-																					 --cfgpath=*)
-																											 CFGPATH=`echo "$arg" | sed -e "s;--cfgpath=;;"`;
-																					 ;;
-													  esac
-						done;
+    for arg do
+        case "$arg" in
+            -q|--quiet=*)
+                QUIET=1;
+            ;;
+            --prefix=*)
+                INSTALL_DIR=`echo "$arg" | sed -e "s;--prefix=;;"`;
+                srcdir=$INSTALL_DIR;
+            ;;
+            --cfgpath=*)
+                CFGPATH=`echo "$arg" | sed -e "s;--cfgpath=;;"`;
+            ;;
+        esac
+    done;
 #--basedir=*) MY_BASEDIR_VERSION=`echo "$arg" | sed -e "s;--basedir=;;"` ;;
 }
 
 
-if [ ! -f "$CFGPATH/$CFGFILES" ]; then 
-						# Si no hemos encontrado la configuracion, miramos los parametros
-						parse_arguments "$@"
-						if [ ! -f "$CFGPATH/$CFGFILES" ]; then 
-													  echo "Error: config file $CFGFILES not found. Use --cfgpath switch "; 
-													  exit 1; 
-						fi;
+if [ ! -f "$CFGPATH/$CFGFILES" ]; then
+    # Si no hemos encontrado la configuracion, miramos los parametros
+    parse_arguments "$@"
+    if [ ! -f "$CFGPATH/$CFGFILES" ]; then
+        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
+        exit 1;
+    fi;
 fi;
-						
+
 if [ -z "$srcdir" ]; then srcdir=$(pwd); fi;
 if [ -z "$INSTALL_DIR" ]; then INSTALL_DIR=$(pwd); fi;
 
 . $CFGPATH/$CFGFILES
 
 if [ -z "$MYSQL" -o ! -x "$MYSQL" ]; then \
-						echo "Error: mysql client not found"; \
-						exit 1; \
+    echo "Error: mysql client not found"; \
+    exit 1; \
 fi
 
 
-if [ -e $CONF_FILE ]; then 
-						. $CONF_FILE; 
-						parse_arguments "$@"
-						if [ -z "$_USEFULL_CONFIG" ]; then
-													  _USEFULL_CONFIG=n;
-						fi
-						check_bool $_USEFULL_CONFIG;
-						if [ $_bool -eq 1 ]; then 
-													  if [ $QUIET -ne 1 ]; then 
-																					 readln "CHANGE_CONF" "Tiene una configuracion almacenada. Desea usarla? [s/n]" "n" ""; 
-																					 check_bool $ans;
-																					 if [ $_bool -eq 1 ]; then 
-																											 USE_DEFAULT=y;
-																					 else 
-																											 USE_DEFAULT=n;
-																					 fi; 
-													  else
-																					 USE_DEFAULT=y;
-													  fi;
-						else
-													  USE_DEFAULT=n
-													  if [ $QUIET -eq 1 ]; then 
-																					 echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
-																					 exit 1;
-													  fi;
-						fi
+if [ -e $CONF_FILE ]; then
+    . $CONF_FILE;
+    parse_arguments "$@"
+    if [ -z "$_USEFULL_CONFIG" ]; then
+        _USEFULL_CONFIG=n;
+    fi
+    check_bool $_USEFULL_CONFIG;
+    if [ $_bool -eq 1 ]; then
+        if [ $QUIET -ne 1 ]; then
+            readln "CHANGE_CONF" "Tiene una configuracion almacenada. Desea usarla? [s/n]" "n" "";
+            check_bool $ans;
+            if [ $_bool -eq 1 ]; then
+                USE_DEFAULT=y;
+            else
+                USE_DEFAULT=n;
+            fi;
+        else
+            USE_DEFAULT=y;
+        fi;
+    else
+        USE_DEFAULT=n
+        if [ $QUIET -eq 1 ]; then
+            echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
+            exit 1;
+        fi;
+    fi
 else
-						parse_arguments "$@"
-						_USEFULL_CONFIG=n
-						if [ $QUIET -eq 1 ]; then 
-													  echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
-													  exit 1;
-						fi;
+    parse_arguments "$@"
+    _USEFULL_CONFIG=n
+    if [ $QUIET -eq 1 ]; then
+        echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
+        exit 1;
+    fi;
 fi
 
-if [ $QUIET -ne 1 ]; then 
-						#Lo primero configuramos los Privilegios de la DDBB
-						readln "DB_HOST" "dns o ip del host MySQL [localhost] " "localhost" "$MYSQL_HOST"
-						MYSQL_HOST=$ans
-						readln "DB_PORT" "puerto MySQL del host $MYSQL_HOST " "3306" "$MYSQL_PORT"
-						MYSQL_PORT=$ans
-						readln "MYSQL_SU_USER" "Login de usuario privilegiado en la DDBB [root] " "root" "$MYSQL_SU_USER"
-						MYSQL_SU_USER=$(echo "$ans")
-						readln "MYSQL_SU_PASS" "Contraseña del usuario en $MYSQL_SU_PASS la DDBB [$MYSQL_SU_USER] " "" "$MYSQL_SU_PASS"
-						MYSQL_SU_PASS=$(echo "$ans")
-						readln "DB_NAME" "Nombre de la BBDD [$(echo $CLIENTE)_gestion] " "$(echo $CLIENTE)_gestion" "$DBNAME"
-						DBNAME=$ans
-						readln "DB_LOGIN" "Nombre de usuario para la DB $DBNAME -Max 12 Car.- " "$(echo $CLIENTE)gt" "$DBLOGIN"
-						DBLOGIN=$ans
-						readln "DB_PASSWORD" "Contraseña del usuario $DBLOGIN " "" "$DBPW"
-						DBPW=$ans
-						readln "DB_CLIENT_HOST" "mascara MySQL de acceso para $DBLOGIN en $MYSQL_HOST " "$MYSQL_HOST" "$DBMASK"
-						DBMASK=$ans
-						readln "IGestion_User" "Login de aplicacion -Usuario privilegiado- " "$CLIENTE" "$IG_LOGIN"
-						IG_LOGIN=$ans
-						readln "IGestion_Password" "Contraseña de aplicacion para el usuario [$IG_LOGIN] " "$IG_PW" "$IG_PW"
-						IG_PW=$ans
+if [ $QUIET -ne 1 ]; then
+    #Lo primero configuramos los Privilegios de la DDBB
+    readln "DB_HOST" "dns o ip del host MySQL [localhost] " "localhost" "$MYSQL_HOST"
+    MYSQL_HOST=$ans
+    readln "DB_PORT" "puerto MySQL del host $MYSQL_HOST " "3306" "$MYSQL_PORT"
+    MYSQL_PORT=$ans
+    readln "MYSQL_SU_USER" "Login de usuario privilegiado en la DDBB [root] " "root" "$MYSQL_SU_USER"
+    MYSQL_SU_USER=$(echo "$ans")
+    readln "MYSQL_SU_PASS" "Contraseï¿½a del usuario en $MYSQL_SU_PASS la DDBB [$MYSQL_SU_USER] " "" "$MYSQL_SU_PASS"
+    MYSQL_SU_PASS=$(echo "$ans")
+    readln "DB_NAME" "Nombre de la BBDD [$(echo $CLIENTE)_gestion] " "$(echo $CLIENTE)_gestion" "$DBNAME"
+    DBNAME=$ans
+    readln "DB_LOGIN" "Nombre de usuario para la DB $DBNAME -Max 12 Car.- " "$(echo $CLIENTE)gt" "$DBLOGIN"
+    DBLOGIN=$ans
+    readln "DB_PASSWORD" "Contraseï¿½a del usuario $DBLOGIN " "" "$DBPW"
+    DBPW=$ans
+    readln "DB_CLIENT_HOST" "mascara MySQL de acceso para $DBLOGIN en $MYSQL_HOST " "$MYSQL_HOST" "$DBMASK"
+    DBMASK=$ans
+    readln "IGestion_User" "Login de aplicacion -Usuario privilegiado- " "$CLIENTE" "$IG_LOGIN"
+    IG_LOGIN=$ans
+    readln "IGestion_Password" "Contraseï¿½a de aplicacion para el usuario [$IG_LOGIN] " "$IG_PW" "$IG_PW"
+    IG_PW=$ans
 
-						if [ -f $DBCFG_FILE ]; then
-													  oldifs=$IFS;
-													  IFS="
+    if [ -f $DBCFG_FILE ]; then
+        oldifs=$IFS;
+        IFS="
 "
-													  msg="Idioma por defecto de la aplicacion: " 
-													  for l in `cat $DBCFG_FILE | grep -E "INSERT INTO(.*)Idiomas" | grep -v Relaciones | $AWK -F "'" '{{print $2" ["$4"]\n"}}'`; do
-																					 msg="$msg $l";
-													  done;
-													  IFS=$oldifs;
-													  readln "IGestion_Language" "$msg" "es" "$LANG"
-													  LANG=$ans
-						fi;
-						IFACE='nav';
+        msg="Idioma por defecto de la aplicacion: "
+        for l in `cat $DBCFG_FILE | grep -E "INSERT INTO(.*)Idiomas" | grep -v Relaciones | $AWK -F "'" '{{print $2" ["$4"]\n"}}'`; do
+            msg="$msg $l";
+        done;
+        IFS=$oldifs;
+        readln "IGestion_Language" "$msg" "es" "$LANG"
+        LANG=$ans
+    fi;
+    IFACE='nav';
 
-						DBNAME_INM=$(echo $DBNAME)_inmersa
-						DBLOGIN_INM=$(echo $DBLOGIN)_inm
-						DBPW_INM=$(echo $DBPW)
-						IG_APP_NAME=IGestion_$CLIENTE
+    DBNAME_INM=$(echo $DBNAME)_inmersa
+    DBLOGIN_INM=$(echo $DBLOGIN)_inm
+    DBPW_INM=$(echo $DBPW)
+    IG_APP_NAME=IGestion_$CLIENTE
 
-						readln "do_CRM_CONFIG" "Si tiene Ud. Licencia de iCRM. Desea configurar el enlace iEmpresa->iCRM ahora? [s/n]" "s" ""
-						check_bool $ans
-						CFG_CRM=$_bool
-						if [ $CFG_CRM -eq 1 ]; then
-						# Enlace con iCRM
-													  readln "ICRM_VHOST" "Nombre del VHost (uri) para iCRM [icrm.$(echo $CLIENTE).com] " "icrm.$(echo $CLIENTE).com" "$ICRM_VHOST"
-													  ICRM_VHOST=$ans
-													  readln "ICRM_DBNAME" "Nombre la BBDD para iCRM " "$(echo $CLIENTE)_crm" "$ICRM_DBNAME"
-													  ICRM_DBNAME=$ans
-													  readln "CRMDB_LOGIN" "Nombre de usuario para la DB $ICRM_DBNAME -Max 12 Car.- " "$(echo $CLIENTE)cr" "$ICRM_DBLOGIN"
-													  ICRM_DBLOGIN=$ans
-													  readln "CRMDB_PASSWORD" "Contraseña del usuario para la DB $ICRM_DBLOGIN " "$ICRM_DBPW" "$ICRM_DBPW"
-													  ICRM_DBPW=$ans
+    readln "do_CRM_CONFIG" "Si tiene Ud. Licencia de iCRM. Desea configurar el enlace iEmpresa->iCRM ahora? [s/n]" "s" ""
+    check_bool $ans
+    CFG_CRM=$_bool
+    if [ $CFG_CRM -eq 1 ]; then
+    # Enlace con iCRM
+        readln "ICRM_VHOST" "Nombre del VHost (uri) para iCRM [icrm.$(echo $CLIENTE).com] " "icrm.$(echo $CLIENTE).com" "$ICRM_VHOST"
+        ICRM_VHOST=$ans
+        readln "ICRM_DBNAME" "Nombre la BBDD para iCRM " "$(echo $CLIENTE)_crm" "$ICRM_DBNAME"
+        ICRM_DBNAME=$ans
+        readln "CRMDB_LOGIN" "Nombre de usuario para la DB $ICRM_DBNAME -Max 12 Car.- " "$(echo $CLIENTE)cr" "$ICRM_DBLOGIN"
+        ICRM_DBLOGIN=$ans
+        readln "CRMDB_PASSWORD" "Contraseï¿½a del usuario para la DB $ICRM_DBLOGIN " "$ICRM_DBPW" "$ICRM_DBPW"
+        ICRM_DBPW=$ans
 
-													  ICRM_DBNAME_INM=$(echo $ICRM_DBNAME)_inmersa
-													  ICRM_DBLOGIN_INM=$(echo $ICRM_DBLOGIN)_inm
-													  ICRM_DBPW_INM=$(echo $ICRM_DBPW)
-						fi;
+        ICRM_DBNAME_INM=$(echo $ICRM_DBNAME)_inmersa
+        ICRM_DBLOGIN_INM=$(echo $ICRM_DBLOGIN)_inm
+        ICRM_DBPW_INM=$(echo $ICRM_DBPW)
+    fi;
 
-						readln "do_ICONTA_CONFIG" "Si tiene Ud. Licencia de iConta. Desea configurar el enlace iEmpresa->iConta ahora? [s/n]" "s" ""
-						check_bool $ans
-						CFG_iConta=$_bool
-						if [ $CFG_iConta -eq 1 ]; then
-						# Enlace con iCRM
-													  readln "ICONTA_VHOST" "Nombre del VHost (uri) para iCONTA " "iconta.$(echo $CLIENTE).com" "$ICONTA_VHOST"
-													  ICONTA_VHOST=$ans
-													  readln "ICONTA_DBNAME" "Nombre la BBDD para iCONTA " "$(echo $CLIENTE)_contabilidad" "$ICONTA_DBNAME"
-													  ICONTA_DBNAME=$ans
-													  readln "CONTADB_LOGIN" "Nombre de usuario para la DB $ICONTA_DBNAME -Max 12 Car.- " "$(echo $CLIENTE)ct" "$ICONTA_DBLOGIN"
-													  ICONTA_DBLOGIN=$ans
-													  readln "CONTADB_PASSWORD" "Contraseña del usuario $ICONTA_DBLOGIN " "$ICONTA_DBPW" "$ICONTA_DBPW"
-													  ICONTA_DBPW=$ans
+    readln "do_ICONTA_CONFIG" "Si tiene Ud. Licencia de iConta. Desea configurar el enlace iEmpresa->iConta ahora? [s/n]" "s" ""
+    check_bool $ans
+    CFG_iConta=$_bool
+    if [ $CFG_iConta -eq 1 ]; then
+    # Enlace con iCRM
+        readln "ICONTA_VHOST" "Nombre del VHost (uri) para iCONTA " "iconta.$(echo $CLIENTE).com" "$ICONTA_VHOST"
+        ICONTA_VHOST=$ans
+        readln "ICONTA_DBNAME" "Nombre la BBDD para iCONTA " "$(echo $CLIENTE)_contabilidad" "$ICONTA_DBNAME"
+        ICONTA_DBNAME=$ans
+        readln "CONTADB_LOGIN" "Nombre de usuario para la DB $ICONTA_DBNAME -Max 12 Car.- " "$(echo $CLIENTE)ct" "$ICONTA_DBLOGIN"
+        ICONTA_DBLOGIN=$ans
+        readln "CONTADB_PASSWORD" "Contraseï¿½a del usuario $ICONTA_DBLOGIN " "$ICONTA_DBPW" "$ICONTA_DBPW"
+        ICONTA_DBPW=$ans
 
-													  ICONTA_DBNAME_INM=$(echo $ICONTA_DBNAME)_inmersa
-													  ICONTA_DBLOGIN_INM=$(echo $ICONTA_DBLOGIN)_inm
-													  ICONTA_DBPW_INM=$(echo $ICONTA_DBPW)
-						fi;
+        ICONTA_DBNAME_INM=$(echo $ICONTA_DBNAME)_inmersa
+        ICONTA_DBLOGIN_INM=$(echo $ICONTA_DBLOGIN)_inm
+        ICONTA_DBPW_INM=$(echo $ICONTA_DBPW)
+    fi;
 
-						#echo Preguntar tambien por el idioma (krncfg_default_lang), iface (krncfg_default_iface) y tema (krncfg_default_theme) por defecto.
+    #echo Preguntar tambien por el idioma (krncfg_default_lang), iface (krncfg_default_iface) y tema (krncfg_default_theme) por defecto.
 else
-						if [ ! -z "$ICRM_VHOST" ]; then CFG_CRM=1; else CFG_CRM=0; fi;
-						if [ ! -z "$ICONTA_VHOST" ]; then CFG_iConta=1; else CFG_iConta=0; fi;
+    if [ ! -z "$ICRM_VHOST" ]; then CFG_CRM=1; else CFG_CRM=0; fi;
+    if [ ! -z "$ICONTA_VHOST" ]; then CFG_iConta=1; else CFG_iConta=0; fi;
 fi;
 
-if [ $QUIET -ne 1 ]; then 
-						comment "A Continuacion se procedera a volcar por completo la configuracion de iEmpresa. 
-						Si ya tiene datos almacenados, estos se perderan."
-						readln "do_DBDUMP" "Desea continuar? [s/n]" "s" ""
-						check_bool $ans
-						DO_DUMP=$_bool
-else 
-						DO_DUMP=1;
+if [ $QUIET -ne 1 ]; then
+    comment "A Continuacion se procedera a volcar por completo la configuracion de iEmpresa.
+    Si ya tiene datos almacenados, estos se perderan."
+    readln "do_DBDUMP" "Desea continuar? [s/n]" "s" ""
+    check_bool $ans
+    DO_DUMP=$_bool
+else
+    DO_DUMP=1;
 fi;
 
 if [ $DO_DUMP -eq 1 ]; then
 
-		  if [ $QUIET -ne 1 ]; then
-					 readln "do_DBBACKUP" "Desea hacer backup de los datos? [s/n]" "s" "";
-					 check_bool $ans;
-					 DO_BKP=$_bool;
-		  else
-					 DO_BKP=1;
-		  fi;
-		  if [ $DO_BKP -eq 1 ]; then
-					 echo "Haciendo backup de datos ... "
-					 if [ $QUIET -ne 1 ]; then 
-								bin/backup_data.sh
-					 else
-								bin/backup_data.sh -q
-					 fi;
-		  fi;
+    if [ $QUIET -ne 1 ]; then
+        readln "do_DBBACKUP" "Desea hacer backup de los datos? [s/n]" "s" "";
+        check_bool $ans;
+        DO_BKP=$_bool;
+    else
+        DO_BKP=1;
+    fi;
+    if [ $DO_BKP -eq 1 ]; then
+        echo "Haciendo backup de datos ... "
+        if [ $QUIET -ne 1 ]; then
+            bin/backup_data.sh
+        else
+            bin/backup_data.sh -q
+        fi;
+    fi;
 
-		  if [ ! -z "$MYSQL_PORT" ]; then portinfo="-P $MYSQL_PORT"; fi;
+    if [ ! -z "$MYSQL_PORT" ]; then portinfo="-P $MYSQL_PORT"; fi;
 
-		  MYCMD=`echo $MYSQL -u "$MYSQL_SU_USER" --password="$MYSQL_SU_PASS" -h $MYSQL_HOST $portinfo`
-		  DBV=`cat dbs/version`;
-		  DBSTRUCT="dbs/V$DBV/estructura.sql"
-		  if [ ! -z "$DBV" -a -f "$DBSTRUCT" ]; then
-					 STRUCT_FILE=$DBSTRUCT;
-					 OLDDBV=`echo "SELECT valor FROM _main WHERE nombre='database_version'" | $MYCMD $DBNAME_INM | grep -v valor;`
-					 if [ -z "$OLDDBV" ]; then
-								echo "No habia DB version. asumiento Version 1 ";
-								OLDDBV='1';
-					 fi;
-					 if [ "$OLDDBV" -ne "$DBV" ]; then
-								CURDBV=$OLDDBV
-								echo "actualizando DB version desde $OLDDBV a $DBV ";
-								while [ "$CURDBV" -ne "$DBV" ]; do
-										  if [ "$CURDBV" -lt "$DBV" ]; then
-													 let NEWDBV=$CURDBV+1
-													 #echo "subiendo DB de $CURDBV a $NEWDBV .. ";
-													 accion="upgrade"
-										  else
-													 let NEWDBV=$CURDBV-1
-													 #echo "bajando DB de $CURDBV a $NEWDBV .. ";
-													 accion="downgrade"
-										  fi;
-										  CURDBV=$NEWDBV
-										  sqlscr=dbs/V$NEWDBV/pre$accion.data.sql;
-										  if [ -f "$sqlscr" ]; then
-													 echo "Ejecutando $sqlscr contra $DBNAME ";
-													 cat $sqlscr | $MYCMD $DBNAME ;
-										  fi;
-										  sqlscr=dbs/V$NEWDBV/pre$accion.conf.sql;
-										  if [ -f "$sqlscr" ]; then
-													 echo "Ejecutando $sqlscr contra $DBNAME_INM ";
-													 cat $sqlscr | $MYCMD $DBNAME_INM ;
-										  fi;
-										  if [ "$DBV" -eq "$NEWDBV" ]; then
-													 echo "Ya hemos llegado a la version actual. Los scripts para el final. "
-													 sqlscr=dbs/V$NEWDBV/post$accion.data.sql;
-													 if [ -f "$sqlscr" ]; then
-																POST_DBSCRIPT_DATA=$sqlscr
-													 fi;
-													 sqlscr=dbs/V$NEWDBV/post$accion.conf.sql;
-													 if [ -f "$sqlscr" ]; then
-																POST_DBSCRIPT_CONF=$sqlscr
-													 fi;
-										  else
-													 echo "FixMe: Pendiente de actualizar conf antes de ejecutar post-scripts de versiones intermedias "
-													 sqlscr=dbs/V$NEWDBV/post$accion.data.sql;
-													 if [ -f "$sqlscr" ]; then
-																echo "Ejecutando $sqlscr contra $DBNAME ";
-																cat $sqlscr | $MYCMD $DBNAME ;
-													 fi;
-													 sqlscr=dbs/V$NEWDBV/post$accion.conf.sql;
-													 if [ -f "$sqlscr" ]; then
-																echo "Ejecutando $sqlscr contra $DBNAME_INM ";
-																cat $sqlscr | $MYCMD $DBNAME_INM ;
-													 fi;
-										  fi;
-								done;
-					 fi;
-		  else
-					 echo "NO DATABASE VERSION FOUND";
-		  fi;
+    MYCMD=`echo $MYSQL -u "$MYSQL_SU_USER" --password="$MYSQL_SU_PASS" -h $MYSQL_HOST $portinfo`
+    DBV=`cat dbs/version`;
+    DBSTRUCT="dbs/V$DBV/estructura.sql"
+    if [ ! -z "$DBV" -a -f "$DBSTRUCT" ]; then
+        STRUCT_FILE=$DBSTRUCT;
+        OLDDBV=`echo "SELECT valor FROM _main WHERE nombre='database_version'" | $MYCMD $DBNAME_INM | grep -v valor;`
+        if [ -z "$OLDDBV" ]; then
+            echo "No habia DB version. asumiento Version 1 ";
+            OLDDBV='1';
+        fi;
+        if [ "$OLDDBV" -ne "$DBV" ]; then
+            CURDBV=$OLDDBV
+            echo "actualizando DB version desde $OLDDBV a $DBV ";
+            while [ "$CURDBV" -ne "$DBV" ]; do
+                if [ "$CURDBV" -lt "$DBV" ]; then
+                    let NEWDBV=$CURDBV+1
+                    #echo "subiendo DB de $CURDBV a $NEWDBV .. ";
+                    accion="upgrade"
+                else
+                    let NEWDBV=$CURDBV-1
+                    #echo "bajando DB de $CURDBV a $NEWDBV .. ";
+                    accion="downgrade"
+                fi;
+                CURDBV=$NEWDBV
+                sqlscr=dbs/V$NEWDBV/pre$accion.data.sql;
+                if [ -f "$sqlscr" ]; then
+                    echo "Ejecutando $sqlscr contra $DBNAME ";
+                    cat $sqlscr | $MYCMD $DBNAME ;
+                fi;
+                sqlscr=dbs/V$NEWDBV/pre$accion.conf.sql;
+                if [ -f "$sqlscr" ]; then
+                    echo "Ejecutando $sqlscr contra $DBNAME_INM ";
+                    cat $sqlscr | $MYCMD $DBNAME_INM ;
+                fi;
+                if [ "$DBV" -eq "$NEWDBV" ]; then
+                    echo "Ya hemos llegado a la version actual. Los scripts para el final. "
+                    sqlscr=dbs/V$NEWDBV/post$accion.data.sql;
+                    if [ -f "$sqlscr" ]; then
+                        POST_DBSCRIPT_DATA=$sqlscr
+                    fi;
+                    sqlscr=dbs/V$NEWDBV/post$accion.conf.sql;
+                    if [ -f "$sqlscr" ]; then
+                        POST_DBSCRIPT_CONF=$sqlscr
+                    fi;
+                else
+                    echo "FixMe: Pendiente de actualizar conf antes de ejecutar post-scripts de versiones intermedias "
+                    sqlscr=dbs/V$NEWDBV/post$accion.data.sql;
+                    if [ -f "$sqlscr" ]; then
+                        echo "Ejecutando $sqlscr contra $DBNAME ";
+                        cat $sqlscr | $MYCMD $DBNAME ;
+                    fi;
+                    sqlscr=dbs/V$NEWDBV/post$accion.conf.sql;
+                    if [ -f "$sqlscr" ]; then
+                        echo "Ejecutando $sqlscr contra $DBNAME_INM ";
+                        cat $sqlscr | $MYCMD $DBNAME_INM ;
+                    fi;
+                fi;
+            done;
+        fi;
+    else
+        echo "NO DATABASE VERSION FOUND";
+    fi;
 
 cat<<EOF>$GRANT_FILE
 CREATE DATABASE IF NOT EXISTS $DBNAME;
 CREATE DATABASE IF NOT EXISTS $(echo $DBNAME_INM);
 GRANT  ALL PRIVILEGES
-					  ON $DBNAME.* 
-					  TO $DBLOGIN@'$DBMASK' 
-					  IDENTIFIED BY '$DBPW';
+    ON $DBNAME.*
+    TO $DBLOGIN@'$DBMASK'
+    IDENTIFIED BY '$DBPW';
 GRANT  ALL PRIVILEGES
-					  ON $DBNAME_INM.* 
-					  TO $DBLOGIN_INM@'$DBMASK' 
-					  IDENTIFIED BY '$DBPW_INM';
+    ON $DBNAME_INM.*
+    TO $DBLOGIN_INM@'$DBMASK'
+    IDENTIFIED BY '$DBPW_INM';
 EOF
 
 cat<<EOF>$INM_FILE
-REPLACE INTO Users (id_usr,nombre,login,passwd,av_group,activo) 
-					  VALUES (1,'$CLIENTE','$IG_LOGIN',PASSWORD('$IG_PW'),4,1);
+REPLACE INTO Users (id_usr,nombre,login,passwd,av_group,activo)
+    VALUES (1,'$CLIENTE','$IG_LOGIN',PASSWORD('$IG_PW'),4,1);
 DELETE FROM _main WHERE nombre='app_name' OR nombre like 'db_data_%'
 					  OR nombre='doc_root' OR nombre='root_dir'
 					  OR nombre='krncfg_default_lang' OR nombre='krncfg_default_iface'
-					  OR nombre='krncfg_doc_root' 
-					  OR nombre = 'database_version' 
-					  OR nombre = 'db_crm_login' 
+					  OR nombre='krncfg_doc_root'
+					  OR nombre = 'database_version'
+					  OR nombre = 'db_crm_login'
 					  OR nombre = 'db_crm_passwd'
-					  OR nombre = 'db_crm_dbase' 
-					  OR nombre = 'db_crm_server' 
-					  OR nombre = 'db_crm_port' 
-					  OR nombre = 'crm_link' 
-					  OR nombre = 'crm_mask_coordinador' 
-					  OR nombre = 'crm_mask_empleado' 
-					  OR nombre = 'crm_mask_externo' 
-					  OR nombre = 'db_crmcfg_login' 
-					  OR nombre = 'db_crmcfg_passwd' 
-					  OR nombre = 'db_crmcfg_dbase' 
-					  OR nombre = 'db_crmcfg_port' 
+					  OR nombre = 'db_crm_dbase'
+					  OR nombre = 'db_crm_server'
+					  OR nombre = 'db_crm_port'
+					  OR nombre = 'crm_link'
+					  OR nombre = 'crm_mask_coordinador'
+					  OR nombre = 'crm_mask_empleado'
+					  OR nombre = 'crm_mask_externo'
+					  OR nombre = 'db_crmcfg_login'
+					  OR nombre = 'db_crmcfg_passwd'
+					  OR nombre = 'db_crmcfg_dbase'
+					  OR nombre = 'db_crmcfg_port'
 					  OR nombre = 'db_crmcfg_server'
 					  OR nombre = 'cfg_app_iconta_dbconname'
 					  OR nombre = 'cfg_app_iconta_dbcfgconname'
@@ -387,8 +387,8 @@ INSERT INTO _main(nombre,valor) VALUES
 ('db_data_login','$DBLOGIN'),
 ('db_data_passwd','$DBPW'),
 ('doc_root','$(echo $INSTALL_DIR)/vhost/'),
-('root_dir','$(echo $INSTALL_DIR)/vhost/'), 
-('krncfg_doc_root','$(echo $INSTALL_DIR)/vhost/'), 
+('root_dir','$(echo $INSTALL_DIR)/vhost/'),
+('krncfg_doc_root','$(echo $INSTALL_DIR)/vhost/'),
 ('krncfg_default_lang','$LANG'),
 ('krncfg_default_iface','$IFACE');
 
@@ -513,14 +513,14 @@ EOF
    cat $INM_FILE | $MYCMD $DBNAME_INM || exit 1
    if [ $QUIET -ne 1 ]; then echo " ok"; fi;
 
-		  if [ ! -z "$POST_DBSCRIPT_DATA" ]; then
-					 echo "Ejecutando script de datos $POST_DBSCRIPT_DATA "
-					 cat $POST_DBSCRIPT_DATA | $MYCMD $DBNAME ;
-		  fi;
+    if [ ! -z "$POST_DBSCRIPT_DATA" ]; then
+        echo "Ejecutando script de datos $POST_DBSCRIPT_DATA "
+        cat $POST_DBSCRIPT_DATA | $MYCMD $DBNAME ;
+    fi;
 
-		  if [ ! -z "$POST_DBSCRIPT_CONF" ]; then
-					 echo "Ejecutando script de datos $POST_DBSCRIPT_CONF "
-					 cat $POST_DBSCRIPT_CONF | $MYCMD $DBNAME_INM ;
-		  fi;
+    if [ ! -z "$POST_DBSCRIPT_CONF" ]; then
+        echo "Ejecutando script de datos $POST_DBSCRIPT_CONF "
+        cat $POST_DBSCRIPT_CONF | $MYCMD $DBNAME_INM ;
+    fi;
 fi;
 
