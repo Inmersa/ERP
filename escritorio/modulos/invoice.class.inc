@@ -1,13 +1,13 @@
 <?php
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.								 **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y		 **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre	 **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo  **
@@ -23,7 +23,7 @@
 **    Engineering																 **
 **    Director Tecnico														 **
 **    tite@wolstudios.com													 **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España						 **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a						 **
 **																					 **
 **					(c) Web On Line Studios S.L.							 **
 **                                                              **
@@ -1019,16 +1019,16 @@ class Invoice extends Document {
 	}
 
 	function __get($prop_name) {
-		debug("Metodo get general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo get general ($prop_name,$prop_value)");
 		return $this->$prop_name;
 	}
 	
 	function __set($prop_name,$prop_value) {
-		debug("Metodo set general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo set general ($prop_name,$prop_value)");
 	}
 
 	function __call($metodo,$aArgs) {
-		debug("Metodo CALL general ($metodo,$aArgs)");
+		if ($this->debug) debug("Metodo CALL general ($metodo,$aArgs)");
 	}
 	/** FIN de los Metodos set y get **/
 
@@ -2057,7 +2057,7 @@ function _dbfetch_sale_headders($id) {
 				if ($this->getId()) {
 					$aEff['id_factura'] = $this->getId();
 					$ref_ext = $this->getReference('extern');
-					$aEff['concepto'] = 'Su Fra Nº '.$this->getReference().( (!empty($ref_ext)) ? ' ['.$ref_ext.']' : '' );
+					$aEff['concepto'] = 'Su Fra Nï¿½ '.$this->getReference().( (!empty($ref_ext)) ? ' ['.$ref_ext.']' : '' );
 				}
 				if ($this->getMode() & inmPed_VENTA) $aEff['pago_cobro'] = 1;
 				else $aEff['pago_cobro'] = 0;
@@ -2618,7 +2618,7 @@ function _dbfetch_sale_headders($id) {
 					// debug("Haciendo el dump...");
 					$oAsiento->setInvoice($this->getId());
 					$oAsiento->setDocument($this->getReference());
-					$oAsiento->setName('Fra Gestion Nº '.$this->getReference());
+					$oAsiento->setName('Fra Gestion Nï¿½ '.$this->getReference());
 					$oAsiento->setDate($this->getDate());
 					$notas = $this->getComments();
 					if (!empty($notas)) $oAsiento->setDescription($notas);
@@ -3036,7 +3036,7 @@ function _dbfetch_sale_headders($id) {
 				debug('Servicio: '.$oPedido->_aServicios[$id_servicio]['nombre'].
 						' Dura: '.$dias_duracion.
 						'<br> Plazo: '.$dias_plazo.
-						' Nº Fras: '.$n_fras.
+						' Nï¿½ Fras: '.$n_fras.
 						'<br> Fecha Fra-Alta: '.$ffra
 						);
 				print_r($aIdx);
@@ -3839,7 +3839,7 @@ function _dbfetch_sale_headders($id) {
 							if ($this->_aConf['round_drafts']) $aEff['monto'] = round($aEff['monto'],2);
 							if (!is_numeric($aEff['id_factura'])) {
 								$aEff['id_factura'] = $this->getId();
-								$aEff['concepto'] = 'Su Factura Nº '.$this->getReference();
+								$aEff['concepto'] = 'Su Factura Nï¿½ '.$this->getReference();
 								if (!is_numeric($aEff['id_factura'])) {
 									$done = false;
 									break;

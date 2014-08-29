@@ -93,7 +93,7 @@ class Wherehouse extends dbItemMultiEntity {
 				// print_r($aDet);
 			}
 
-		//Fixme: AÑADIR LAS LOCALIZACIONES DE ALBARANES DE COMPRA VERIFICADAS PERO SIN ALBARAN PREPARADO
+		//Fixme: Aï¿½ADIR LAS LOCALIZACIONES DE ALBARANES DE COMPRA VERIFICADAS PERO SIN ALBARAN PREPARADO
 
 		//nocnt_loclimit
 		if (isset($aOpts['stock_negativo'])) $bStockNeg = (bool)$aOpts['stock_negativo'];
@@ -1279,7 +1279,8 @@ class Wherehouse extends dbItemMultiEntity {
 				$oTmp = new DeliveryNote();
 				$oTmp->dbFill(array('id_albaran' => $Val));
 				if ($oTmp->getAttribute('id_almacen')==$this->getId()) {
-					$oTmp->hookWherehouse(&$this);
+//					$oTmp->hookWherehouse(&$this);
+					$oTmp->hookWherehouse($this);
 					$aDN[$i] = &$oTmp;
 				}
 				$bLocate = true;
@@ -1380,7 +1381,8 @@ class Wherehouse extends dbItemMultiEntity {
 		}
 
 		// Al final, ordenamos el vector de strLocalizaciones pqra que nos sirva como guia de posicionamiento en el almacen.
-		rsort(&$this->idxSKU);
+//		rsort(&$this->idxSKU);
+		rsort($this->idxSKU);
 		foreach ($this->idxArt as $ida => $aArt) {
 			foreach ($aArt as $i => $aA) {
 				$idxl = FieldIndexer::searchBinaryOnVector($this->idxSKU,$aA['localizacion']['compact']);

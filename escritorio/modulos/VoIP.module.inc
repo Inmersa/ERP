@@ -15,7 +15,8 @@ class ModVoIP extends AppModule {
 			case 'hacer_pedido':
 				$bBus = $oS->haveSearch();
 				$oB = &$oS->getSearch();
-				$oB->registerModule(&$this,'searchNotOwnProducts');
+//				$oB->registerModule(&$this,'searchNotOwnProducts');
+				$oB->registerModule($this,'searchNotOwnProducts');
 				break;
 			case 'bo_factura_cliente':
 				break;

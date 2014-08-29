@@ -530,7 +530,7 @@ debug("fuego el 2");
 			}
 		}
 		/*
-		 * Nota: Falta añadir a la consulta el nombre (no valor) del campo clave de la tabla base del siguiente(o quizas todos?)
+		 * Nota: Falta aï¿½adir a la consulta el nombre (no valor) del campo clave de la tabla base del siguiente(o quizas todos?)
 		 * hijo(s). 
 		 */
 
@@ -741,7 +741,7 @@ debug("fuego el 2");
 	}
 
 	 /**
-    * añadir control de errores y documentar el atributo
+    * aï¿½adir control de errores y documentar el atributo
     */
 	function set_db ($db_name = NULL) {
 
@@ -898,12 +898,12 @@ debug("fuego el 2");
 		return $this->extra_select;
 	}
 
-	/** Metodo que nos añade una linea a este objeto **/
+	/** Metodo que nos aï¿½ade una linea a este objeto **/
 	function add_line ($linea) {
 		$this->lineas[count ($this->lineas)] = $linea;
 	}
 
-	/** Metodo que nos añade una rama a este objeto **/
+	/** Metodo que nos aï¿½ade una rama a este objeto **/
 	function mas_ramas ($tabla) {
 		$nRamas = count ($this->hijos);
 		$this->hijos[$nRamas] = new bucle;
@@ -1029,7 +1029,7 @@ debug("fuego el 2");
 	}									  // fin del metodo clave_padre
 
 	/*
-	 * Metodo que nos añade una $tabla y $campo a nuestro objeto 
+	 * Metodo que nos aï¿½ade una $tabla y $campo a nuestro objeto 
 	 */
 	function add_field ($tabla, $campo = "") {
 
@@ -1037,7 +1037,7 @@ debug("fuego el 2");
 		$nTbCount = sizeof ($this->tablas);
 		if (empty ($this->tabla))
 			$this->tabla = $tabla;
-// salida("<BR>añadiendo en ".$this->tabla." y ya tenemos $nTbCount<BR>\n");
+// salida("<BR>aï¿½adiendo en ".$this->tabla." y ya tenemos $nTbCount<BR>\n");
 		if (!$nTbCount) {
 			$this->tablas = array (array ());
 			$this->tablas[0][0] = $tabla;
@@ -1076,7 +1076,8 @@ function plantillas (&$Sesion) {
 	$oSesion = &$Sesion;
 	$oDb = &$Sesion->get_db ("data");
 	// global $oDb;
-	motor_plantilla (&$Sesion);
+//	motor_plantilla (&$Sesion);
+	motor_plantilla ($Sesion);
 	// return $Sesion;
 	// unset($oSesion);
 	// unset($oDb);
@@ -1133,7 +1134,8 @@ function motor_plantilla (&$oSesion, $plt = "",$aStartUpData = NULL) {
 	 */
 	$raiz->padre = NULL;
 
-	$oSesion->storeRootBlock(&$raiz);
+//	$oSesion->storeRootBlock(&$raiz);
+	$oSesion->storeRootBlock($raiz);
 
 	$plt = trim($plt);
 	$tmp = $oSesion->exec_plt ($plt);
@@ -1165,7 +1167,8 @@ function motor_plantilla (&$oSesion, $plt = "",$aStartUpData = NULL) {
 		$oDb = &$oSesion->get_db ("data");
 		if (!$oDb->conectado ()) $oDb->conecta (1);
 	}
-	lector_plantilla (&$raiz);
+//	lector_plantilla (&$raiz);
+	lector_plantilla ($raiz);
 	unset ($Plantilla);
 	$raiz->completo = 1;
 
@@ -1180,7 +1183,8 @@ function motor_plantilla (&$oSesion, $plt = "",$aStartUpData = NULL) {
 
 	$oSesion->activeModuleCall('preRenderPII',array($pii),$pii);
 
-	scanner (&$raiz);
+//	scanner (&$raiz);
+	scanner ($raiz);
 // debug("old_plt = $old_plt<BR>\n");
 	$oSesion->get_plt ($old_plt);
 }
@@ -1204,7 +1208,8 @@ function lector_plantilla (&$oBucle) {
 	$fEnd = (sizeof ($Plantilla));
 
 	for (; $fPoint < $fEnd AND ! $oBucle->completo; $fPoint++) {
-		$oBucle->add_line ((parser (&$oBucle, $Plantilla[$fPoint])));
+//		$oBucle->add_line ((parser (&$oBucle, $Plantilla[$fPoint])));
+		$oBucle->add_line ((parser ($oBucle, $Plantilla[$fPoint])));
 	}
 }
 
@@ -1316,7 +1321,8 @@ function scanner (&$oBucle) {
 				 * Esto tan simple, como es visualizar un texto de no hay resultados... se hara en un futuro (esperemos proximo) con
 				 * una plantilla. 
 				 */
-				motor_plantilla(&$oBucle->sesion,'::pltcfg:emptysearch');
+//				motor_plantilla(&$oBucle->sesion,'::pltcfg:emptysearch');
+				motor_plantilla($oBucle->sesion,'::pltcfg:emptysearch');
 				// global $__wol_no_results;
 				// salida ($__wol_no_results);
 				continue;
@@ -1332,8 +1338,10 @@ function scanner (&$oBucle) {
 
 			// if ($cfunc($oSesion,$oBucle->aDatos)) {
 			// if ($cfunc ($oBucle->sesion, $oBucle->aDatos)) 
-			if ($aF['type'] == 'Function') $bCont = call_user_func(&$aF['call'],&$oBucle->sesion,&$oBucle->aDatos);
-			else $bCont = call_user_func(&$aF['call'],&$oBucle);
+//			if ($aF['type'] == 'Function') $bCont = call_user_func(&$aF['call'],&$oBucle->sesion,&$oBucle->aDatos);
+			if ($aF['type'] == 'Function') $bCont = call_user_func_array($aF['call'],array(&$oBucle->sesion,&$oBucle->aDatos));
+//			else $bCont = call_user_func(&$aF['call'],&$oBucle);
+			else $bCont = call_user_func($aF['call'],$oBucle);
 			if ($bCont) {
 				/** Temporalmente removido para comprobar funcionamiento del metodo clave_compuesta(): **
 				  * 	Ademas de que no se a que viene asignar el atributo clave, cuando solo se necesita para 
@@ -1349,7 +1357,8 @@ function scanner (&$oBucle) {
 					if (!$oBucle->omitir) {
 						$aMod = $oBucle->sesion->_getStdOutMod();
 						if (!is_array($aMod) OR $aMod['bBrowser']) salida ($linea);
-						if (is_array($aMod) AND function_exists($aMod['handler'])) $aMod['handler'](&$oBucle->sesion,$linea);
+//						if (is_array($aMod) AND function_exists($aMod['handler'])) $aMod['handler'](&$oBucle->sesion,$linea);
+						if (is_array($aMod) AND function_exists($aMod['handler'])) $aMod['handler']($oBucle->sesion,$linea);
 					}
   					/** **/
 				}
@@ -1434,7 +1443,7 @@ function parser (&$oBucle, $linea) {
 				$aFuncion = NULL;
 				$aFuncion = $parser_func[$senyal];
 				if ($oBucle->get_debug () > 7)
-					debug ("señal(antes): ".$senyal."  completo ".$oBucle->completo);
+					debug ("seï¿½al(antes): ".$senyal."  completo ".$oBucle->completo);
 				if (empty ($aFuncion[$oBucle->completo])) {
 					$Ret_Val .= "@%".$aTramos[$j]."%@";
 					if ($oBucle->get_debug () > 7)
@@ -1443,7 +1452,7 @@ function parser (&$oBucle, $linea) {
 					continue;
 				}
 				if ($oBucle->get_debug () > 7)
-					debug ("señal: ".$senyal."  com ".$oBucle->completo);
+					debug ("seï¿½al: ".$senyal."  com ".$oBucle->completo);
 				$resto = substr ($aTramos[$j], $pos + 1);
 				$aParam = array();
 				if (se_encuentra (";", $resto) == -1)
@@ -1592,9 +1601,11 @@ function wdo_if (&$oBucle, $aParams) {
 		if (!is_array($aFuncParams) or !sizeof($aFuncParams)) $aFuncParams = $oBucle->aDatos;
 			
 		if ($aF['source']=='__App__') {
-			$oBucle->omitir = (int) !call_user_func (&$aF['call'],$aFuncParams);
+//			$oBucle->omitir = (int) !call_user_func (&$aF['call'],$aFuncParams);
+			$oBucle->omitir = (int) !call_user_func ($aF['call'],$aFuncParams);
 		} else {
-			$oBucle->omitir = (int) !call_user_func (&$aF['call'],&$oBucle->sesion, $aFuncParams);
+//			$oBucle->omitir = (int) !call_user_func (&$aF['call'],&$oBucle->sesion, $aFuncParams);
+			$oBucle->omitir = (int) !call_user_func_array ($aF['call'],array(&$oBucle->sesion, &$aFuncParams));
 		}
 
 		if ($bNegar) $oBucle->omitir = !$oBucle->omitir;
@@ -1745,7 +1756,8 @@ function wdo_set (&$oBucle, $aParams) {
 				$varaddr = $oBucle->sesion->getDataFormated(
 						( ($oBucle->get_formatfields_name() and !strchr($aTmp[1],'.')) 
 						  	? $oBucle->get_formatfields_name().'.' 
-							: '' ).$aTmp[1],$oBucle->get_data($aTmp[1]),&$oBucle);
+							: '' ).$aTmp[1],$oBucle->get_data($aTmp[1]),$oBucle);
+//							: '' ).$aTmp[1],$oBucle->get_data($aTmp[1]),&$oBucle);
 			} else {
 				$varaddr = $oBucle->get_data($aTmp[1]);
 			}
@@ -1941,9 +1953,11 @@ function wdo_calc (&$oBucle, $aParams) {
 				// debug("_no_ formatear ".$retval);
 			} else {
 				if (empty($_lcfmtas)) {
-					$retval = lcdec($retval,&$oSesion);
+//					$retval = lcdec($retval,&$oSesion);
+					$retval = lcdec($retval,$oSesion);
 				} else {
-					$retval = $oBucle->sesion->getDataFormated($_lcfmtas,$retval,&$oBucle);
+//					$retval = $oBucle->sesion->getDataFormated($_lcfmtas,$retval,&$oBucle);
+					$retval = $oBucle->sesion->getDataFormated($_lcfmtas,$retval,$oBucle);
 				}
 				// debug("_si_ formatear ".$retval);
 			}
@@ -2331,7 +2345,8 @@ function wdatos_db (&$oBucle, $aParam) {
 	// SI hay que formatear el campo, se formatea.
 	if ($bFmt) {
 		$datos = $oBucle->sesion->getDataFormated(
-				( ($oBucle->get_formatfields_name() AND !strchr($aParam[0],'.')) ? $oBucle->get_formatfields_name().'.' : '' ).$aParam[0],$datos,&$oBucle);
+				( ($oBucle->get_formatfields_name() AND !strchr($aParam[0],'.')) ? $oBucle->get_formatfields_name().'.' : '' ).$aParam[0],$datos,$oBucle);
+//				( ($oBucle->get_formatfields_name() AND !strchr($aParam[0],'.')) ? $oBucle->get_formatfields_name().'.' : '' ).$aParam[0],$datos,&$oBucle);
 	}
 	$retval = ($oBucle->get_html_escape ())? htmlspecialchars(stripslashes($datos)) : stripslashes ($datos);
 
@@ -2430,7 +2445,8 @@ function wdo_plt (&$oBucle, $aParam) {
 	$secc = trim ($aParam[0]);
 // debug("antes de mandar nah ".$secc);
 	if ($nTmp2 == 1)
-		motor_plantilla(&$oSesion,$secc,$oBucle->get_data());
+//		motor_plantilla(&$oSesion,$secc,$oBucle->get_data());
+		motor_plantilla($oSesion,$secc,$oBucle->get_data());
 	else {
 
 			/** 
@@ -2438,7 +2454,8 @@ function wdo_plt (&$oBucle, $aParam) {
 			**/
 		$old_plt_name = $oSesion->plt_name;
 		$oSesion->plt_fwd ();
-		motor_plantilla (&$oSesion,NULL,$oBucle->get_data());
+//		motor_plantilla (&$oSesion,NULL,$oBucle->get_data());
+		motor_plantilla ($oSesion,NULL,$oBucle->get_data());
 		if ($old_plt_name)
 			$oSesion->plt_name = $old_plt_name;
 	}
@@ -2473,9 +2490,11 @@ function wdo_func (&$oBucle, $aParams) {
 	if (!is_array($aFuncParams) or !sizeof($aFuncParams)) $aFuncParams = $oBucle->aDatos;
 	$aF = &$oSesion->_getCallBackMethod($func);
 	if ($aF['source']=='__App__')
-		$retval = call_user_func (&$aF['call'],$aFuncParams);
+//		$retval = call_user_func (&$aF['call'],$aFuncParams);
+		$retval = call_user_func ($aF['call'],$aFuncParams);
 	else {
-		$retval = call_user_func (&$aF['call'],&$oBucle->sesion, $aFuncParams);
+//		$retval = call_user_func (&$aF['call'],&$oBucle->sesion, $aFuncParams);
+                if (!empty($aF['call'])) $retval = call_user_func_array ($aF['call'],array(&$oBucle->sesion, &$aFuncParams));
 	}
 	return $retval;
 }

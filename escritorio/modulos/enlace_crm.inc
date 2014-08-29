@@ -4,7 +4,8 @@ function pre_incidencias_documento(&$Sesion) {
 	$borrar_incidencias=$Sesion->fetchVar('borrar_incidencias','POST');
 
 	$oDb_crm = &$Sesion->get_db('db_crm');
-	if (!is_object($oDb_crm)) enlazar_crm(&$Sesion);
+//	if (!is_object($oDb_crm)) enlazar_crm(&$Sesion);
+	if (!is_object($oDb_crm)) enlazar_crm($Sesion);
 
 	crm_determinar_documento($Sesion);
 	$oDb_data = $Sesion->get_db('data');

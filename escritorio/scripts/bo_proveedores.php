@@ -508,7 +508,7 @@ function off_nombre_articulo2(&$Sesion,&$aDatos){
 }
 
 function pre_pedidos_proveedor(&$Sesion){
-	get_id_proveedor(&$Sesion);
+	get_id_proveedor($Sesion);
 }
 
 function dar_estado($Sess,$aDatos){

@@ -85,7 +85,8 @@ function identifica_usuarios(&$Sesion)  {
 }
 
 function identifica_usuarios_crm(&$Sesion,$aUsr) {
-	enlazar_crm(&$Sesion);
+//	enlazar_crm(&$Sesion);
+	enlazar_crm($Sesion);
 	if (!is_numeric($aUsr['crm_id_usuario']) AND !is_numeric($aUsr['crm_id_empleado']) AND strcasecmp($aUsr['desktop_name'],'Empresas') ) {
 		$mask = (int)$aUsr['desktop_mask'];
 
@@ -1519,7 +1520,8 @@ class ModoSeleccion extends inmersaSerialize {
 
 		debug("de nuevo, _EL_ target va a ser: ".$this->target);
 		debug("Estableciendo la puta variable de los putos cojones: ".get_class($this));
-		$oS->setVarByRef('oModoSeleccion',&$this);
+//		$oS->setVarByRef('oModoSeleccion',&$this);
+		$oS->setVarByRef('oModoSeleccion',$this);
 		return true;
 	}
 

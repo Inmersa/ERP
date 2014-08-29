@@ -34,7 +34,8 @@ class UnidadesMedida extends inmersaSerialize {
 		if (!$oRet) {
 			$oRet = new UnidadesMedida();
 			$oRet->init();
-			$oSesion->setVarByRef($varname,&$oRet);
+//			$oSesion->setVarByRef($varname,&$oRet);
+			$oSesion->setVarByRef($varname,$oRet);
 		}
 		return $oRet;
 	}
@@ -144,7 +145,8 @@ class UnidadesMedida extends inmersaSerialize {
 				foreach ($aExclude as $fld) {
 					$val = $oSrc->get_data($fld);
 					if (!empty($val)) {
-						return lcdec($d,&$oS,array('num_decimales' => $nDecimales));
+//						return lcdec($d,&$oS,array('num_decimales' => $nDecimales));
+						return lcdec($d,$oS,array('num_decimales' => $nDecimales));
 					}
 				}
 		}
@@ -159,13 +161,15 @@ class UnidadesMedida extends inmersaSerialize {
 	function toString($d,$id = NULL,$nDecimales = NULL) {
 		if (!is_numeric($id) or !is_array($this->_aUnidades[$id]) or !sizeof($this->_aUnidades[$id])){
 			$oS = &$this->getApp();
-			return lcdec($d,&$oS,array('num_decimales' => $nDecimales));
+//			return lcdec($d,&$oS,array('num_decimales' => $nDecimales));
+			return lcdec($d,$oS,array('num_decimales' => $nDecimales));
 		}
 
 		$oS = &$this->getApp();
 		if (is_numeric($this->_aUnidades[$id]['num_decimales'])) $nDecimales = (int)$this->_aUnidades[$id]['num_decimales'];
 		$aE = $this->_aEscalas[$id];
-		if (!is_array($aE) or !sizeof($aE)) return lcdec($d,&$oS,array('num_decimales'=>$nDecimales));
+//		if (!is_array($aE) or !sizeof($aE)) return lcdec($d,&$oS,array('num_decimales'=>$nDecimales));
+		if (!is_array($aE) or !sizeof($aE)) return lcdec($d,$oS,array('num_decimales'=>$nDecimales));
 		$bDesc = (bool)$this->_aUnidades[$id]['bDescompuesta'];
 
 		$aESorted = array();
@@ -190,12 +194,14 @@ class UnidadesMedida extends inmersaSerialize {
 						// debug("Estando en la ultima, casi deberiamos sumarle: ".($resto/$factor)." a $nDecimales dec");
 						$num += ($resto/$factor);
 					}
-					$lcnum = lcdec($num,&$oS,array('num_decimales' => $nDecimales));
+//					$lcnum = lcdec($num,&$oS,array('num_decimales' => $nDecimales));
+					$lcnum = lcdec($num,$oS,array('num_decimales' => $nDecimales));
 					$retval .= ( (!empty($retval)) ? ' ' : '').$lcnum.' '.$this->_aEscalas[$id][$ide]['leyenda'];
 				} else {
 					// debug("Salida esdecimal, usaremos: ".$this->_aEscalas[$id][$ide]['leyenda']." resto: $resto ");
 					// debug("Seria algo asi como: ".($resto/$factor)." ".$this->_aEscalas[$id][$ide]['leyenda']);
-					$retval = lcdec(($resto/$factor),&$oS,array('num_decimales' => $nDecimales)).' '.$this->_aEscalas[$id][$ide]['leyenda'];
+//					$retval = lcdec(($resto/$factor),&$oS,array('num_decimales' => $nDecimales)).' '.$this->_aEscalas[$id][$ide]['leyenda'];
+					$retval = lcdec(($resto/$factor),$oS,array('num_decimales' => $nDecimales)).' '.$this->_aEscalas[$id][$ide]['leyenda'];
 					break;
 				}
 			}
@@ -203,7 +209,8 @@ class UnidadesMedida extends inmersaSerialize {
 		}
 		if (empty($retval)) {
 			if (is_numeric($d)) 
-				$retval = lcdec($d,&$oS,array('num_decimales' => $nDecimales));
+				$retval = lcdec($d,$oS,array('num_decimales' => $nDecimales));
+//				$retval = lcdec($d,&$oS,array('num_decimales' => $nDecimales));
 			else $retval = $d;
 		}	
 
@@ -252,7 +259,8 @@ class UnidadesMedida extends inmersaSerialize {
 		// debug("ID: $id_unidad el dato $d Ok?: ".(int)$bOk);
 		// debug("Con formato: ".$this->toDecimal($d,$id_unidad,$nDecimales));
 		if ($bOk) $retval = $this->toDecimal($d,$id_unidad,$nDecimales);
-		else $retval = lcundec($d,&$oS,array('num_decimales' => $nDecimales));
+		else $retval = lcundec($d,$oS,array('num_decimales' => $nDecimales));
+//		else $retval = lcundec($d,&$oS,array('num_decimales' => $nDecimales));
 		// debug("Fin Format: $retval ");
 
 		return $retval;
@@ -307,7 +315,8 @@ class UnidadesMedida extends inmersaSerialize {
 		$strreal = ereg_replace('[^0-9 '.$sep_decimal.$sep_millar.'-]*','',$str);
 		if (strlen($str)==strlen($strreal)) {
 			// debug("Seria bueno poner aqui la leyenda base adjunta?  $str contra $strreal ");
-			return lcundec($str,&$oS,array('num_decimales' => $nDecimales));
+//			return lcundec($str,&$oS,array('num_decimales' => $nDecimales));
+			return lcundec($str,$oS,array('num_decimales' => $nDecimales));
 		}
 
 		$aLeySorted = array();
@@ -369,7 +378,8 @@ class UnidadesMedida extends inmersaSerialize {
 						array_push($aDoneList,$l['id_escala_medida']);
 					}
 
-					$cantidad_real = lcundec($cantidad,&$oS,array('num_decimales' => $nDecimales));
+//					$cantidad_real = lcundec($cantidad,&$oS,array('num_decimales' => $nDecimales));
+					$cantidad_real = lcundec($cantidad,$oS,array('num_decimales' => $nDecimales));
 					$retval += ($cantidad_real*$this->_aEscalas[$id][$l['id_escala_medida']]['factor_conversion']);
 					// debug("$cantidad_real unidades de ".$l['leyenda']." con idescala: ".$l['id_escala_medida'].
 								// " Factor de: ".$this->_aEscalas[$id][$l['id_escala_medida']]['factor_conversion']);

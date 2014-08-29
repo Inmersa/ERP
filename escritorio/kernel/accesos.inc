@@ -1,14 +1,14 @@
 <?php
 
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.												**
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y			**
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre		**
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo	**
@@ -24,7 +24,7 @@
 **    Engineering																								**
 **    Director Tecnico																					**
 **    tite@wolstudios.com																				**
-**    C/Alcala 18 3º Izda, 28014 Madrid, España									**
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a									**
 **																															**
 **											(c) Web On Line Studios S.L.						**
 **                                                              **
@@ -64,10 +64,12 @@ class wolUsr {
 	var $_aLastDeskIface = array();	// Ultimo Iface seteado
 
 	function wolUsr($nombre) {
-		$this->realm = $nombre;					
+		$this->realm = $nombre;
+                $this->debug = 0;
 	}
 
 	function init(&$oAV) {
+//debug("INIIIIIIIIIIIIIIIIIT ");
 		if (is_object($oAV->sesion)) $this->sesion = &$oAV->sesion;
 		$this->db_name = $oAV->db_name;
 	}
@@ -174,8 +176,10 @@ class wolUsr {
 							 * escritorios podemos comprobar si la solicitud/valor por defecto del iface es correcto o no.
 							 **/
 							$aIface = $this->sesion->get_iface();
-							$this->get_desktop_ifaces(&$oDb,$aDesk['id_desktop'],$aIface,TRUE);
-							$this->set_desktop_trigger(&$oDb,$aDesk['id_desktop']);
+//							$this->get_desktop_ifaces(&$oDb,$aDesk['id_desktop'],$aIface,TRUE);
+							$this->get_desktop_ifaces($oDb,$aDesk['id_desktop'],$aIface,TRUE);
+//							$this->set_desktop_trigger(&$oDb,$aDesk['id_desktop']);
+							$this->set_desktop_trigger($oDb,$aDesk['id_desktop']);
 							// print_r($aIface);
 						}
 					}
@@ -194,12 +198,14 @@ class wolUsr {
 					$aDesk = $this->get_desktop();
 					$id_trigger = $aDesk['trigger_subsec'];
 					if ($this->debug) debug("trigger = $id_trigger ");
-					$this->get_desktop_ifaces(&$oDb,$aDesk['id_desktop'],$aIface,TRUE);
+//					$this->get_desktop_ifaces(&$oDb,$aDesk['id_desktop'],$aIface,TRUE);
+					$this->get_desktop_ifaces($oDb,$aDesk['id_desktop'],$aIface,TRUE);
 					if (0 && $this->debug) print_r($this->_aDesktops[$aDesk['id_desktop']]);
 					// debug("trigger before: $id_trigger   and now: ".$this->_aDesktops[$aDesk['id_desktop']]['trigger_subsec']);
 					if ($id_trigger != $this->_aDesktops[$aDesk['id_desktop']]['trigger_subsec']) {
 						if ($this->debug) debug("comprobando trigger ... ");
-						$this->set_desktop_trigger(&$oDb,$aDesk['id_desktop']);
+//						$this->set_desktop_trigger(&$oDb,$aDesk['id_desktop']);
+						$this->set_desktop_trigger($oDb,$aDesk['id_desktop']);
 					}
 				}
 				if ($this->debug) debug("Ya habia Escritorios: ");
@@ -785,7 +791,8 @@ class wolAV {
 		$id_trigger = $aTmp['trigger_subsec'];
 		$aTmp = NULL;
 		if ($this->debug) debug("gotit : $id_trigger ");
-		$set_status = $this->oUsr->set_desktops(&$oDb);
+//		$set_status = $this->oUsr->set_desktops(&$oDb);
+		$set_status = $this->oUsr->set_desktops($oDb);
 		if ($set_status == -1) {
 			if ($this->debug) debug("No hay desktops... tiramos");
 			$doCheck = TRUE;
@@ -861,7 +868,8 @@ class wolAV {
 		$oDb = &$this->get_db();
 		if (empty($this->aConf['auth_class'])) return 0;
 		$auth_class = new $this->aConf['auth_class']($this->App_Name);
-		if (!$auth_class->init($this->oUsr,&$oDb)) return 0;
+//		if (!$auth_class->init($this->oUsr,&$oDb)) return 0;
+		if (!$auth_class->init($this->oUsr,$oDb)) return 0;
 		else {
 			/* Asignar mask de grupo 
 nota: en un futuro, esto deberia permitirsele a la clase que autentifica */

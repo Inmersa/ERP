@@ -240,7 +240,7 @@ class wol_search {
 
 	var $id = "";					  // Identificador de consulta
 	var $id_secc;					  /* id de seccion */
-	var $aPlantillas = array (); // Plantillas ha cambiado/añadido el buscador
+	var $aPlantillas = array (); // Plantillas ha cambiado/aï¿½adido el buscador
 	var $iden_busq = 0;			  /* identificador del tipo de busqueda o buscador. */
 	var $search_name = 0;		  /* identificador del tipo de busqueda o */
 	var $bTriggered = false; 	  /* Se ha disparado la busqueda desde fuera? */
@@ -376,7 +376,8 @@ class wol_search {
 			}
 		}
 		if (method_exists($oInstance,$method)) {
-			$this->_aoMod[sizeof($this->_aoMod)] = array('instance' => &$oInstance, 'method' => $method);
+//			$this->_aoMod[sizeof($this->_aoMod)] = array('instance' => &$oInstance, 'method' => $method);
+			$this->_aoMod[sizeof($this->_aoMod)] = array('instance' => $oInstance, 'method' => $method);
 			$rval = true;
 		}
 		return $rval;
@@ -393,7 +394,8 @@ class wol_search {
 
 		$this->db = &$obj_sesion->get_db ($this->_aNames['conf']);
 		$this->sesion = &$obj_sesion;
-		$this->set_conf (&$this->db);
+//		$this->set_conf (&$this->db);
+		$this->set_conf ($this->db);
 		if (!empty($this->_aNames['data'])) {
 			// debug("db_data obtenido extrayendo ".$this->_aNames['data']." de la sesion ");
 			$this->db_data = &$obj_sesion->get_db($this->_aNames['data']);
@@ -515,7 +517,7 @@ class wol_search {
 							// $this->pagina =0;
 							// $this->empty_search();
 							$this->ignorar_iden = 1;
-							// old_secc es nuevo. añadir descripcion
+							// old_secc es nuevo. aï¿½adir descripcion
 							if ($this->debug)
 								debug ("IDB-Act(".$this->iden_busq.") - IDB-Old(".$this->old_iden.")");
 							if ($this->debug)
@@ -742,13 +744,15 @@ class wol_search {
 				 * Se hace include y se especifica en vble se_forzo 
 				 */
 				$this->get_includes ();
-				$this->set_plts (&$obj_sesion);
+//				$this->set_plts (&$obj_sesion);
+				$this->set_plts ($obj_sesion);
 			} else {
 				$this->get_includes ();
-				$this->set_plts (&$obj_sesion);
+//				$this->set_plts (&$obj_sesion);
+				$this->set_plts ($obj_sesion);
 			}							  // end if de isset valor_var
 
-			/* Se registra el número de pagina en el objeto */
+			/* Se registra el nï¿½mero de pagina en el objeto */
 			if (!$obj_sesion->bRecarga OR empty($this->aConf['nombre_pg'])) {
 				$cons = "select nombre_pg from ".$this->sesion->read_main_value ("tb_tipo_busq")." where id_tip=";
 				$cons .= $this->iden_busq;
@@ -786,7 +790,8 @@ class wol_search {
 			// Establecemos los datos de la busqueda para mandarselos a la funcion de proceso de datos.
 			if (is_object ($this->oSearchAPI)) {
 				if ($this->debug) debug("Inicializando API de Busquedas");
-				$this->oSearchAPI->init (&$this);
+//				$this->oSearchAPI->init (&$this);
+				$this->oSearchAPI->init ($this);
 				$this->oSearchAPI->set_search_id ($this->iden_busq);
 			}
 
@@ -1134,7 +1139,7 @@ class wol_search {
 
   /**
 	 * Este metodo se encarga de obtener los terminos de busqueda para un determinado campo/variable formatead@ de forma
-	 *	  estándard. Esto es : "frase exacta" +termino1 termino2 -termino3
+	 *	  estï¿½ndard. Esto es : "frase exacta" +termino1 termino2 -termino3
 	 * @param  $search_string	- Cadena de busqueda formateada.
 	 * @return $aTerms	- Array contenedor de los distintos terminos individuales resultantes.
 	 **/
@@ -1642,13 +1647,13 @@ class wol_search {
 													// en partes_select el primer nombre de campo.
 							: (($this->distinct) ? $this->distinct.", " : "")	// Si no es asi...
 																								// Ponemos el distinct campo si existe
-							).$partes_selec[$clave].					// Añadimos la parte SELECT
+							).$partes_selec[$clave].					// Aï¿½adimos la parte SELECT
 							((($tmpvar = $this->oSearchAPI->get_selects ()))
-							 ? ", $tmpvar" : "").										// Añadimos los campos extra que se necesiten
-																								// Añadimos el nombre de seccion como parte de la query
+							 ? ", $tmpvar" : "").										// Aï¿½adimos los campos extra que se necesiten
+																								// Aï¿½adimos el nombre de seccion como parte de la query
 							((!empty ($select_seccion)) ? ", ".$select_seccion : "").
 							$partes_from[$clave].$partes_where[$clave].
-							((($tmp_w = $this->oSearchAPI->get_wheres ()))		// Añadimos las  condiciones extra que se necesiten
+							((($tmp_w = $this->oSearchAPI->get_wheres ()))		// Aï¿½adimos las  condiciones extra que se necesiten
 							 ? ((!empty ($partes_where [$clave])) ?  " AND " : " WHERE ").
 							 " $tmp_w " : "").
 							((!empty ($this-> groupby)) ?  " GROUP BY ".  $this-> groupby : "");
@@ -1681,7 +1686,7 @@ class wol_search {
 													 : "*")	// Sino agrupamos, .. NO ponemos distinct
 											 )
 											 ).")".$partes_from[$clave].$partes_where[$clave].
-											((($tmp_w = $this->oSearchAPI->get_wheres ()))	// Añadimos las condiciones extra que se necesiten 
+											((($tmp_w = $this->oSearchAPI->get_wheres ()))	// Aï¿½adimos las condiciones extra que se necesiten 
 											 ? ((!empty ($partes_where[$clave])) ? " AND " : " WHERE ")." $tmp_w "
 											 : "");
 

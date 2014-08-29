@@ -1,13 +1,13 @@
 <?php
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.                                                                                                 **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y                  **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre          **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo        **
@@ -23,7 +23,7 @@
 **    Engineering                                                                                                                                                **
 **    Director Tecnico                                                                                                                              **
 **    tite@wolstudios.com                                                                                                                      **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España                                                      **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a                                                      **
 **                                                                                                                                                                                      **
 **                                                                                  (c) Web On Line Studios S.L.                  **
 **                                                              **
@@ -78,6 +78,7 @@ class wolAVauth_form {
                                                                                                                                                                          3 - imagen
                                                                                                                                                                          4 - colores
                                                                                                                                                                          5 - tipo_js (caso submenu) */
+         var $debug = 1;
 
                          /***** Metodos de API wol ******/
    function wolAVauth_form($nombre) {
@@ -107,15 +108,24 @@ class wolAVauth_form {
    function init(&$oUsr,&$oDb) {
       /* Nota :
 							*/
-				global $user;
-				global $pass;
-				global $id_usr;
+				if (empty($user)) $user = $GLOBALS['user'];
+				if (empty($user)) $user = $_POST['user'];
+				if (empty($user)) $user = $_GET['user'];
+				if (empty($pass)) $pass = $GLOBALS['pass'];
+				if (empty($pass)) $pass = $_POST['pass'];
+				if (empty($pass)) $pass = $_GET['pass'];
+				if (empty($id_usr)) $id_usr = $GLOBALS['id_usr'];
+				if (empty($id_usr)) $id_usr = $_POST['id_usr'];
+				if (empty($id_usr)) $id_usr = $_GET['id_usr'];
+//				global $pass;
+//				global $id_usr;
+                                if ($this->debug) debug("wolAVauth_form->init() A ver en globales que hay: ".$GLOBALS['user']);
 
-//debug("init de form_auth ($user-$pass)");
+                                if ($this->debug) debug("wolAVauth_form->init() init de form_auth ($user-$pass)");
 				$oUsr->realm = $this->App_Name; /* hay k poner aki una comprobacion */
 				$oUsr->authed = 0;
 				$oUsr->group_mask = 0;
-// debug("antiguo: ".$oUsr->login." - ".$oUsr->passwd);
+                                if ($this->deubg) debug("antiguo: ".$oUsr->login." - ".$oUsr->passwd);
 
 				if (empty($user) && empty($pass)){
 					  $user = $oUsr->login;
@@ -126,7 +136,7 @@ class wolAVauth_form {
 					  $consulta="select id_usr,av_group,nombre,id_tipo_iface,id_idioma,id_tema from Users where activo=1 AND ".
 										"login='$user' and passwd=".
 										(($oUsr->crypt) ? "PASSWORD('$pass')" : "'$pass'");
-// debug($consulta);
+                                          if ($this->debug) debug($consulta);
 					  $rs=$oDb->query($consulta);
 					  $row=$oDb->fetch_row($rs);
 					  $id_usr=$row[0];
@@ -153,10 +163,9 @@ class wolAVauth_form {
 				//global $id;
 				//$id = $id_usr;
 
-				unset($user);
-				unset($pass);
-				return 1; /* 0 - pedir login de nuevo
-																				 1 - pasar a validacion de grupo */
+//				unset($user);
+//				unset($pass);
+				return 1; /* 0 - pedir login de nuevo																		 1 - pasar a validacion de grupo */
    }
 
          /** Metodo encargado de reconocer si la plantilla que esta siendo
@@ -217,7 +226,7 @@ aviso("no hago nah con esto ($nom_bcl)");
 
          /** Metemos en la sesion las plantillas que vamos a necesitar.
                 A pesar de poder tener la seccion las plantillas que necesitamos, si
-         existen, les asignamos nuestro valor. sino, añadimos la plantilla */
+         existen, les asignamos nuestro valor. sino, aï¿½adimos la plantilla */
          function set_conf(&$Sesion) {
                         $oDb = $Sesion->get_db_conn();
                         $consulta  = "SELECT * FROM ".$this->tb[menus_subsecc];
@@ -228,7 +237,7 @@ aviso("no hago nah con esto ($nom_bcl)");
 
                         /* Esto carga la conf de todos los menus */
                         for ($i=1;$row=$oDb->fetch_array($id);$i++) {
-                                        /* Añadimos un indice */
+                                        /* Aï¿½adimos un indice */
                                         $this->aIndices[$row[nom_plt_sub]] = $i;
 
                                         /* Metemos la plantilla en la sesion */

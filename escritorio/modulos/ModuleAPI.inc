@@ -49,7 +49,7 @@ class inmersaSerialize {
 			$this->setFlag($this->ST_CORRUPT);
 			return false;
 		}
-		$oSes = &$GLOBALS[$this->_aNames['sesion']];
+		$oSes = &$_SESSION[$this->_aNames['sesion']];
 		if (!is_a($oSes,'wolSesion')) {
 			$this->setFlag($this->ST_CORRUPT);
 			return false;
@@ -778,6 +778,7 @@ class dbItemMultiEntity extends dbItem {
 	}
 
 	function listEntities($bFilled = false) {
+//                debug("dbItemMultiEntity->listEntities con rval ",$this->_aCamposEntidades);
 		if (!is_array($this->_aCamposEntidades) OR !sizeof($this->_aCamposEntidades)) return NULL;
 		if ($bFilled)
 			$retval =  array_diff(array_keys($this->_aAuxRecord),array($this->_AliasEntidad,$this->getEntityName()));
@@ -1850,7 +1851,8 @@ class IndexList extends inmersaSerialize {
 
 	/** Metodos de API **/
 	function init($oHook = NULL) {
-		if ($oHook) $this->setParentHook(&$oHook);
+//		if ($oHook) $this->setParentHook(&$oHook);
+		if ($oHook) $this->setParentHook($oHook);
 		for ($idx = $this->firstItem(true,true); isset($idx); $idx = $this->nextItem(true,true)) {
 			$oItem = &$this->getItem();
 			$oItem->init($this);
@@ -2142,7 +2144,12 @@ function class_dbItemMultiEntity_iface(&$Sesion,$block_name) {
 	}
 	if (empty($obj_var)) {
 		$docvar = $Sesion->get_var('__dbItemMultiEntity_varname');
-		if (empty($docvar)) $docvar = 'oIncidencia_en_curso';
+		if (empty($docvar)) {
+                    $docvar = 'oIncidencia_en_curso';
+//                    debug("class_dbItemMultiEntity_iface() Una putada, no sabemos que instancia buscar en la sesion .. ");
+                } else {
+//                    debug("class_dbItemMultiEntity_iface() Que bueno!, sabemos donde queda la instancia => $docvar");
+                }
 		$obj_var = $docvar;
 	}
 
@@ -2321,7 +2328,7 @@ class AppModule extends inmersaSerialize {
 
 	function AppModule (&$oApp,$modname) {
 		if (!parent::inmersaSerialize($oApp,'conf')) {
-			debug("Error creando la instancia inmersaSerialize ");
+//			debug("Error creando la instancia inmersaSerialize ");
 			return false;
 		}
 		// debug("Poblando el modulo .. ".$modname);

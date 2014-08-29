@@ -92,7 +92,8 @@ class Periodo extends IndexList {
 		$oP = &$GLOBALS[$GLOBALS['APP_NAME']]->getVarByRef('_periodificacion_draft_period');
 		if (!is_a($oP,'Periodo')) {
 			$oP = new Periodo($GLOBALS['APP_NAME']);
-			$GLOBALS[$GLOBALS['APP_NAME']]->setVarByRef('_periodificacion_draft_period',&$oP,'NOEXPIRE');
+//			$GLOBALS[$GLOBALS['APP_NAME']]->setVarByRef('_periodificacion_draft_period',&$oP,'NOEXPIRE');
+			$GLOBALS[$GLOBALS['APP_NAME']]->setVarByRef('_periodificacion_draft_period',$oP,'NOEXPIRE');
 		} 
 		return $oP;
 	}

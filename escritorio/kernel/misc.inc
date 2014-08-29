@@ -1,13 +1,13 @@
 <?php 
 
 /***************************************************************
-** Motor de Búsqueda diseñado para www.mundobio.com           **
+** Motor de Bï¿½squeda diseï¿½ado para www.mundobio.com           **
 **    Todos los derechos reservados.                          **
 **    Este programa se podra modificar previa notificacion a  **
 **    su creador. Su distribucion queda limitada a su creador **
 **    que cede derechos de uso a la empresa WIOIL studios.    **
 **    Las posibles modificaciones hechas por WIOIL studios    **
-**    tanto para la página www.mundobio.com como para otros   **
+**    tanto para la pï¿½gina www.mundobio.com como para otros   **
 **    sitios deberan ser notificadas al creador de esta       **
 **    aplicacion bien sea por correo electronico en           **
 **    tite@mrbit.es o bien llamando a los telefonos 649308160 **
@@ -64,7 +64,7 @@ function lcdec($dato,&$Sesion,$aParams = NULL) {
 	if (!is_numeric($dato) AND empty($dato)) return $dato;
 	// debug('lcdec('.$dato.') .. '.round($dato)." clase: ".get_class($Sesion));
 	if (!is_a($Sesion,'wolSesion') AND !empty($GLOBALS['APP_NAME'])) {
-		$Sesion=&$GLOBALS[$GLOBALS['APP_NAME']];
+		$Sesion=&$_SESSION[$GLOBALS['APP_NAME']];
 	}
 	$aCfg = $Sesion->get_var('_aAppConf');
 	if (!is_array($aCfg) OR !sizeof($aCfg)) {
@@ -166,7 +166,7 @@ function lcmon($dato,$Sesion = NULL) {
 		$lcfmt['frac_digits'] = 3;
 		$lcfmt['decimal_point'] = ',';
 		$lcfmt['thousands_sep'] = '.';
-		$money_fmt = '%=*#4.2n¤';
+		$money_fmt = '%=*#4.2nï¿½';
 	} else {
 		$lcfmt['frac_digits'] = $aCfg['gnrl_frac_digits'];
 		$lcfmt['decimal_point'] = $aCfg['gnrl_decimal_point'];
@@ -923,7 +923,7 @@ function crear_dir($destino,$perm = 0775){
 }
 
 /**
- * Función que copia un archivo dado el origen y el destino
+ * Funciï¿½n que copia un archivo dado el origen y el destino
  * @param $origen
  * @param $destino
  * @return boolean
@@ -974,7 +974,7 @@ function valor_nulo($var) {
 
 /**
  * Funcion que se encarga de obtener los links que difieren de un escritorio a otro.
- * NOTA: Esta funcion no tiene razon de ser en una aplicacion bien diseñada. En la cual la navegacion
+ * NOTA: Esta funcion no tiene razon de ser en una aplicacion bien diseï¿½ada. En la cual la navegacion
  *		 permanece constante a lo largo de la aplicacion y en cada subseccion se comprueba el escritorio activo
  *		 para modificar las condiciones de una busqueda, ver o no unos resultados/plantillas, etc... 
  * TODO: Quitar esta funcion (9/4/2003)
@@ -1090,7 +1090,7 @@ function colocar_fecha_hora($fecha = NULL,$sql_type = 0) {
 		$aTmp = split($sep,$date);
 		if (sizeof($aTmp) != 3) $retfecha = NULL;
 		elseif (is_numeric($aTmp[0]) AND is_numeric($aTmp[1]) AND is_numeric($aTmp[2])) {
-			if (strlen($aTmp[2]) == 4) { //Año al final.
+			if (strlen($aTmp[2]) == 4) { //Aï¿½o al final.
 				$retfecha = $aTmp[0].'/'.$aTmp[1].'/'.$aTmp[2].( (!empty($hour)) ? ' '.$hour : '');
 			} elseif (strlen($aTmp[0]) == 4) {
 				$retfecha = $aTmp[2].'/'.$aTmp[1].'/'.$aTmp[0].( (!empty($hour)) ? ' '.$hour : '');

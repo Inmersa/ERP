@@ -1,14 +1,14 @@
 <?php
 
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.								 **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y		 **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre	 **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo  **
@@ -24,7 +24,7 @@
 **    Engineering																 **
 **    Director Tecnico														 **
 **    tite@wolstudios.com													 **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España						 **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a						 **
 **																					 **
 **					(c) Web On Line Studios S.L.							 **
 **                                                              **
@@ -80,12 +80,15 @@ session_start();
 
 if(isset($logout)){
 	// $$APP_NAME = new wolSesion($APP_NAME,$APP_NAME);
-	$GLOBALS[$GLOBALS['APP_NAME']] = NULL;
-	unset($GLOBALS[$GLOBALS['APP_NAME']]);
+	$_SESSION[$GLOBALS['APP_NAME']] = NULL;
+	unset($_SESSION[$GLOBALS['APP_NAME']]);
 }
 
+if (empty($GLOBALS['seccion'])) { $GLOBALS['seccion'] = $_GET['seccion']; }
+if (empty($GLOBALS['seccion'])) { $GLOBALS['seccion'] = $_POST['seccion']; }
+
 inmersa_session_recover();
-$GLOBALS[$GLOBALS['APP_NAME']]->init($seccion);
-$GLOBALS[$GLOBALS['APP_NAME']]->cerrar();
+$_SESSION[$GLOBALS['APP_NAME']]->init($GLOBALS['seccion']);
+$_SESSION[$GLOBALS['APP_NAME']]->cerrar();
 
 ?>

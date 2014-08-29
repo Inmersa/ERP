@@ -906,7 +906,8 @@ class DeliveryNote extends dbItemMultiEntity {
 		if ($bCreate) {
 			$this->debug('Reconstruyendo DeliveryEntries','_factoryEntries');
 			$this->oDetails = new DeliveryEntries($this);
-			$rval = $this->oDetails->setParentHook(&$this);
+//			$rval = $this->oDetails->setParentHook(&$this);
+			$rval = $this->oDetails->setParentHook($this);
 			if (is_numeric($id) AND !empty($id)) $this->oDetails->dbFill(array('id_albaran' => $id));
 		}
 		return is_object($this->oDetails);
@@ -1299,7 +1300,8 @@ class DeliveryNote extends dbItemMultiEntity {
 		}
 		$aRV = array();
 		$aAList = array_keys($aLoc);
-		asort(&$aAList);
+//		asort(&$aAList);
+		asort($aAList);
 		if (count($aAList) == 1) {
 			$aTmp = $aAList;
 			$tmpid = array_shift($aTmp);
@@ -1403,7 +1405,8 @@ class DeliveryNote extends dbItemMultiEntity {
 						$aRV[$idalm] = new DeliveryNote ($AppName,$dbname);
 						$aRV[$idalm]->bVenta = $bVenta;
 						$aRV[$idalm]->update(array('id_almacen'=>$idalm,'observaciones'=>$texto,'referencia_externa'=>$refext));
-						$aRV[$idalm]->hookWherehouse(&$oAlm);
+//						$aRV[$idalm]->hookWherehouse(&$oAlm);
+						$aRV[$idalm]->hookWherehouse($oAlm);
 					}
 					$tmpidx = $aRV[$idalm]->newDetail($aRec);
 				}
@@ -2047,7 +2050,8 @@ class DeliveryNote extends dbItemMultiEntity {
 		$aBaja['__instancia__'] = &$oB;
 		$aBaja['id_factura_abono'] = $aReason['id_factura_abono'];
 		$this->debug("El id de la factura de abono es: ".$aBaja['id_factura_abono'],'returnDetail');
-		array_push($this->aoBajas[$id_det],&$aBaja);
+//		array_push($this->aoBajas[$id_det],&$aBaja);
+		array_push($this->aoBajas[$id_det],$aBaja);
 		$this->update(array('devuelto'=>1));
 	}
 
@@ -2441,7 +2445,7 @@ class DeliveryNote extends dbItemMultiEntity {
 									$oFactura->setDetailAttribute($idx,'id_pedido',$aCond['id_pedido']);
 									$oFactura->_aIDPedido[$aCond['id_pedido']]['id_pedido'] = $aCond['id_pedido'];
 
-									// Fixme: pequeña chapuza para que la factura sepa que tiene albaranes, y no debe actualizar el stock estimado.
+									// Fixme: pequeï¿½a chapuza para que la factura sepa que tiene albaranes, y no debe actualizar el stock estimado.
 									$oFactura->_aIDAlbaran[$aRec['id_albaran']]['referencia'] = $aCond['referencia'];
 									$oFactura->_aIDAlbaran[$aRec['id_albaran']]['fecha'] = $aCond['fecha'];
 									// Anyadimos referencia del albaran que causa el abono.
@@ -2528,7 +2532,8 @@ class DeliveryNote extends dbItemMultiEntity {
 	function init() {
 		parent::init();
 		if (is_object($this->oDetails)) {
-			$this->oDetails->init(&$this);
+//			$this->oDetails->init(&$this);
+			$this->oDetails->init($this);
 		}
 	}
 

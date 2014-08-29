@@ -369,7 +369,7 @@ function errores($fichero,$linea){
    echo "<FONT COLOR=\"#FF0000\">";
    if (mysql_errno()!=0) {
 	   echo "\n<BR><BR>Se ha producido un Error:<BR>";
-	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error Nº ".mysql_errno()." : ".mysql_error()." En $fichero Linea $linea <BR>\n";
+	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error Nï¿½ ".mysql_errno()." : ".mysql_error()." En $fichero Linea $linea <BR>\n";
 	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por favor informe de ello a <A href=\"mailto:$ADMIN\">";
 	   echo $ADMIN."</A> para posibles soluciones.<BR>\n";
    } else {
@@ -392,7 +392,7 @@ function aviso($texto) {
 	salida("</SCRIPT>\n");
 }
 
-function debug($texto) {
+function debug($texto,$param=NULL) {
 #Recibe como parametro el texto que hay que visualizar.
 global $DEBUG;
 global $DEBUG_FD;
@@ -405,6 +405,11 @@ if (empty($DEBUG_FD)) {
 if($DEBUG =="ON")
 	salida($strMsg);
 	// echo "alert('".ereg_replace(" ","\"+\" ",$texto)."');\n";
+        if (!empty($param)) {
+            echo "<pre>";
+            print_r($param);
+            echo "</pre>";
+        }
 }
 
 ### Funcion que nos busca un valor dentro de una tabla.
@@ -481,7 +486,7 @@ function pie_back() {
 
 ### Esta funcion nos pasa a formato HTML cualquier string que nos llege.
 function to_html($cadena) {
-    //return ereg_replace("ñ","[&ntilde;]",$cadena);
+    //return ereg_replace("ï¿½","[&ntilde;]",$cadena);
     return $cadena;
 }
 

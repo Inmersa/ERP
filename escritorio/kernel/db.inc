@@ -1,14 +1,14 @@
 <?php
 
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.                        **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y         **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre         **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo         **
@@ -24,7 +24,7 @@
 **    Engineering                                                **
 **    Director Tecnico                                                 **
 **    tite@wolstudios.com                                        **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España                        **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a                        **
 **                                                                **
 **                                 (c) Web On Line Studios S.L.         **
 **                                                              **
@@ -65,7 +65,7 @@ include("mysql.php");*/
 	var $res_id = array ();		  /* Identificadores de resultados */
 	var $res_point = 1;			  /* Nuestro puntero al resultados actual * */
 	/*
-	 * Actualmente $tablas contiene los datos de una db, y cuando se añada el soporte select_db, ese metodo habra de cargarnos en
+	 * Actualmente $tablas contiene los datos de una db, y cuando se aï¿½ada el soporte select_db, ese metodo habra de cargarnos en
 	 * esta tabla la nueva estructura de la db. Hay que analizar la repercusion en los recursos del sistema que la implementacion
 	 * del select_db de esta forma tendria. Existe la posibilidad de tener cargadas en memoria varias estructuras de bases de
 	 * datos, es un tema que hay que estudiar 
@@ -84,7 +84,7 @@ include("mysql.php");*/
 
 	var $aLocalizadas;			  /* Array con las tablas destino a las que se ha llegado ya */
 
-	var $partes_wer;				  /* Array con las parte where que contendrá la consulta */
+	var $partes_wer;				  /* Array con las parte where que contendrï¿½ la consulta */
 
 	var $relaciones = array ();  /* Matriz con las relacion de la base de datos */
 	var $indicesOrigen = array ();	/* los indices de las tablas de origen */
@@ -99,7 +99,7 @@ include("mysql.php");*/
 	 */
 	function wol_db ($nombre, $login = NULL, $passwd = NULL, $cfgServer = NULL, $dbase = NULL, $port = NULL) {
 
-		$this->debug = 0;
+//		$this->debug = 1;
 
 		if (empty ($login) OR empty ($passwd) OR empty ($cfgServer) OR empty ($dbase)) {
 			$login = $GLOBALS['login'];
@@ -268,7 +268,7 @@ include("mysql.php");*/
 	function init () {
 		if ($this->_bAlive)
 			return 1;
-		$this->debug = 0;
+//		$this->debug = 0;
 		if ($this->debug)
 			debug ("wol_db->init()");
 		$this->SQL_point = 1;
@@ -354,10 +354,10 @@ include("mysql.php");*/
 
 	function errores ($msg = NULL) {
 		if (!$msg) {
-			$msg = "(".mysql_error ($this->SQL[$this->SQL_point])." - ".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($this->consulta,0,100);
+			$msg = "noparm - (".mysql_error ($this->SQL[$this->SQL_point])." - ".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($this->consulta,0,1000);
 		}
 		elseif (mysql_errno ($this->SQL[$this->SQL_point])) {
-			$msg = "(".mysql_errno ($this->SQL[$this->SQL_point])."-".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($msg,0,100);
+			$msg = "(".mysql_errno ($this->SQL[$this->SQL_point])."-".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($msg,0,1000);
 		}
 		debug ("Error (db): $msg");
 	}
@@ -383,7 +383,7 @@ include("mysql.php");*/
 		if (!($this->SQL[$this->SQL_point] =
 				mysql_connect ($this->cfgServer[$this->SQL_point].( (is_numeric($this->port[$this->SQL_point])) ? ':'.$this->port[$this->SQL_point] : '' ),
 									$this->login[$this->SQL_point], $this->passwd[$this->SQL_point]))) {
-			/** **
+			/** **/
 			errores (__FILE__, __LINE__);
 			// session_destroy ();
 			exit;
@@ -555,7 +555,7 @@ include("mysql.php");*/
 	* @param $aKey_fld-	Si no se desea updatear por claves primarias (pordefecto), lista de campos para poner en la condicion.
 	*		Si desea cambiar el valor de una clave primaria, el campo debera estar en esta tabla, como valor antiguo y en $aFields
 	*			con el valor al que se desea actualizar. Este array puede contener varios arrays referenciales contenedores de claves y valores,
-	*			caso de ser asi, se añaden todos a la clausula where de la siguiente forma (dado que seran representables mediante 1 matriz):
+	*			caso de ser asi, se aï¿½aden todos a la clausula where de la siguiente forma (dado que seran representables mediante 1 matriz):
 	*								 |-  AND -|	 |-  AND -|
 	*							campo1		campo2		campoN
 	*				idx1	-	 val11		 val12		 null		-|
@@ -925,7 +925,7 @@ include("mysql.php");*/
 			if (sizeof ($aTmp) != 3)
 				$retfecha = NULL;
 			elseif (is_numeric ($aTmp[0]) AND is_numeric ($aTmp[1]) AND is_numeric ($aTmp[2])) {
-				if (strlen ($aTmp[2]) == 4) {	// Año al final.
+				if (strlen ($aTmp[2]) == 4) {	// Aï¿½o al final.
 					$retfecha = $aTmp[2].'-'.$aTmp[1].'-'.$aTmp[0].((!empty ($hour)) ? ' '.$hour : '');
 				}
 				elseif (strlen ($aTmp[0]) == 4) {
@@ -987,6 +987,7 @@ include("mysql.php");*/
 	 * query($consulta) : Esta funcion es la encargada de lanzar la consulta que consideremos oportuna contra el servidor SQL. 
 	 */
 	function query ($consulta) {
+//                $this->debug = 1;
 		if (empty ($consulta))
 			$this->errores ("Consulta vacia");
 		// else debug("Log (db) : $consulta");
@@ -1005,8 +1006,8 @@ include("mysql.php");*/
 
 		if (!(int) $this->conectado ()) $this->conecta (1);
 
-		if (strcasecmp($DEBUG,'ON') AND is_a($GLOBALS[$GLOBALS['APP_NAME']],'wolSesion')) {
-			$logp = $GLOBALS[$GLOBALS['APP_NAME']]->getFromKrn('db_logpath');
+		if (strcasecmp($DEBUG,'ON') AND is_a($_SESSION[$GLOBALS['APP_NAME']],'wolSesion')) {
+			$logp = $_SESSION[$GLOBALS['APP_NAME']]->getFromKrn('db_logpath');
 			// debug("log path para ".$GLOBALS['APP_NAME']." : $logp ");
 			// print_r($GLOBALS[$GLOBALS['APP_NAME']]->_aKrnConf);
 			$today = getdate(); 
@@ -1267,7 +1268,7 @@ include("mysql.php");*/
 		@mysql_free_result ($this->res_id[$id]);
 //debug("liberado ($id)");
 
-												/** Acuerdate de añadir soporte aki para poder liberar resultados
+												/** Acuerdate de aï¿½adir soporte aki para poder liberar resultados
 				intermedios, es decir, que el puntero de resultados no tenga pork
 				ser el ultimo necesariamente **/
 		$nResSize = sizeof ($this->res_id);
@@ -1438,7 +1439,7 @@ if ($this->num_rows($rs)) {
 			if ($this->buscar ($row["tabla_destino"], $longi)) {
 
 				/*
-				 * Aqui amplia were por cuyons y además debe comprobar si algun intermedio es otro de 
+				 * Aqui amplia were por cuyons y ademï¿½s debe comprobar si algun intermedio es otro de 
 				 */
 				/*
 				 * los destinos 
@@ -1672,7 +1673,7 @@ if ($this->num_rows($rs)) {
 			}
 		}
 
-		// Marcamos con una distacia muy pequeña las tablas por las que queremos pasar
+		// Marcamos con una distacia muy pequeï¿½a las tablas por las que queremos pasar
 		// if (!is_array($ruta_path) OR !sizeof($ruta_path)) $ruta_path = $aDestinos;
 		if (is_array ($ruta_path) AND sizeof ($ruta_path))
 			foreach ($ruta_path as $tb) {
@@ -2122,7 +2123,7 @@ if ($this->num_rows($rs)) {
 		// debug("OQ: ".$resultado[0]);
 // debug ("La distancia desde $tabla hasta  $dest es $dist");
 //foreach ($F[$dest] as $campo) debug ("La from de $dest es  $campo");
-		$resultado[1][] = $tabla;	// Añadimos a los from del resultado la tabla inicial
+		$resultado[1][] = $tabla;	// Aï¿½adimos a los from del resultado la tabla inicial
 		// debug("Filtramos la from del resultado ");
 		// depurar_array($resultado[1]);
 		$resultado[1] = array_unique ($resultado[1]);

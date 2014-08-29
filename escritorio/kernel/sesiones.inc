@@ -3,23 +3,25 @@
 function inmersa_session_recover() {
 	// debug("Haciendo el recovery .. ");
 	$bStartUp = true;
-	$lout = $GLOBALS['logout'];
+	$lout = $_GET['logout'];
+	if (empty($lout)) $lout = $_POST['logout'];
+        $GLOBALS['logout'] = $lout;
 	if ((bool)$lout) {
 		session_destroy();
 		unset($GLOBALS['INMERSA_BASEDB']);
-		unset($GLOBALS[$GLOBALS['APP_NAME']]);
+		unset($_SESSION[$GLOBALS['APP_NAME']]);
 		session_start();
 	}
 	if (!(bool)$GLOBALS['cfgSessionOnDb']) {
 		$bStartUp = true;
 	} else {
 		if (!is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) {
-			// debug("_constructor_ pristine db .. ");
+			debug("_constructor_ pristine db .. ");
 			$GLOBALS['INMERSA_BASEDB'] = new wol_db($GLOBALS['APP_NAME']);
 		}
 
 		if (is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) {
-			// debug("_existe_ nuestra db .. ");
+			debug("_existe_ nuestra db .. ");
 			$oDb = &$GLOBALS['INMERSA_BASEDB'];
 			$sId = session_id();
 			// debug("Logout: ".$lout." sId: ".$sId);
@@ -32,10 +34,11 @@ function inmersa_session_recover() {
 					// debug("Hemos encontrado la sesion!! $sId ");
 					$aTmp = $oDb->fetch_row($srs);
 					// debug("el resultao del hash : ".md5($aTmp[0])." O una length de ".strlen($aTmp[0])." O ".round(strlen($aTmp[0])/1024,3)." KB ");
-					$GLOBALS[$GLOBALS['APP_NAME']] = unserialize($aTmp[0]);
-					$GLOBALS[$GLOBALS['APP_NAME']]->_aKrnConf['recovered_session'] = true;
+					$_SESSION[$GLOBALS['APP_NAME']] = unserialize($aTmp[0]);
+					$_SESSION[$GLOBALS['APP_NAME']]->_aKrnConf['recovered_session'] = true;
 					// print_r($GLOBALS[$GLOBALS['APP_NAME']]);
-					$GLOBALS[$GLOBALS['APP_NAME']]->set_db('conf',&$oDb,true);
+//					$GLOBALS[$GLOBALS['APP_NAME']]->set_db('conf',&$oDb,true);
+					$_SESSION[$GLOBALS['APP_NAME']]->set_db('conf',$oDb,true);
 					$bStartUp = false;
 				}
 			} else $bStartUp = true;
@@ -43,26 +46,39 @@ function inmersa_session_recover() {
 	}
 
 	if ($bStartUp) {
-		// debug("StartUp = True ... construimos nueva instancia. ");
-		if (!is_object($GLOBALS[$GLOBALS['APP_NAME']]) OR strcmp($GLOBALS[$GLOBALS['APP_NAME']]->App_Name,$GLOBALS['APP_NAME'])) {
+//		debug("StartUp = True ... es objeto? ".is_object($_SESSION[$GLOBALS['APP_NAME']]) );
+		if ( !is_object($_SESSION[$GLOBALS['APP_NAME']]) OR (FALSE AND is_object($_SESSION[$GLOBALS['APP_NAME']]) AND $lout) 
+                        OR strcmp($_SESSION[$GLOBALS['APP_NAME']]->App_Name,$GLOBALS['APP_NAME']) ) {
 			if (is_array($_POST) AND sizeof($_POST) AND !is_array($_SESSION['post_before_login'])) {
 				$_SESSION['post_before_login'] = $_POST;
 			}
-			debug("inmersa_session_recover() - start: $bStartUp ");
-			$GLOBALS[$GLOBALS['APP_NAME']] = new wolSesion($GLOBALS['APP_NAME'],$GLOBALS['APP_NAME']);
-		} 
+//			debug("inmersa_session_recover() - start: $bStartUp ");
+                        session_destroy();
+                        session_start();
+			$_SESSION[$GLOBALS['APP_NAME']] = new wolSesion($GLOBALS['APP_NAME'],$GLOBALS['APP_NAME']);
+		} elseif ($lout) {
+//                    debug("inmersa_session_recover() - logout con startup: $bStartUp ");
+                    session_destroy();
+                    session_start();
+                    $_SESSION[$GLOBALS['APP_NAME']] = new wolSesion($GLOBALS['APP_NAME'],$GLOBALS['APP_NAME']);
+		} else {
+//                    debug("Parece que si que hay cosas en _SESSION para $GLOBALS[APP_NAME] con lout $lout");
+//                    echo "<pre>";
+//                    print_r(array_keys($_SESSION));
+//                    echo "</pre>";
+                }
 	}
 }
 
 /**
-* Aplicacion diseñada para Web On Line Studios S.L.
+* Aplicacion diseï¿½ada para Web On Line Studios S.L.
 *    Todos los derechos reservados.
 *    Este programa se podra modificar con el consentimiento
 *    de Web On Line Studios S.L. Su distribucion queda
 *    limitada a Web On Line Studios S.L.
 *    Las posibles modificaciones sobre esta aplicacion ajenas
 *    a Web On Line Studios S.L. deberan ser consultadas y
-*    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,
+*    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,
 *    28014 Madrid. Cualquier otra operacion realizada sobre
 *    esta aplicacion queda limitada a Web On Line Studios S.L.
 *    infringiendo en delito cualquier otra entidad que asi lo
@@ -78,7 +94,7 @@ function inmersa_session_recover() {
 *    Engineering
 *    Director Tecnico
 *    tite@wolstudios.com
-*    C/Alcala 18 3º Izda, 28014 Madrid, España
+*    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a
 * @author    Josafat Moragrega Fernandez
 *
 * @copyright  Web On Line Studios S.L.
@@ -427,10 +443,13 @@ class wolSesion {
         * @param        $var     Variable ke se crea en el index
         */
 	function wolSesion ($nombre, $var) {
+//                $this->debug = (DBUG_DB | DBUG_INC) ;
+
 		$this->oMsgs = new IMessages();
 
 		$this->App_Name = $nombre;
 
+                if ($this->debug & DBUG_DB) debug ("sesiones.inc:constructor($nombre,$var) de entrada, creamos una conexion y la metemos como conf");
 		$oDb = new wol_db($this->App_Name);
 		// el new te crea un objeto ya conectado: $oDb->conecta();
 		$this->set_db ("conf", $oDb, true);
@@ -718,6 +737,7 @@ class wolSesion {
 	}
 
 	function _fillIfaceWithDefaults() {
+                if ($this->debug & DBUG_MODS) debug("Session->_fillIfaceWithDefaults()");
 		// Si no hay un Iface definido, buscamos el predefinido del sistemal.
 		$aI = $this->get_iface();
 		$bSet = FALSE;
@@ -727,7 +747,7 @@ class wolSesion {
 			$def_ifc = $this->_getKrnCfg('default_iface');
 			$def_thm = $this->_getKrnCfg('default_theme');
 			if (!empty($def_lng) OR !empty($def_ifc) OR !empty($def_thm)) {
-				if ($this->debug) debug("_fillIfaceWithDefaults(); CHeking ifaces ...");
+				if ($this->debug) debug("Session->_fillIfaceWithDefaults(); CHeking ifaces ...");
 				$aTmp = array();
 				// Metemos en un array temporal el iface ya obtenido.
 				if (is_numeric($aI['lang']['id'])) $aTmp['lang'] = $aI['lang']['id'];
@@ -747,7 +767,7 @@ class wolSesion {
 					$aTmp['theme'] = $def_thm;
 				}
 				if ($bSet) {
-					if ($this->debug) debug("_fillIfaceWithDefaults(); Setting def ifaces ...");
+					if ($this->debug) debug("Session->_fillIfaceWithDefaults(); Setting def iface ...",$aTmp);
 					$this->set_iface($aTmp);
 				}
 			}
@@ -911,16 +931,18 @@ class wolSesion {
 	 * Init nos va a buscar en la db nuestra seccion 
 	 */
 	function init ($seccion) {
-		global $force_;			  // Forzamos la recarga de todas las plantillas de subseccion?
+//		global $force_;			  // Forzamos la recarga de todas las plantillas de subseccion?
+		$force_ = $_GET['force_'];			  // Forzamos la recarga de todas las plantillas de subseccion?
 		// Definiciones de mascaras de control de Debug:
 		// debug("wolSession::init($seccion) ");
 
-		$this->debug = DBUG_DB | DBUG_INC ;
-		$this->debug = (DBUG_INC | DBUG_VARS) ;
-		$this->debug = (DBUG_DB | DBUG_INC) ;
-		$this->debug |= (DBUG_MODS ) ;
-		$this->debug |= (DBUG_VARS | DBUG_INC);
-		$this->debug = (DBUG_VARS );
+//		$this->debug = DBUG_DB | DBUG_INC ;
+//		$this->debug = (DBUG_INC | DBUG_VARS) ;
+//		$this->debug = (DBUG_DB | DBUG_INC) ;
+//		$this->debug |= (DBUG_MODS ) ;
+//		$this->debug |= (DBUG_VARS | DBUG_INC);
+//		$this->debug = (DBUG_VARS );
+//		$this->debug |= (DBUG_INC);
 		$this->debug = 0;
 
 				/**** Conectamos los objetos wolDB que tenemos almacenados ****/
@@ -941,7 +963,9 @@ class wolSesion {
 		if (!empty($stdout)) $this->_setStdOutMod($stdout);
 		/** **/
 
+                if ($this->debug & DBUG_MODS) debug("Session->init($seccion) tiramos con esta: $seccion");
 		$this->initSection($seccion);
+                if ($this->debug & DBUG_MODS) debug("Session->init($seccion) para terminar con esta: ".$this->seccion);
 
 		/**** Conectamos la conexion de Datos *****/
 		$this->conectar_dbs ("data");
@@ -955,26 +979,33 @@ class wolSesion {
 
 		if (!is_object($this->Access)) {
 			// Reemplazar obj_var_name por App_Name cuando estos coincidan.
-			$this->Access = new wolAV ($this->obj_var_name);
-		}
+                    if ($this->debug & DBUG_MODS) debug("Session->init($seccion) creamos nueva instancia de tipo wolAV ");
+                    $this->Access = new wolAV ($this->obj_var_name);
+		} else {
+                    if ($this->debug & DBUG_MODS) debug("Session->init($seccion) resulta que reaprovechamos la instancia de accesos tipo ".get_class($this->Access),($this->Access));
+                }
 
+                $this->_fillIfaceWithDefaults();
 		$this->detect_ifaces();
 
+                if ($this->debug & DBUG_MODS) debug("Session->init($seccion) calling the access init now .. ");
 		if (!$this->Access->init ($this)) {
 			$this->activate_db ('data');
-			$this->_fillIfaceWithDefaults();
+//			$this->_fillIfaceWithDefaults();
 			$this->set_pltdir();
-
+                        if ($this->debug & DBUG_MODS) debug("Session->init($seccion) TEST for some reason the lsession_id is null ".session_id());
 			if ((int)$this->fetchVar('logout','GET') AND session_id()) {
 				$oDbCfg = &$this->get_db('conf');
 				$oDbCfg->unbuffered_query('DELETE FROM Users_sessions WHERE sessid = "'.session_id().'" AND app_name = "'.$this->App_Name.'" ');
-			}
+			} elseif ((int)$this->fetchVar('logout','GET')) {
+                            if ($this->debug & DBUG_MODS) debug("Session->init($seccion) for some reason the lsession_id is null ".session_id());
+                        }
 			return 0;
 		}
 
 		$oUsr = $this->get_authed_user();
 		if (is_a($oUsr,'wolUsr')) {
-			// debug("Tenemos usuario reciente(".$oUsr->recent_login.")? y recoveredSession(".(bool)$this->getFromKrn('recovered_session').")? Sess: ".session_id());
+			if ($this->debug & DBUG_MODS) debug("Tenemos usuario reciente(".$oUsr->recent_login.")? y recoveredSession(".(bool)$this->getFromKrn('recovered_session').")? Sess: ".session_id());
 			$id_usr = $this->get_user();
 			$oDbCfg = &$this->get_db('conf');
 			if (!$this->getFromKrn('recovered_session') AND $oUsr->recent_login) {
@@ -994,7 +1025,8 @@ class wolSesion {
 						//Fix PHP5 $this = unserialize($aTmp[0]);
 						$GLOBALS[$this->App_Name] = unserialize($aTmp[0]);
 						$this->_aKrnConf['recovered_session'] = true;
-						$this->set_db('conf',&$oDbCfg,true);
+//						$this->set_db('conf',&$oDbCfg,true);
+						$this->set_db('conf',$oDbCfg,true);
 						$oDbCfg->unbuffered_query('UPDATE Users_sessions SET modificacion = NOW() WHERE id_usr="'.$id_usr.'" AND sessid="'.$new_sid.
 															'" AND app_name = "'.$this->App_Name.'" ');
 						if (!empty($_SESSION['session_expiretime'])) {
@@ -1021,7 +1053,8 @@ class wolSesion {
 							//Fix PHP5 $this = unserialize($aTmp[0]);
 							$GLOBALS[$this->App_Name] = unserialize($aTmp[0]);
 							$this->_aKrnConf['recovered_session'] = true;
-							$this->set_db('conf',&$oDbCfg,true);
+//							$this->set_db('conf',&$oDbCfg,true);
+							$this->set_db('conf',$oDbCfg,true);
 							$oDbCfg->unbuffered_query('UPDATE Users_sessions SET modificacion = NOW() WHERE id_usr = "'.$id_usr.'" AND sessid = "'.$new_sid.
 																'" AND app_name = "'.$this->App_Name.'" ');
 							if (!empty($seccion)) $this->initSection($seccion);
@@ -1087,7 +1120,8 @@ class wolSesion {
 		if (!is_object($this->b_activa)) {
 			$this->b_activa = new wol_search ($this->App_Name);
 		}
-		$this->hay_b = $this->b_activa->init(&$this);
+//		$this->hay_b = $this->b_activa->init(&$this);
+		$this->hay_b = $this->b_activa->init($this);
 		// debug("!ojo que buscador devuelve ".$this->hay_b."<BR>\n");
 
 				/** Inicializamos los Menus *
@@ -1120,7 +1154,7 @@ class wolSesion {
 			 * Si ta vacia la seccion, acabamos de entrar y por tanto entramos por la seccion por defecto. 
 			 */
 			if ($this->debug & DBUG_MODS)
-				debug ("Seccion por defecto: $this->def_secc($seccion) - $this->seccion");
+				debug ("Seccion->initSeccion($seccion) Seccion por defecto: $this->def_secc($seccion) - $this->seccion");
 			if (empty ($seccion))
 				$seccion = $this->def_secc;
 
@@ -1137,7 +1171,7 @@ class wolSesion {
 			 * se conservan las plts 
 			 */
 			if ($this->debug & DBUG_MODS)
-				debug ("Param-Seccion Vacia. Busqueda : ".(($this->hay_b) ? "Si" : "No"));
+				debug ("Seccion->initSeccion($seccion) Param-Seccion Vacia. Busqueda : ".(($this->hay_b) ? "Si" : "No"));
 
 			// old_secc_name nuevo. documentar
 			if (!empty($this->old_secc_name)) {
@@ -1215,7 +1249,7 @@ class wolSesion {
 		}
 
 		if (!$rval) {
-			$oS = $GLOBALS[$GLOBALS['APP_NAME']];
+			$oS = $_SESSION[$GLOBALS['APP_NAME']];
 			$ifz = $oS->fetchVar('iface','GET POST');
 			if ($iface == $ifz) $rval = true;
 		}
@@ -1227,35 +1261,39 @@ class wolSesion {
 	 * pandora 
 	 */
 	function detect_ifaces() {
+                if ($this->debug & DBUG_MODS) debug("Session->detect_ifaces() having active ",$this->_aActiveIface);
 
 		$retval = false;
 		/** Detectando Iface **/
 		if (!isset($this->_aActiveIface['iface'])) {
 			foreach ($this->_aIfaces['iface'] as $aIface) {
-				if (!empty($aIface['var']) AND !empty($aIface['nemonico'])) {
-					$val = $this->fetchVar($aIface['var'],'GET');
-					if (empty($val)) $val = $this->fetchVar($aIface['var'],'POST');
-					if (!strcasecmp($val,$aIface['nemonico'])) {
-						$aI['iface'] = $aIface['id'];
-						$retval = true;
-						break;
-					}
-				} 
-				if (!empty($aIface['method'])) {
-					$aParams = array();
-					if (!empty($aIface['method_params']) and is_array($aIface['method_params']) and sizeof($aIface['method_params']))
-						$aParams = $this->_fetchMethodParams($aIface['method_params']);
-					array_unshift($aParams,$aIface['nemonico']);
+                            if ($this->debug & DBUG_MODS) debug("Session->detect_ifaces() going over iface ",$aIface);
+                            if (!empty($aIface['var']) AND !empty($aIface['nemonico'])) {
+                                    $val = $this->fetchVar($aIface['var'],'GET');
+                                    if (empty($val)) $val = $this->fetchVar($aIface['var'],'POST');
+                                    if (!strcasecmp($val,$aIface['nemonico'])) {
+                                            $aI['iface'] = $aIface['id'];
+                                            $retval = true;
+                                            break;
+                                    }
+                            } 
+                            if (!empty($aIface['method'])) {
+                                    $aParams = array();
+                                    if (!empty($aIface['method_params']) and is_array($aIface['method_params']) and sizeof($aIface['method_params']))
+                                            $aParams = $this->_fetchMethodParams($aIface['method_params']);
+                                    array_unshift($aParams,$aIface['nemonico']);
 
-					$aF = &$this->_getCallBackMethod($aIface['method']);
-					if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
-						$aI['iface'] = $aIface['id'];
-						$retval = true;
-						break;
-					}
-				}
+                                    $aF = &$this->_getCallBackMethod($aIface['method']);
+//					if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
+                                    if ($aF and @call_user_func_array($aF['call'],$aParams)) {
+                                            $aI['iface'] = $aIface['id'];
+                                            $retval = true;
+                                            break;
+                                    }
+                            }
 			}
 		}
+                if ($this->debug & DBUG_MODS) debug("Session->detect_ifaces() iface config should be updated by now",$this->_aActiveIface);
 
 		/** Detectando Idioma **/
 		if (!isset($this->_aActiveIface['lang'])) {
@@ -1276,7 +1314,8 @@ class wolSesion {
 					array_unshift($aParams,$aLang['nemonico']);
 
 					$aF = &$this->_getCallBackMethod($aLang['method']);
-					if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
+//					if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
+					if ($aF and @call_user_func_array($aF['call'],$aParams)) {
 						$aI['lang'] = $aLang['id'];
 						$retval = true;
 						break;
@@ -1302,7 +1341,8 @@ class wolSesion {
 				array_unshift($aParams,$aTema['nemonico']);
 
 				$aF = &$this->_getCallBackMethod($aTema['method']);
-				if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
+//				if ($aF and @call_user_func_array(&$aF['call'],$aParams)) {
+				if ($aF and @call_user_func_array($aF['call'],$aParams)) {
 					$aI['tema'] = $aTema['id'];
 					$retval = true;
 					break;
@@ -1319,6 +1359,7 @@ class wolSesion {
 	  * Establece el iface activo. via un vector con indice 'iface','lang','tema' y valor numerico o nemonico
 	  **/
 	function set_iface($aIface = array()) {
+                if ($this->debug & DBUG_MODS) debug("Session->set_iface with param: ",$aIface);
 		if (!sizeof($aIface) OR !is_array($aIface)) return 0;
 
 		foreach ($aIface as $type => $value) {
@@ -1462,7 +1503,8 @@ class wolSesion {
 			foreach (array_keys($this->_aModulos) as $modname) {
 				if ( ($this->_aModulos[$modname]['mascara'] & $ssmask) and !empty($this->_aModulos[$modname]['class'])) {
 					if (!is_a($this->_aModList[$modname],$this->_aModulos[$modname]['class'])) {
-						$this->_aModList[$modname] = new $this->_aModulos[$modname]['class'](&$this,$modname);
+//						$this->_aModList[$modname] = new $this->_aModulos[$modname]['class'](&$this,$modname);
+						$this->_aModList[$modname] = new $this->_aModulos[$modname]['class']($this,$modname);
 					} else $this->_aModList[$modname]->init();
 					if (method_exists($this->_aModList[$modname],'SectionStart')) {
 						if ($this->_aModList[$modname]->SectionStart()) {
@@ -1720,7 +1762,7 @@ class wolSesion {
 
 	function set_idsecc ($seccion = "", $bOverride = FALSE) {
 		// global $oDb;
-		// debug("wolSession::set_idsecc($seccion,$bOverride) ");
+                if ($this->debug & DBUG_MODS) debug("wolSession::set_idsecc($seccion,$bOverride) ");
 		if (!isset($bOverride)) $bOverride = false;
 		$oDb = &$this->get_db ("conf");
 		if (empty ($this->tb_secciones)) {
@@ -1768,6 +1810,7 @@ class wolSesion {
 				$consulta.= " WHERE nombre='$seccion'";
 				$id = $oDb->query ($consulta);
 				$num_rows = $oDb->num_rows ($id);
+                                if ($this->debug & DBUG_MODS) debug("Session->set_idsec($seccion,$bOverride) with ($num_rows) rows");
 				if ($num_rows) {		  /* hemos encontrado la sub-seccion */
 					$aTmp = $oDb->fetch_assoc($id);
 					$this->id_secc = $aTmp["id_sub_secc"];
@@ -1978,8 +2021,10 @@ class wolSesion {
 
 		if (!$type || ($type AND ! strcmp ($type, "conf"))) {
 			$oDb = &$this->get_db ("conf");
+                        if ($this->debug & DBUG_DB) debug ("conectar_dbs($type) hemos obtenido la db de configuracion ... ");
+
 			if (is_a($oDb,'wol_db')) {
-				if ($this->debug & DBUG_DB) debug ("oDb(conf) es un objeto");
+				if ($this->debug & DBUG_DB) debug ("oDb(conf) es un objeto de conexion valido");
 			} else {
 				if (is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) 
 					$oDb = &$GLOBALS['INMERSA_BASEDB'];
@@ -1997,7 +2042,8 @@ class wolSesion {
 			if (!$oDb->conectado(1)) {
 				$oDb->conecta (1);
 			}
-			$this->set_db ("conf", &$oDb, true);
+//			$this->set_db ("conf", &$oDb, true);
+			$this->set_db ("conf", $oDb, true);
 			$this->activate_db ('conf');
 			if ($this->debug & DBUG_DB)
 				debug ("El sql point ta en ".$oDb->SQL_point);
@@ -2007,6 +2053,7 @@ class wolSesion {
 		elseif (!strcmp ($type, "data")) {
 			$oDb = &$this->get_db('data');
 			if (!is_object ($oDb)) {	// Si no existe lo creamos
+                                if ($this->debug & DBUG_DB) debug ("sesiones.inc:conectar_dbs($type) asi que vamos a crear una instancia nueva");
 				$l = $this->read_main_value ("db_data_login");
 				$p = $this->read_main_value ("db_data_passwd");
 				$s = $this->read_main_value ("db_data_server");
@@ -2018,12 +2065,14 @@ class wolSesion {
 				// $this->db->init ();
 				$oDb = new wol_db ($this->App_Name, $l, $p, $s, $db, $pt);
 				$oDb->init ();
-			} else
+			} else {
+                                if ($this->debug & DBUG_DB) debug ("sesiones.inc:conectar_dbs($type) parece ser que ya existia!! ");
 				$oDb->init ();
-
+                        }
 			// $this->db->conecta (1);
 			if (!$oDb->conectado(1)) $oDb->conecta (1);
-			$this->set_db ("data", &$oDb, true);
+//			$this->set_db ("data", &$oDb, true);
+			$this->set_db ("data", $oDb, true);
 			$this->activate_db ("data");
 		}
 		else {							 /** si no es data ni conf... conectamos el resto de instancias **/
@@ -2100,7 +2149,7 @@ class wolSesion {
 	 */
 	function set_db ($name, &$oDb, $persistente = 0) {
 		if ($this->debug & DBUG_DB)
-			debug ("sesiones.inc:set_db($name,$persistente)");
+			debug ("sesiones.inc:set_db($name,$persistente) with ($oDb->SQL_point - ".$oDb->SQL[$oDb->SQL_point].")");
 		$this->dbs[$name] = &$oDb;
 		$this->dbs_pconn[$name] = (int) $persistente;
 	}
@@ -2111,10 +2160,12 @@ class wolSesion {
 		if (empty ($name) OR ! isset ($name))
 			$name = $this->db_name;
 		if (is_object ($this->dbs[$name])) {
+                        if ($this->debug & DBUG_DB) debug ("sesiones.inc:get_db($name) Looks like we already had it!, so handing it back");
 			return $this->dbs[$name];
 		} else {
 			if (!isset($bStore)) $bStore = false;
 			if (!isset($bPersistent)) $bPersistent = true;
+                        if ($this->debug & DBUG_DB) debug ("sesiones.inc:get_db($name) shouldnt this be an infinite loop ? ");
 			$oDb = &$this->get_db ('conf');
 			$db = $oDb->read_main_value ('db_'.$name.'_dbase');
 			$login = $oDb->read_main_value ('db_'.$name.'_login');
@@ -2124,6 +2175,7 @@ class wolSesion {
 			if (!empty ($db) AND ! empty ($login) AND ! empty ($server)) {
 
 				/** **/
+                                if ($this->debug & DBUG_DB) debug ("sesiones.inc:get_db($name) first time we are requested it, building a new one");
 				$this->dbs[$name] = new wol_db ($this->App_Name, $login, $passwd, $server, $db, $port);
 				if (is_object ($this->dbs[$name])) {
 					$this->dbs[$name]->init ();
@@ -2439,15 +2491,16 @@ class wolSesion {
 		} else {
 			// debug("<b>No es array</b>, asi que aqui llamariamos al invento: $func");
 			// Una copia de los argumentos, importante
-			$args = $aP;
+//			$args = $aP;
+			$args = &$aP;
 			array_splice($args,$index-1,0,array($value));
 			if (is_array($stPath) and sizeof($stPath)) array_splice($args,sizeof($args),0,array($stPath));
-			// debug("Sin saber, la ruta: para ($value) ");
-			// foreach ($args as $val) 
-				// if (is_object($val)) debug("Instancia ".get_class($val));
-				// elseif (is_array($val)) debug("Un vector con ".sizeof($val)." items ");
-				// else debug("Parametro: ".$val);
-			// print_r($stPath);
+//			 debug("Sin saber, la ruta: para ($value) ");
+//			 foreach ($args as $val) 
+//				 if (is_object($val)) debug("Instancia ".get_class($val));
+//				 elseif (is_array($val)) debug("Un vector con ".sizeof($val)." items ");
+//				 else debug("Parametro: ".$val);
+//			 print_r($stPath);
 			$aRetVal = call_user_func_array($func,$args);
 		}
 		return $aRetVal;
@@ -2619,7 +2672,8 @@ class wolSesion {
 			// print_r($aType);
 			$aF = &$this->_getCallBackMethod($aType['format']);
 			// if ($aF) $retval = call_user_func($aF,$valor,&$this,$aParams);
-			if ($aF) $retval = $this->_arrayMapRecursive(&$aF['call'],$valor,array(&$this,&$aParams,&$oSource),NULL,
+//			if ($aF) $retval = $this->_arrayMapRecursive(&$aF['call'],$valor,array(&$this,&$aParams,&$oSource),NULL,
+			if ($aF) $retval = $this->_arrayMapRecursive($aF['call'],$valor,array(&$this,&$aParams,&$oSource),NULL,
 										array('entity'=>$aEnt['entityname'],'field'=>$cleanfld));
 
 			// $stV[$campo] = $this->_arrayMapRecursive(&$aF,$stV[$campo],array(&$this,&$aParams,$datasource),NULL,$aRutaN);
@@ -2705,7 +2759,8 @@ class wolSesion {
 
 								// Si el valor del elemento de la pila, es otro vector, se analiza de nuevo en la siguiente... APILALO!
 								if (is_array($val)) {
-									array_push($stEntity['__none__'],&$stEntity['__none__'][$stidx][$idx]);
+//									array_push($stEntity['__none__'],&$stEntity['__none__'][$stidx][$idx]);
+									array_push($stEntity['__none__'],$stEntity['__none__'][$stidx][$idx]);
 								}
 							}
 
@@ -2724,7 +2779,8 @@ class wolSesion {
 
 								// No hace falta de-referencia, el contenido ya es un puntero.
 								// $stEntity[$foundEntity][] = &$stEntity['__none__'][$stidx];
-								array_push($stEntity[$foundEntity],&$stEntity['__none__'][$stidx]);
+//								array_push($stEntity[$foundEntity],&$stEntity['__none__'][$stidx]);
+								array_push($stEntity[$foundEntity],$stEntity['__none__'][$stidx]);
 								unset($stEntity['__none__'][$stidx]);
 							}
 						}
@@ -2802,7 +2858,8 @@ class wolSesion {
 									$aF = &$this->_getCallBackMethod($aType['parser']);
 
 									if ($aF) {
-										$stV[$campo] = $this->_arrayMapRecursive(&$aF['call'],$stV[$campo],array(&$this,&$aParams,$datasource),NULL,$aRutaN);
+//										$stV[$campo] = $this->_arrayMapRecursive(&$aF['call'],$stV[$campo],array(&$this,&$aParams,$datasource),NULL,$aRutaN);
+										$stV[$campo] = $this->_arrayMapRecursive($aF['call'],$stV[$campo],array($this,$aParams,$datasource),NULL,$aRutaN);
 										/** **
 										if (!is_array($aV)) {
 											debug("<b>Riiiiing</b> .. Llamada la funcion X");
@@ -2891,7 +2948,8 @@ class wolSesion {
 					$aF = &$this->_getCallBackMethod($aType['parser']);
 
 					if ($aF) {
-						$retval = $this->_arrayMapRecursive(&$aF['call'],$valor,array(&$this,&$aParams,$datasource),NULL,array($varname));
+//						$retval = $this->_arrayMapRecursive(&$aF['call'],$valor,array(&$this,&$aParams,$datasource),NULL,array($varname));
+						$retval = $this->_arrayMapRecursive($aF['call'],$valor,array($this,$aParams,$datasource),NULL,array($varname));
 						// $retval = call_user_func($aF,$valor,&$this,$aParams);
 					}
 				} 
@@ -2929,7 +2987,8 @@ class wolSesion {
 		$oUsr = $this->get_authed_user ();
 		if ((int) $oUsr->authed) {
 			$authed = TRUE;
-			$usr_mask = $oUsr->get_mask ();
+//			$usr_mask = $oUsr->get_mask ();
+			$usr_mask = (int) $oUsr->get_mask ();
 		} else
 			$authed = FALSE;
 		$modmask = $this->_aModList['mascara'];
@@ -3107,7 +3166,7 @@ class wolSesion {
 			if (is_int ($clave))
 				continue;
 			if (!strcmp ($plt_src, $valor)) {
-//debug("get_plt_name devolemos $clave para plt ($plt) Nº(".$this->code[$clave][0].")");
+//debug("get_plt_name devolemos $clave para plt ($plt) Nï¿½(".$this->code[$clave][0].")");
 				return array ($clave, $valor, $this->code[$clave][0]);
 				// return array($clave,$valor,$this->code[$this->get_plt_num($clave)][0]);
 				// return array($clave,$valor);
@@ -3250,7 +3309,7 @@ class wolSesion {
 	}
 
 	/*
-	 * Metodo para añadir una plantilla al array de plantillas 
+	 * Metodo para aï¿½adir una plantilla al array de plantillas 
 	 */
 	function add_plt ($plt, $src, $precode = NULL, $postcode = NULL, $arg_var = NULL) {
 		if (is_array($precode) and sizeof($precode)) {
@@ -3408,7 +3467,8 @@ class wolSesion {
 								(($this->_aModulos[$modname]['mascara']) & ($this->_aPlantillas[$plt]['module_mask'])) );
 						/** **/
 						// $aRVal[$modname] = $this->_aModList[$modname]->$methodname($aP[0],$aP[1],$aP[2],$aP[3],$aP[4]);
-						$rval = call_user_func_array(array(&$this->_aModList[$modname],$methodname),$aP);
+//						$rval = call_user_func_array(array(&$this->_aModList[$modname],$methodname),$aP);
+						$rval = call_user_func_array(array($this->_aModList[$modname],$methodname),$aP);
 						if (!is_null($rval)) $aRVal[$modname] = $rval;
 					}
 		}
@@ -3453,7 +3513,9 @@ class wolSesion {
 		if (!empty ($func)) {
 			if ($this->debug & DBUG_INC) debug("exec_plt($plt) : $func ");
 			$aF = &$this->_getCallBackMethod($func);
-			if ($aF) $plantilla = call_user_func(&$aF['call'],&$this);
+			if ($this->debug & DBUG_INC) debug("exec_plt($plt) : $func ",$aF);
+//			if ($aF) $plantilla = call_user_func(&$aF['call'],&$this);
+			if ($aF) $plantilla = call_user_func_array($aF['call'],array(&$this));
 		}
 
 		if (!empty($plantilla)) $plt_retorno = $plantilla;
@@ -3465,14 +3527,16 @@ class wolSesion {
 					$plt_retorno = $this->_aCfgPlts['err_full']['nombre'];
 					if (!empty($this->_aCfgPlts['err_full']['pre_code'])) {
 						$aF = &$this->_getCallBackMethod($this->_aCfgPlts['err_full']['pre_code']);
-						if ($aF) call_user_func(&$aF['call'],&$this);
+//						if ($aF) call_user_func(&$aF['call'],&$this);
+						if ($aF) call_user_func($aF['call'],$this);
 					}
 					// $plt_link = 'LOGOUT';
 				} else {
 					$plt_retorno = $this->_aCfgPlts['err_pii']['nombre'];
 					if (!empty($this->_aCfgPlts['err_pii']['pre_code'])) {
 						$aF = &$this->_getCallBackMethod($this->_aCfgPlts['err_pii']['pre_code']);
-						if ($aF) call_user_func(&$aF['call'],&$this);
+//						if ($aF) call_user_func(&$aF['call'],&$this);
+						if ($aF) call_user_func($aF['call'],$this);
 					}
 				}
 				if (!empty($plt_retorno)) {
@@ -3548,7 +3612,7 @@ reset($RetVal);
 	}
 
 	/** documentar tb *
-          Añadir parametros a una busqueda.
+          Aï¿½adir parametros a una busqueda.
                 */
 	function set_query_param ($type, $val) {
 		$retval = 1;
@@ -3626,13 +3690,13 @@ reset($RetVal);
 
 		if (is_object ($value) AND $this->check_class_module (get_class ($value))) {
 			if ($this->debug & (DBUG_VARS | DBUG_MODS))
-				debug ("set_var($var_name, Objeto de Clase ,$expire) - ".get_class($value));
+				debug ("setVarByRef($var_name, Objeto de Clase ,$expire) - ".get_class($value));
 			$this->_aClasses[$var_name][0] = &$value;
 			if (!isset($this->_aClasses[$var_name][1])) $this->_aClasses[$var_name][1] = ( (!empty($expire)) ? $expire : 'NOEXPIRE' );
 			$this->_aClasses[$var_name][2] = time (NULL);
 		} else {
 			if ($this->debug & DBUG_VARS) 
-				debug ("<b>set_var</b>($var_name,$value,$expire)");
+				debug ("<b>setVarByRef</b>($var_name,$value,$expire)");
 			$this->aData[$var_name][0] = &$value;
 			if (!isset($this->aData[$var_name][1])) $this->aData[$var_name][1] = ( (!empty($expire)) ? $expire : 'NOEXPIRE' );
 			$this->aData[$var_name][2] = time (NULL);
@@ -3830,7 +3894,8 @@ reset($RetVal);
 
 	function cerrar () {
 		/** Antes de cerrar la sesion renderizamos su contenido **/
-		plantillas (&$this);
+//		plantillas (&$this);
+		plantillas ($this);
 		/** soporte email **/
 		$aMod = $this->_getStdOutMod();
 		if (is_array($aMod)) {
@@ -3898,13 +3963,16 @@ reset($RetVal);
 												'alta' => date('Y-m-d H:i:s'), 'valor' => serialize($this) ));
 				}
 			}
-			$this->set_db('conf',&$oDbCfg,true);
+//			$this->set_db('conf',&$oDbCfg,true);
+			$this->set_db('conf',$oDbCfg,true);
 			$GLOBALS['INMERSA_BASEDB'] = &$oDbCfg;
-			if (!session_register ('INMERSA_BASEDB'))	/* cambiar por $this->error() */
+//			if (!session_register ('INMERSA_BASEDB'))	/* cambiar por $this->error() */
+			if (!$_SESSION['INMERSA_BASEDB'])	/* cambiar por $this->error() */
 				salida ("ERROR Interno, no se ha podido guardar la sesion.<BR>\n");
 		} else {
 			//debug("Registrando la sesion: ".$GLOBALS['APP_NAME']);
-			if (!session_register ($GLOBALS['APP_NAME']))
+//			if (!session_register ($GLOBALS['APP_NAME']))
+			if (!$_SESSION [$GLOBALS['APP_NAME']] )
 				salida ("ERROR Interno, no se ha podido guardar la sesion.<BR>\n");
 		}
 

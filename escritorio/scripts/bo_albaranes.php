@@ -37,12 +37,12 @@ function pre_albaran (&$Sesion) {
 	//$oAlb = $Sesion->get_var('oAlbaran');
 	$oAlb = &$Sesion->getVarByRef('oAlbaran');
 	if (!is_a($oAlb,'DeliveryNote') OR $id_albaran != $oAlb->getId()) {
-		// debug("Ojo, _siempre_ poblamos : Creando _nueva_ instancia a partir de los valores en la bdd");
+//		 debug("Ojo, _siempre_ poblamos : Creando _nueva_ instancia a partir de los valores en la bdd");
 		$oAlb = new DeliveryNote();
 		$oAlb->dbFill($id_albaran);
-		$Sesion->setVarByRef('oAlbaran',&$oAlb,'SECCION');
+		$Sesion->setVarByRef('oAlbaran',$oAlb,'SECCION');
 	} else {
-		debug("Instancia recuperada ... ");
+//		debug("Instancia recuperada ... ");
 		$id_albaran = $oAlb->getId();
 	}
 

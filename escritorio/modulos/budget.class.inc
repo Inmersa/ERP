@@ -1,13 +1,13 @@
 <?php
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.								 **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y		 **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre	 **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo  **
@@ -23,7 +23,7 @@
 **    Engineering																 **
 **    Director Tecnico														 **
 **    tite@wolstudios.com													 **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España						 **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a						 **
 **																					 **
 **					(c) Web On Line Studios S.L.							 **
 **                                                              **
@@ -561,16 +561,16 @@ class Budget extends Document {
 	/**   -- Metodos de Cabeceras y Pies -- **/
 	
 	function __get($prop_name) {
-		debug("Metodo get general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo get general ($prop_name,$prop_value)");
 		return $this->$prop_name;
 	}
 
 	function __set($prop_name,$prop_value) {
-		debug("Metodo set general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo set general ($prop_name,$prop_value)");
 	}
 
 	function __call($metodo,$aArgs) {
-		debug("Metodo CALL general ($metodo,$aArgs)");
+		if ($this->debug) debug("Metodo CALL general ($metodo,$aArgs)");
 	}
 
 	/** FIN de los Metodos set y get **/

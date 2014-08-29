@@ -1,13 +1,13 @@
 <?php
 /*****************************************************************
-** Aplicacion diseñada para Web On Line Studios S.L.            **
+** Aplicacion diseï¿½ada para Web On Line Studios S.L.            **
 **    Todos los derechos reservados.                            **
 **    Este programa se podra modificar con el consentimiento    **
 **    de Web On Line Studios S.L. Su distribucion queda         **
 **    limitada a Web On Line Studios S.L.								 **
 **    Las posibles modificaciones sobre esta aplicacion ajenas  **
 **    a Web On Line Studios S.L. deberan ser consultadas y		 **
-**    enviadas a Web On Line Studios en C/Alcala 18 3º Izda,    **
+**    enviadas a Web On Line Studios en C/Alcala 18 3ï¿½ Izda,    **
 **    28014 Madrid. Cualquier otra operacion realizada sobre	 **
 **    esta aplicacion queda limitada a Web On Line Studios S.L. **
 **    infringiendo en delito cualquier otra entidad que asi lo  **
@@ -23,7 +23,7 @@
 **    Engineering																 **
 **    Director Tecnico														 **
 **    tite@wolstudios.com													 **
-**    C/Alcala 18 3º Izda, 28014 Madrid, España						 **
+**    C/Alcala 18 3ï¿½ Izda, 28014 Madrid, Espaï¿½a						 **
 **																					 **
 **					(c) Web On Line Studios S.L.							 **
 **                                                              **
@@ -1388,23 +1388,23 @@ class Document {
 	}
 
 	function __get($prop_name) {
-		debug("Metodo get general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo get general ($prop_name,$prop_value)");
 		return $this->$prop_name;
 	}
 
 	function __set($prop_name,$prop_value) {
-		debug("Metodo set general ($prop_name,$prop_value)");
+		if ($this->debug) debug("Metodo set general ($prop_name,$prop_value)");
 	}
 
 	function __call($metodo,$aArgs) {
-		debug("Metodo CALL general ($metodo,$aArgs)");
+		if ($this->debug) debug("Metodo CALL general ($metodo,$aArgs)");
 	}
 
 	function set_db($db_name) {
 		// $app = $this->App_Name;
 		// global $$app;
 		// debug("set_db( -".$this->App_Name."- $db_name )");
-		$Sesion = &$GLOBALS[$this->App_Name];
+		$Sesion = &$_SESSION[$this->App_Name];
 		// debug("set_db( -".$this->App_Name."- $db_name )");
 		if (empty($db_name)) $db = &$Sesion->get_db($this->_db_name);
 		else {
@@ -3725,7 +3725,7 @@ class Document {
 									$aArt = $this->get_detail($idx);
 									if (!is_array($aArt) OR $aArt['id_articulo']!=$id_art OR ($this->get_price($idx)!=0)) { 
 										// Este caso no se produce:
-										// Si estaba borrado, lo añadimos en la misma pos de detalle (si no hay otro ahora)
+										// Si estaba borrado, lo aï¿½adimos en la misma pos de detalle (si no hay otro ahora)
 										if ($this->debug) 
 											debug("Anyadimos articulo($id_art) borrado($idx) de promocion...");
 										$idx_ = $this->add_detail($id_art,$cant,NULL,FALSE,$idx);
