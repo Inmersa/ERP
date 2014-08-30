@@ -98,8 +98,11 @@ if [ ! -f "$CFGPATH/$CFGFILES" ]; then
     # Si no hemos encontrado la configuracion, miramos los parametros
     parse_arguments "$@"
     if [ ! -f "$CFGPATH/$CFGFILES" ]; then
-        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
-        exit 1;
+        echo "No configuration file found, creating this one $CFGPATH/$CFGFILES ";
+        install -d $CFGPATH;
+        echo "_USEFULL_CONFIG=n" > $CFGPATH/$CFGFILES;
+#        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
+#        exit 1;
     fi;
 fi;
 
@@ -114,7 +117,7 @@ if [ -z "$MYSQL" -o ! -x "$MYSQL" ]; then \
 fi
 
 
-if [ -e $CONF_FILE ]; then
+if [ -e "$CONF_FILE" ]; then
     . $CONF_FILE;
     parse_arguments "$@"
     if [ -z "$_USEFULL_CONFIG" ]; then
