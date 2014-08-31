@@ -118,7 +118,7 @@ if [ ! -f "$CFGPATH/$CFGFILES" ]; then
     if [ ! -f "$CFGPATH/$CFGFILES" ]; then
         echo "No configuration file found, creating this one $CFGPATH/$CFGFILES ";
         install -d $CFGPATH;
-        generate_default_conf $CFGPATH;
+        generate_default_conf $CFGPATH $CFGFILES;
 #$CFGPATH/$CFGFILES
 #        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
 #        exit 1;
@@ -164,7 +164,7 @@ if [ -e "$CONF_FILE" ]; then
     fi
 else
     parse_arguments "$@"
-    generate_default_conf "$CFGPATH/$CFGFILES";
+    generate_default_conf "$CFGPATH" "$CFGFILES";
     if [ $QUIET -eq 1 ]; then
         echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
         exit 1;
