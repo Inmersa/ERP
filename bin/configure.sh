@@ -93,6 +93,24 @@ parse_arguments() {
 #--basedir=*) MY_BASEDIR_VERSION=`echo "$arg" | sed -e "s;--basedir=;;"` ;;
 }
 
+generate_default_conf() {
+    if [ ! -z "$1" ]; then
+        CFG=$1/$2;
+cat<<EOF>$CFG
+USEFULL_CONFIG=n
+VHOSTPATH=vhost
+CFGPATH=$1
+CONF_FILE=$CFGPATH/configure.cfg
+GRANT_FILE=$CFGPATH/grants.sql
+INM_FILE=$CFGPATH/app_config.sql
+SITE_FILE=$VHOSTPATH/escritorio/config.php
+EOF
+
+    else
+        echo "Missing argument to generate_default_conf . " >> /dev/stderr;
+    fi;
+}
+
 
 if [ ! -f "$CFGPATH/$CFGFILES" ]; then
     # Si no hemos encontrado la configuracion, miramos los parametros
@@ -100,7 +118,8 @@ if [ ! -f "$CFGPATH/$CFGFILES" ]; then
     if [ ! -f "$CFGPATH/$CFGFILES" ]; then
         echo "No configuration file found, creating this one $CFGPATH/$CFGFILES ";
         install -d $CFGPATH;
-        echo "_USEFULL_CONFIG=n" > $CFGPATH/$CFGFILES;
+        generate_default_conf $CFGPATH;
+#$CFGPATH/$CFGFILES
 #        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
 #        exit 1;
     fi;
@@ -145,7 +164,7 @@ if [ -e "$CONF_FILE" ]; then
     fi
 else
     parse_arguments "$@"
-    _USEFULL_CONFIG=n
+    generate_default_conf "$CFGPATH/$CFGFILES";
     if [ $QUIET -eq 1 ]; then
         echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
         exit 1;
@@ -175,7 +194,7 @@ if [ $QUIET -ne 1 ]; then
     readln "IGestion_Password" "Contrase�a de aplicacion para el usuario [$IG_LOGIN] " "$IG_PW" "$IG_PW"
     IG_PW=$ans
 
-    if [ -f $DBCFG_FILE ]; then
+    if [ -f "$DBCFG_FILE" ]; then
         oldifs=$IFS;
         IFS="
 "
@@ -197,7 +216,7 @@ if [ $QUIET -ne 1 ]; then
     readln "do_CRM_CONFIG" "Si tiene Ud. Licencia de iCRM. Desea configurar el enlace iEmpresa->iCRM ahora? [s/n]" "s" ""
     check_bool $ans
     CFG_CRM=$_bool
-    if [ $CFG_CRM -eq 1 ]; then
+    if [ "$CFG_CRM" -eq 1 ]; then
     # Enlace con iCRM
         readln "ICRM_VHOST" "Nombre del VHost (uri) para iCRM [icrm.$(echo $CLIENTE).com] " "icrm.$(echo $CLIENTE).com" "$ICRM_VHOST"
         ICRM_VHOST=$ans
@@ -216,7 +235,7 @@ if [ $QUIET -ne 1 ]; then
     readln "do_ICONTA_CONFIG" "Si tiene Ud. Licencia de iConta. Desea configurar el enlace iEmpresa->iConta ahora? [s/n]" "s" ""
     check_bool $ans
     CFG_iConta=$_bool
-    if [ $CFG_iConta -eq 1 ]; then
+    if [ "$CFG_iConta" -eq 1 ]; then
     # Enlace con iCRM
         readln "ICONTA_VHOST" "Nombre del VHost (uri) para iCONTA " "iconta.$(echo $CLIENTE).com" "$ICONTA_VHOST"
         ICONTA_VHOST=$ans
@@ -238,7 +257,7 @@ else
     if [ ! -z "$ICONTA_VHOST" ]; then CFG_iConta=1; else CFG_iConta=0; fi;
 fi;
 
-if [ $QUIET -ne 1 ]; then
+if [ "$QUIET" -ne 1 ]; then
     comment "A Continuacion se procedera a volcar por completo la configuracion de iEmpresa.
     Si ya tiene datos almacenados, estos se perderan."
     readln "do_DBDUMP" "Desea continuar? [s/n]" "s" ""
@@ -248,16 +267,16 @@ else
     DO_DUMP=1;
 fi;
 
-if [ $DO_DUMP -eq 1 ]; then
+if [ "$DO_DUMP" -eq 1 ]; then
 
-    if [ $QUIET -ne 1 ]; then
+    if [ "$QUIET" -ne 1 ]; then
         readln "do_DBBACKUP" "Desea hacer backup de los datos? [s/n]" "s" "";
         check_bool $ans;
         DO_BKP=$_bool;
     else
         DO_BKP=1;
     fi;
-    if [ $DO_BKP -eq 1 ]; then
+    if [ "$DO_BKP" -eq 1 ]; then
         echo "Haciendo backup de datos ... "
         if [ $QUIET -ne 1 ]; then
             bin/backup_data.sh
@@ -331,6 +350,7 @@ if [ $DO_DUMP -eq 1 ]; then
         echo "NO DATABASE VERSION FOUND";
     fi;
 
+echo "Generating Grant file $GRANT_FILE ";
 cat<<EOF>$GRANT_FILE
 CREATE DATABASE IF NOT EXISTS $DBNAME;
 CREATE DATABASE IF NOT EXISTS $(echo $DBNAME_INM);
