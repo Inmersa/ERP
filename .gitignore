@@ -8,3 +8,7 @@
 /conf/configure.files
 /startup.cfg
 /vhost/escritorio/config.php
+/conf/configure.cfg
+/conf/app_config.sql
+/conf/grants.sql
+/vhost/escritorio/config_tite.php

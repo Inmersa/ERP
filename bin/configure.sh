@@ -97,15 +97,13 @@ generate_default_conf() {
     if [ ! -z "$1" ]; then
         CFG=$1/$2;
 cat<<EOF>$CFG
-USEFULL_CONFIG=n
-VHOSTPATH=vhost
+VHOSTPATH=$CFGPATH/../vhost
 CFGPATH=$1
 CONF_FILE=$CFGPATH/configure.cfg
 GRANT_FILE=$CFGPATH/grants.sql
 INM_FILE=$CFGPATH/app_config.sql
-SITE_FILE=$VHOSTPATH/escritorio/config.php
+SITE_FILE=$CFGPATH/../vhost/escritorio/config.php
 EOF
-
     else
         echo "Missing argument to generate_default_conf . " >> /dev/stderr;
     fi;
@@ -119,7 +117,7 @@ if [ ! -f "$CFGPATH/$CFGFILES" ]; then
         echo "No configuration file found, creating this one $CFGPATH/$CFGFILES ";
         install -d $CFGPATH;
         generate_default_conf $CFGPATH $CFGFILES;
-#$CFGPATH/$CFGFILES
+        . $CFGPATH/$CFGFILES
 #        echo "Error: config file $CFGFILES not found. Use --cfgpath switch ";
 #        exit 1;
     fi;
@@ -164,7 +162,9 @@ if [ -e "$CONF_FILE" ]; then
     fi
 else
     parse_arguments "$@"
-    generate_default_conf "$CFGPATH" "$CFGFILES";
+#    generate_default_conf "$CFGPATH" "$CFGFILES";
+#    echo "We run the configuration file now, since we didnt have that chance ";
+#    . $CFGPATH/$CFGFILES;
     if [ $QUIET -eq 1 ]; then
         echo "No USEFULL_CONFIG Found on $CONF_FILE" > /dev/stderr;
         exit 1;
@@ -266,6 +266,40 @@ if [ "$QUIET" -ne 1 ]; then
 else
     DO_DUMP=1;
 fi;
+
+cat<<EOF>$CONF_FILE
+_USEFULL_CONFIG=1
+MYSQL_HOST='$(echo $MYSQL_HOST)'
+MYSQL_PORT='$(echo $MYSQL_PORT)'
+MYSQL_SU_USER='$(echo $MYSQL_SU_USER)'
+MYSQL_SU_PASS='$(echo $MYSQL_SU_PASS)'
+DBNAME='$(echo $DBNAME)'
+DBLOGIN='$(echo $DBLOGIN)'
+DBPW='$(echo $DBPW)'
+DBMASK='$(echo $DBMASK)'
+IG_LOGIN='$(echo $IG_LOGIN)'
+IG_PW='$(echo $IG_PW)'
+DBNAME_INM='$(echo $DBNAME_INM)'
+DBLOGIN_INM='$(echo $DBLOGIN_INM)'
+DBPW_INM='$(echo $DBPW_INM)'
+IG_APP_NAME='$(echo $IG_APP_NAME)'
+ICRM_VHOST='$(echo $ICRM_VHOST)'
+ICRM_DBNAME='$(echo $ICRM_DBNAME)'
+ICRM_DBLOGIN='$(echo $ICRM_DBLOGIN)'
+ICRM_DBPW='$(echo $ICRM_DBPW)'
+ICRM_DBNAME_INM='$(echo $ICRM_DBNAME_INM)'
+ICRM_DBLOGIN_INM='$(echo $ICRM_DBLOGIN_INM)'
+ICRM_DBPW_INM='$(echo $ICRM_DBPW_INM)'
+ICONTA_VHOST='$(echo $ICONTA_VHOST)'
+ICONTA_DBNAME='$(echo $ICONTA_DBNAME)'
+ICONTA_DBLOGIN='$(echo $ICONTA_DBLOGIN)'
+ICONTA_DBPW='$(echo $ICONTA_DBPW)'
+ICONTA_DBNAME_INM='$(echo $ICONTA_DBNAME_INM)'
+ICONTA_DBLOGIN_INM='$(echo $ICONTA_DBLOGIN_INM)'
+ICONTA_DBPW_INM='$(echo $ICONTA_DBPW_INM)'
+LANG='$(echo $LANG)'
+IFACE='$(echo $IFACE)'
+EOF
 
 if [ "$DO_DUMP" -eq 1 ]; then
 
@@ -475,40 +509,6 @@ cat<<EOF>$SITE_FILE
 \$BACKOFFICE=TRUE;
 \$DEBUG="Off";
 ?>
-EOF
-
-cat<<EOF>$CONF_FILE
-_USEFULL_CONFIG=1
-MYSQL_HOST='$(echo $MYSQL_HOST)'
-MYSQL_PORT='$(echo $MYSQL_PORT)'
-MYSQL_SU_USER='$(echo $MYSQL_SU_USER)'
-MYSQL_SU_PASS='$(echo $MYSQL_SU_PASS)'
-DBNAME='$(echo $DBNAME)'
-DBLOGIN='$(echo $DBLOGIN)'
-DBPW='$(echo $DBPW)'
-DBMASK='$(echo $DBMASK)'
-IG_LOGIN='$(echo $IG_LOGIN)'
-IG_PW='$(echo $IG_PW)'
-DBNAME_INM='$(echo $DBNAME_INM)'
-DBLOGIN_INM='$(echo $DBLOGIN_INM)'
-DBPW_INM='$(echo $DBPW_INM)'
-IG_APP_NAME='$(echo $IG_APP_NAME)'
-ICRM_VHOST='$(echo $ICRM_VHOST)'
-ICRM_DBNAME='$(echo $ICRM_DBNAME)'
-ICRM_DBLOGIN='$(echo $ICRM_DBLOGIN)'
-ICRM_DBPW='$(echo $ICRM_DBPW)'
-ICRM_DBNAME_INM='$(echo $ICRM_DBNAME_INM)'
-ICRM_DBLOGIN_INM='$(echo $ICRM_DBLOGIN_INM)'
-ICRM_DBPW_INM='$(echo $ICRM_DBPW_INM)'
-ICONTA_VHOST='$(echo $ICONTA_VHOST)'
-ICONTA_DBNAME='$(echo $ICONTA_DBNAME)'
-ICONTA_DBLOGIN='$(echo $ICONTA_DBLOGIN)'
-ICONTA_DBPW='$(echo $ICONTA_DBPW)'
-ICONTA_DBNAME_INM='$(echo $ICONTA_DBNAME_INM)'
-ICONTA_DBLOGIN_INM='$(echo $ICONTA_DBLOGIN_INM)'
-ICONTA_DBPW_INM='$(echo $ICONTA_DBPW_INM)'
-LANG='$(echo $LANG)'
-IFACE='$(echo $IFACE)'
 EOF
 
 ##TODO: Preguntar si desea hacer una BackUp de los Datos antes.
