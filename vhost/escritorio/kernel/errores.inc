@@ -397,7 +397,7 @@ function debug($texto,$param=NULL) {
 global $DEBUG;
 global $DEBUG_FD;
 $strMsg = ("debug: ".ereg_replace("\n","<br>",$texto)."<br>\n");
-if (empty($DEBUG_FD)) {
+if (false and empty($DEBUG_FD)) {
 	$DEBUG_FD = fopen('/tmp/ierp_app_debug.log','w');
 	fwrite($DEBUG_FD,$strMsg);
 }

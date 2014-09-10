@@ -328,10 +328,10 @@ if [ "$DO_DUMP" -eq 1 ]; then
         STRUCT_FILE=$DBSTRUCT;
         OLDDBV=`echo "SELECT valor FROM _main WHERE nombre='database_version'" | $MYCMD $DBNAME_INM | grep -v valor;`
         if [ -z "$OLDDBV" ]; then
-            echo "No habia DB version. asumiento Version 1 ";
-            OLDDBV='1';
+            echo "No habia DB version. ";
+            OLDDBV='';
         fi;
-        if [ "$OLDDBV" -ne "$DBV" ]; then
+        if [ ! -z "$OLDDBV" -a "$OLDDBV" -ne "$DBV" ]; then
             CURDBV=$OLDDBV
             echo "actualizando DB version desde $OLDDBV a $DBV ";
             while [ "$CURDBV" -ne "$DBV" ]; do
