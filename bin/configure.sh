@@ -103,6 +103,8 @@ CONF_FILE=$CFGPATH/configure.cfg
 GRANT_FILE=$CFGPATH/grants.sql
 INM_FILE=$CFGPATH/app_config.sql
 SITE_FILE=$CFGPATH/../vhost/escritorio/config.php
+DEFAULTS_FILE=$CFGPATH/../dbs/gestion.default.sql
+DBCFG_FILE=$CFGPATH/../dbs/gestion_inmersa.sql
 EOF
     else
         echo "Missing argument to generate_default_conf . " >> /dev/stderr;
@@ -326,13 +328,14 @@ if [ "$DO_DUMP" -eq 1 ]; then
     DBSTRUCT="dbs/V$DBV/estructura.sql"
     if [ ! -z "$DBV" -a -f "$DBSTRUCT" ]; then
         STRUCT_FILE=$DBSTRUCT;
-        OLDDBV=`echo "SELECT valor FROM _main WHERE nombre='database_version'" | $MYCMD $DBNAME_INM | grep -v valor;`
+        OLDDBV=`echo "SELECT valor FROM _main WHERE nombre='database_version'" | $MYCMD $DBNAME_INM 2>/dev/null | grep -v valor;`
         if [ -z "$OLDDBV" ]; then
-            echo "No habia DB version. ";
-            OLDDBV='';
+            echo "No habia DB version. asumiento primera instalacion ";
+            OLDDBV="";
         fi;
-        if [ ! -z "$OLDDBV" -a "$OLDDBV" -ne "$DBV" ]; then
-            CURDBV=$OLDDBV
+        if [ ! -z "$OLDDBV" ]; then
+        if [ "$OLDDBV" -ne "$DBV" ]; then
+            CURDBV=$OLDDBV;
             echo "actualizando DB version desde $OLDDBV a $DBV ";
             while [ "$CURDBV" -ne "$DBV" ]; do
                 if [ "$CURDBV" -lt "$DBV" ]; then
@@ -380,6 +383,7 @@ if [ "$DO_DUMP" -eq 1 ]; then
                 fi;
             done;
         fi;
+        fi;
     else
         echo "NO DATABASE VERSION FOUND";
     fi;
@@ -401,6 +405,9 @@ EOF
 cat<<EOF>$INM_FILE
 REPLACE INTO Users (id_usr,nombre,login,passwd,av_group,activo)
     VALUES (1,'$CLIENTE','$IG_LOGIN',PASSWORD('$IG_PW'),4,1);
+USE $DBNAME;
+INSERT INTO Empresarios (id_empresa,id_usr,nombre) VALUES (1,1,'Default User');
+USE $DBNAME_INM;
 DELETE FROM _main WHERE nombre='app_name' OR nombre like 'db_data_%'
 					  OR nombre='doc_root' OR nombre='root_dir'
 					  OR nombre='krncfg_default_lang' OR nombre='krncfg_default_iface'
