@@ -21,6 +21,6 @@ if [[ -z $OPENSHIFT_LOG_DIR ]]; then
 	return 1
 fi;
 
-env > $OPENSHIFT_TMP_DIR/build.env
+ln -s $OPENSHIFT_REPO_DIR/vhost $OPENSHIFT_REPO_DIR/php
 #env > $OPENSHIFT_LOG_DIR/build.env
 
