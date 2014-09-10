@@ -1,3 +1,3 @@
 #!/bin/sh
 
-env > post_deploy.env
+#env > post_deploy.env

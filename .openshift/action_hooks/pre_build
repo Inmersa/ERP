@@ -1,3 +1,3 @@
 #!/bin/sh
 
-env > pre_build.env
+env > $OPENSHIFT_HOMEDIR/pre_build.env
