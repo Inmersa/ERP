@@ -8000,6 +8000,7 @@ INSERT INTO _main (id, nombre, valor) VALUES (153,'cfg_app_email','info@biomundo
 INSERT INTO _main (id, nombre, valor) VALUES (176,'cfg_app_email_popserver','pop3.biomundo.es');
 INSERT INTO _main (id, nombre, valor) VALUES (177,'cfg_app_email_popuser','info@biomundo.es');
 INSERT INTO _main (id, nombre, valor) VALUES (178,'cfg_app_email_poppass','biomund0');
+-- quitar las pw del fichero
 INSERT INTO _main (id, nombre, valor) VALUES (180,'cfg_app_crm_idgrupodocs_presupuestos','2');
 INSERT INTO _main (id, nombre, valor) VALUES (182,'cfg_app_print_pgcabdoc_lineas','45');
 INSERT INTO _main (id, nombre, valor) VALUES (183,'cfg_app_print_pgdoc_lineas','66');
