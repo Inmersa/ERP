@@ -10,7 +10,7 @@ class ModVoIP extends AppModule {
 	function SectionStart() {
 		$oS = &$this->getApp();
 		if (!is_a($oS,'wolSesion')) return false;
-		debug(get_class($this)." :: Desde modulo VoIP, _todo ok no? ".$oS->get_subsecc_name());
+		// debug(get_class($this)." :: Desde modulo VoIP, _todo ok no? ".$oS->get_subsecc_name());
 		switch ($oS->get_subsecc_name()) {
 			case 'hacer_pedido':
 				$bBus = $oS->haveSearch();

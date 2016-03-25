@@ -367,9 +367,9 @@ function errores($fichero,$linea){
    global $ADMIN;
 
    echo "<FONT COLOR=\"#FF0000\">";
-   if (mysql_errno()!=0) {
+   if (mysqli_errno($GLOBALS['INMERSA_BASEDB']->SQL[$GLOBALS['INMERSA_BASEDB']->SQL_point])!=0) {
 	   echo "\n<BR><BR>Se ha producido un Error:<BR>";
-	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error N� ".mysql_errno()." : ".mysql_error()." En $fichero Linea $linea <BR>\n";
+	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Error N� ".mysqli_errno()." : ".mysqli_error()." En $fichero Linea $linea <BR>\n";
 	   echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por favor informe de ello a <A href=\"mailto:$ADMIN\">";
 	   echo $ADMIN."</A> para posibles soluciones.<BR>\n";
    } else {
@@ -397,7 +397,7 @@ function debug($texto,$param=NULL) {
 global $DEBUG;
 global $DEBUG_FD;
 $strMsg = ("debug: ".ereg_replace("\n","<br>",$texto)."<br>\n");
-if (false and empty($DEBUG_FD)) {
+if (empty($DEBUG_FD)) {
 	$DEBUG_FD = fopen('/tmp/ierp_app_debug.log','w');
 	fwrite($DEBUG_FD,$strMsg);
 }

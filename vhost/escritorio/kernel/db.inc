@@ -31,6 +31,12 @@
 ******************************************************************
 *****************************************************************/
 
+// function mysql_connect() {
+// 	print_r(func_get_args());
+// 	$args =func_get_args();
+// 	return mysqli_connect(...$args);
+// }
+
 /*include("config.php");
 include("errores.php");
 
@@ -43,7 +49,7 @@ include("mysql.php");*/
   de bases de datos (oracle, db2, mysql etc..) simultaneamente con multiples
   servidores simultaneos, logins y passwords.
   ***********/
-	class wol_db {
+class wol_db {
 	var $ruta_log = "/home/usuarios/lizard/logs/query.log";
 	var $_bAlive;					  /* Indica si el objeto esta vivo/iniciado(1) o cerrado(0) * */
 	var $nombre;					  /* Nombre de la base de datos */
@@ -222,7 +228,7 @@ include("mysql.php");*/
 	 	* Obtener las claves primarias de una tabla.
 		*/
 	function get_keys ($tabla) {
-// debug("get_keys($tabla)");
+		//debug("wol_db::get_keys($tabla)");
 		if (!$this->conectado()) return NULL;
 		if (empty ($tabla))
 			return NULL;
@@ -230,16 +236,20 @@ include("mysql.php");*/
 		if (!is_array($aTablas)) {
 			return NULL;
 		}
-// debug("query realizada....");
 		$num_flds = sizeof($aTablas);
 		$aKeys = NULL;
 		for ($i = 0; $i < $num_flds; $i++) {
 			// debug("nombre = ".$this->field_name($tmp_id,$i));
 			// debug("flags = ".$this->field_flags($tmp_id,$i));
 			// $oFields[$this->field_name($tmp_id,$i)] = $oCampo;
-			if (stristr ($aTablas[$i]['flags'],'primary_key'))
+			// if (stristr ($aTablas[$i]['flags'],'primary_key'))
+			if (empty($aTablas[$i]['flags'])) continue;
+			$aF = explode(' ',$aTablas[$i]['flags']);
+			// debug("wol_db:get_keys($tabla) flags ".$aTablas[$i]['flags']." got us: ",$aF);
+			if ( in_array('primary_key',$aF) || in_array('PRI',$aF) )
 				$aKeys[] = $aTablas[$i]['name'];
 		}
+		// debug("wol_db::get_keys ($tabla) ....",$aKeys);
 		// no mientras no pertenezca a un puntero interno de wol_db: $this->libera($tmp_id);
 		return $aKeys;
 	}
@@ -265,13 +275,13 @@ include("mysql.php");*/
 		return 1;
 	}
 
+
 	function init () {
 		if ($this->_bAlive)
 			return 1;
 //		$this->debug = 0;
-		if ($this->debug)
-			debug ("wol_db->init()");
 		$this->SQL_point = 1;
+		if ($this->debug) debug ("wol_db->init() with connection class within SQL[]: ".get_class($this->SQL[$this->SQL_point]));
 		$this->_bAlive = TRUE;
 		return 1;
 	}
@@ -354,10 +364,10 @@ include("mysql.php");*/
 
 	function errores ($msg = NULL) {
 		if (!$msg) {
-			$msg = "noparm - (".mysql_error ($this->SQL[$this->SQL_point])." - ".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($this->consulta,0,1000);
+			$msg = "noparm - (".mysqli_error ($this->SQL[$this->SQL_point])." - ".mysqli_error ($this->SQL[$this->SQL_point]).") ".substr($this->consulta,0,1000);
 		}
-		elseif (mysql_errno ($this->SQL[$this->SQL_point])) {
-			$msg = "(".mysql_errno ($this->SQL[$this->SQL_point])."-".mysql_error ($this->SQL[$this->SQL_point]).") ".substr($msg,0,1000);
+		elseif (mysqli_errno ($this->SQL[$this->SQL_point])) {
+			$msg = "(".mysqli_errno ($this->SQL[$this->SQL_point])."-".mysqli_error ($this->SQL[$this->SQL_point]).") ".substr($msg,0,1000);
 		}
 		debug ("Error (db): $msg");
 	}
@@ -368,32 +378,29 @@ include("mysql.php");*/
 	 * nuestro objeto. 
 	 */
 	function conecta ($SQL = NULL) {
-
-				/** **
-        if (!is_numeric($SQL)) $this->SQL_point = sizeof($this->SQL) + 1;
-        else $this->SQL_point = $SQL;
-				/** **/
+		/** **
+		if (!is_numeric($SQL)) $this->SQL_point = sizeof($this->SQL) + 1;
+		else $this->SQL_point = $SQL;
+		 ** **/
 		if ($SQL)
 			$this->SQL_point = (int) $SQL;
 
-		if ($this->debug)
-			debug ("db->conecta(".$this->SQL_point." - ".$this->nombre.
-					 $this->SQL[$this->SQL_point]."); dbase = ".$this->dbase[$this->SQL_point]);
+		if ($this->debug) debug ("db->conecta(".$this->SQL_point." - ".$this->nombre." ".$this->info()."); dbase = ".$this->dbase[$this->SQL_point]);
 
-		if (!($this->SQL[$this->SQL_point] =
-				mysql_connect ($this->cfgServer[$this->SQL_point].( (is_numeric($this->port[$this->SQL_point])) ? ':'.$this->port[$this->SQL_point] : '' ),
-									$this->login[$this->SQL_point], $this->passwd[$this->SQL_point]))) {
+		if ( !($this->SQL[$this->SQL_point] =
+				mysqli_connect ($this->cfgServer[$this->SQL_point].( (is_numeric($this->port[$this->SQL_point])) ? ':'.$this->port[$this->SQL_point] : '' ),
+									$this->login[$this->SQL_point], $this->passwd[$this->SQL_point])) ) {
 			/** **/
 			errores (__FILE__, __LINE__);
 			// session_destroy ();
 			exit;
 			/** **/
-			mysql_close($this->SQL[$this->SQL_point]);
+			mysqli_close($this->SQL[$this->SQL_point]);
 			$this->reset_pointers();
 		}
-		if (!@mysql_select_db ($this->dbase[$this->SQL_point], $this->SQL[$this->SQL_point])) {
+		if (!mysqli_select_db ($this->SQL[$this->SQL_point], $this->dbase[$this->SQL_point])) {
 			$this->errores();
-			mysql_close($this->SQL[$this->SQL_point]);
+			mysqli_close($this->SQL[$this->SQL_point]);
 			$this->reset_pointers();
 		}
 		return $this->SQL_point;
@@ -413,6 +420,7 @@ include("mysql.php");*/
 		else {
 			if (!empty ($this->claves["_main"])) {
 				$consulta = "SELECT valor FROM _main WHERE nombre='$nombre'";
+				// debug('wol_db::read_main_value() : '.$consulta);
 				$id = $this->query ($consulta);
 				if ($this->num_rows ($id)) {
 					$aTmp = $this->fetch_row ($id);
@@ -1006,7 +1014,7 @@ include("mysql.php");*/
 
 		if (!(int) $this->conectado ()) $this->conecta (1);
 
-		if (strcasecmp($DEBUG,'ON') AND is_a($_SESSION[$GLOBALS['APP_NAME']],'wolSesion')) {
+		if (strcasecmp($GLOBALS['DEBUG'],'ON') AND is_a($_SESSION[$GLOBALS['APP_NAME']],'wolSesion')) {
 			$logp = $_SESSION[$GLOBALS['APP_NAME']]->getFromKrn('db_logpath');
 			// debug("log path para ".$GLOBALS['APP_NAME']." : $logp ");
 			// print_r($GLOBALS[$GLOBALS['APP_NAME']]->_aKrnConf);
@@ -1028,17 +1036,20 @@ include("mysql.php");*/
 		$this->consulta = $consulta;
 		$this->res_point = sizeof ($this->res_id) + 1;
 		if ($this->debug)
-			debug ("wolDB->query; link(".$this->SQL_point.") link_id (".$this->SQL[$this->SQL_point].")");
-		$tmp_res = @mysql_query ($consulta, $this->SQL[$this->SQL_point]);
+			debug ("wolDB->query; link(".$this->SQL_point.")"." link_id (".mysqli_get_host_info($this->SQL[$this->SQL_point]).")");
+		// $tmp_res = @mysql_query ($consulta, $this->SQL[$this->SQL_point]);
+		$tmp_res = mysqli_query ($this->SQL[$this->SQL_point], $consulta);
 		if ($tmp_res) {
 			$this->res_point = sizeof ($this->res_id) + 1;
 			$this->res_id[$this->res_point] = $tmp_res;
 			$retval = $this->res_point;
 		} else
 			$retval = NULL;
-		if (mysql_errno ($this->SQL[$this->SQL_point])) {
+		// if (mysql_errno ($this->SQL[$this->SQL_point])) {
+		if (mysqli_errno ($this->SQL[$this->SQL_point])) {
 			$this->errores ($consulta);
-			if ($tmp_res) mysql_free_result($tmp_res);
+			// if ($tmp_res) mysql_free_result($tmp_res);
+			if ($tmp_res) mysqli_free_result($tmp_res);
 		}
 //debug("db.inc - query(".$this->res_point."-".$this->res_id[$this->res_point].")");
 //debug("dbQuery = $consulta");
@@ -1051,33 +1062,38 @@ include("mysql.php");*/
 
 		if (!(int) $this->conectado ()) $this->conecta (1);
 
-		if ($this->debug) debug ("wolDB->query; link(".$this->SQL_point.") link_id (".$this->SQL[$this->SQL_point].")");
-			@mysql_unbuffered_query ($consulta, $this->SQL[$this->SQL_point]);
-		if (mysql_errno ()) $this->errores ($consulta);
+		if ($this->debug) debug ("wolDB->query; link(".$this->SQL_point.") link_id (".mysqli_get_host_info($this->SQL[$this->SQL_point]).")");
+			mysqli_real_query ($this->SQL[$this->SQL_point],$consulta);
+			// @mysql_unbuffered_query ($consulta, $this->SQL[$this->SQL_point]);
+		if (mysqli_errno ($this->SQL[$this->SQL_point])) $this->errores ($consulta);
 
 		return $retval;
 	}
+
 
 	function num_rows ($id = -1) {
 		if (!isset ($id) OR $id == -1)
 			$id = $this->res_point;
 //salida("en db id = $id<BR>\n");
-//debug("db.inc hay_rows($id) res_id = ".$this->res_id[$id]);
+//debug("wol_db::num_rows($id) res_id-cnt = ".mysqli_num_rows($this->res_id[$id]));
 //salida("numero de ids = ".sizeof($this->res_id)."<BR>\n");
 //salida("SQL = ".$this->SQL[1]."<BR>\n");
-		return @mysql_num_rows ($this->res_id[$id]);
+		// return @mysql_num_rows ($this->res_id[$id]);
+		return mysqli_num_rows ($this->res_id[$id]);
 	}
 
 	function affected_rows ($idrs = NULL) {
 	   if (!is_numeric($idrs)) $idrs = $this->SQL_point;
-	   return @mysql_affected_rows ($this->SQL[$idrs]);
+	   // return @mysql_affected_rows ($this->SQL[$idrs]);
+	   return mysqli_affected_rows ($this->SQL[$idrs]);
 	}
 
 /** Ojo que estos no tienen identificadores internos **/
 	function num_fields ($id_flds) {
 		if (empty ($id_flds))
 			return NULL;
-		return mysql_num_fields ($id_flds);
+		// return mysql_num_fields ($id_flds);
+		return mysqli_num_rows ($this->res_id[$id_flds]);
 	}
 
 	function list_fields ($tabla) {
@@ -1085,9 +1101,12 @@ include("mysql.php");*/
 			return NULL;
 // debug("List fields de $tabla");
 		if (!$this->conectado(1)) $this->conecta($this->SQL_point);
-		$tmprs = mysql_list_fields ($this->dbase[$this->SQL_point], $tabla, $this->SQL[$this->SQL_point]);
+		// $tmprs = mysql_list_fields ($this->dbase[$this->SQL_point], $tabla, $this->SQL[$this->SQL_point]);
+		// $tmprs = mysqli_list_fields ($this->dbase[$this->SQL_point], $tabla, $this->SQL[$this->SQL_point]);
+		$tmprs = $this->query('SHOW COLUMNS FROM '.$tabla); 
 		if (!$tmprs) {
-			if (mysql_errno ()) {
+			// if (mysql_errno ()) {
+			if (mysqli_errno ()) {
 				$this->errores ('Field List '.$tabla);
 			}
 			return NULL;
@@ -1099,8 +1118,20 @@ include("mysql.php");*/
 	function field_type ($id = -1, $i = 0) {
 		if (!isset ($id) OR $id == -1)
 			return NULL;
-		$res_str = mysql_field_type ($id, $i);
-		if (mysql_errno ())
+		// $res_str = mysql_field_type ($id, $i);
+		if (mysqli_data_seek($this->res_id[$id],$i)) {
+			$field = mysqli_fetch_assoc($this->res_id[$id]);
+			$res_str = trim($field['Type']);
+			$pos = strpos($res_str,'(');
+			if ($pos) {
+				$res_str=substr($res_str,0,$pos);
+			}
+			// debug("field type : $res_str");
+		} else {
+			$this->errores ($this->consulta);	/* nuevo */
+		}
+		// if (mysql_errno ())
+		if (mysqli_errno($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_str;
 	}
@@ -1110,9 +1141,16 @@ include("mysql.php");*/
 	function field_name ($id = -1, $i = 0) {
 		if (!isset ($id) OR $id == -1)
 			return NULL;
-		$res_str = mysql_field_name ($id, $i);
-		// debug("field len : $res_str");
-		if (mysql_errno ())
+		// $res_str = mysql_field_name ($id, $i);
+		if (mysqli_data_seek($this->res_id[$id],$i)) {
+			$field = mysqli_fetch_assoc($this->res_id[$id]);
+			$res_str = $field['Field'];
+			// debug("field name : $res_str");
+		} else {
+			$this->errores ($this->consulta);	/* nuevo */
+		}
+		// if (mysql_errno ())
+		if (mysqli_errno ($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_str;
 	}
@@ -1122,8 +1160,17 @@ include("mysql.php");*/
 	function field_flags ($id = -1, $i = 0) {
 		if (!isset ($id) OR $id == -1)
 			return NULL;
-		$res_str = mysql_field_flags ($id, $i);
-		if (mysql_errno ())
+		// $res_str = mysql_field_flags ($id, $i);
+		if (mysqli_data_seek($this->res_id[$id],$i)) {
+			$field = mysqli_fetch_assoc($this->res_id[$id]);
+			$res_str = $field['Key'] . ' ' . $field['Extra'];
+			// $res_str = $field['Key'];
+			// debug("wol_db::field flags : $res_str ");
+		} else {
+			$this->errores ($this->consulta);	/* nuevo */
+		}
+		// if (mysql_errno ())
+		if (mysqli_errno ($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_str;
 	}
@@ -1133,15 +1180,36 @@ include("mysql.php");*/
 	function field_len ($id = -1, $i = 0) {
 		if (!isset ($id) OR $id == -1)
 			return NULL;
-		$res_str = (int) mysql_field_len ($id, $i);
-		if (mysql_errno ())
+		// $res_str = (int) mysql_field_len ($id, $i);
+		if (mysqli_data_seek($this->res_id[$id],$i)) {
+			$field = mysqli_fetch_assoc($this->res_id[$id]);
+			$res_str = trim($field['Type']);
+			$orig = $res_str;
+			$pos = strpos($res_str,'(');
+			if ($pos) {
+				$pos2 = strpos($res_str,')');
+				$clean_str=substr($res_str,$pos+1,($pos2-$pos-1));
+				// debug("wol_db::field_len() : $clean_str and pos($pos - $pos2) from $orig");
+				$res_str = substr($res_str,0,$pos);
+			}
+			if (in_array($res_str,array('enum'))) {
+				// debug("wol_db::field_len() : got an enum $res_str");
+				$res_str=substr_count($res_str,',')+1;
+			} else {
+				$res_str=$clean_str;
+			}
+		} else {
+			$this->errores ($this->consulta);	/* nuevo */
+		}
+		// if (mysql_errno ())
+		if (mysqli_errno ($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_str;
 	}
 
-/**
-  * Esta funcion obtiene todos los campos de una tabla de la base de datos.
-  **/
+	/**
+	  * Esta funcion obtiene todos los campos de una tabla de la base de datos.
+	  **/
 	function get_fields ($tabla) {
 		if (!isset ($tabla) OR empty ($tabla))
 			return NULL;
@@ -1150,13 +1218,13 @@ include("mysql.php");*/
 			$tmp_rs = $this->list_fields ($tabla);
 			if (!$tmp_rs)
 				return NULL;
-			$tmp = $this->num_fields ($tmp_rs);
+			$tmp = $this->num_fields($tmp_rs);
 			$aTablas = array ();
 			for ($i = 0; $i < $tmp; $i++)
 				// array_push($aTablas,array(
 				$aTablas[] = array ("name" => $this->field_name ($tmp_rs, $i),
-										  "type" => $this->field_type ($tmp_rs, $i),
-										  "len" => $this->field_len ($tmp_rs, $i), "flags" =>$this->field_flags ($tmp_rs, $i)
+							  "type" => $this->field_type ($tmp_rs, $i),
+							  "len" => $this->field_len ($tmp_rs, $i), "flags" =>$this->field_flags ($tmp_rs, $i)
 					);
 			$this->aListaCampos[$tabla] = $aTablas;
 		} else {
@@ -1169,13 +1237,17 @@ include("mysql.php");*/
 	function list_tables () {
 		if (!$this->conectado()) return NULL;
 		$this->res_point = sizeof ($this->res_id) + 1;
-		$this->res_id[$this->res_point] = mysql_list_tables ($this->dbase[$this->SQL_point], $this->SQL[$this->SQL_point]);
-		return $this->res_point;
+		// $this->res_id[$this->res_point] = mysql_list_tables ($this->dbase[$this->SQL_point], $this->SQL[$this->SQL_point]);
+		// $this->res_id[$this->res_point] = mysqli_list_tables ($this->dbase[$this->SQL_point], $this->SQL[$this->SQL_point]);
+		// return $this->res_point;
+		$rval = $this->query('SELECT table_name FROM information_schema.tables WHERE table_schema="'.$this->get_dbase_name().'"');
+		return $rval;
 	}
 
 			/** /Ojo que estos no tienen identificadores internos **/
 	function tablename ($id, $i = 0) {
-		return mysql_tablename ($this->res_id[$id], $i);
+		// return mysql_tablename ($this->res_id[$id], $i);
+		return mysqli_tablename ($this->res_id[$id], $i);
 	}
 	// Fin de los metodos privados
 
@@ -1198,8 +1270,10 @@ include("mysql.php");*/
 		if (!isset ($id) OR $id == -1)
 			$id = $this->res_point;
 // debug("fetch_array($id); id = ".$this->res_id[$id]);
-		$res_id = mysql_fetch_array ($this->res_id[$id]);
-		if (mysql_errno ())
+		// $res_id = mysql_fetch_array ($this->res_id[$id]);
+		$res_id = mysqli_fetch_array ($this->res_id[$id]);
+		// if (mysql_errno ())
+		if (mysqli_errno($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_id;
 	}
@@ -1212,8 +1286,10 @@ include("mysql.php");*/
 		if (!isset ($id) OR $id == -1)
 			$id = $this->res_point;
 //debug("fetch_array; id = ".$this->res_id[$id]);
-		$res_id = mysql_fetch_assoc ($this->res_id[$id]);
-		if (mysql_errno ())
+		// $res_id = mysql_fetch_assoc ($this->res_id[$id]);
+		$res_id = mysqli_fetch_assoc ($this->res_id[$id]);
+		// if (mysql_errno ())
+		if (mysqli_errno($this->SQL[$this->SQL_point]))
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_id;
 	}
@@ -1223,7 +1299,8 @@ include("mysql.php");*/
 		if (!isset ($id) OR $id == -1)
 			$id = $this->res_point;
 		// debug($id);
-		return mysql_fetch_row ($this->res_id[$id]);
+		// return mysql_fetch_row ($this->res_id[$id]);
+		return mysqli_fetch_row ($this->res_id[$id]);
 	}
 
 	/*
@@ -1234,8 +1311,10 @@ include("mysql.php");*/
 		if (!isset ($id) OR $id == -1)
 			$id = $this->res_point;
 //debug("fetch_field; id = ".$this->res_id[$id]);
-		$res_id = mysql_fetch_field ($this->res_id[$id]);
-		if (mysql_errno ())
+		// $res_id = mysql_fetch_field ($this->res_id[$id]);
+		$res_id = mysqli_fetch_field ($this->res_id[$id]);
+		// if (mysql_errno ())
+		if (mysqli_errno ())
 			$this->errores ($this->consulta);	/* nuevo */
 		return $res_id;
 	}
@@ -1245,16 +1324,14 @@ include("mysql.php");*/
 	 * Documenta gilipichi 
 	 */
 	function data_seek ($id = "", $pos = 0) {
-//debug("data_seek de $id - ".$this->res_id[$id]);
-		if (!isset ($id) or empty ($id))
-			$id = $this->res_point;
-		if (!$this->res_id[$id])
-			return 0;
-		if (!@mysql_data_seek ($this->res_id[$id], $pos)) {
+		//debug("data_seek de $id - ".$this->res_id[$id]);
+		if (!isset ($id) or empty ($id)) $id = $this->res_point;
+		if (!$this->res_id[$id]) return 0;
+		// if (!@mysql_data_seek ($this->res_id[$id], $pos)) {
+		if (!mysqli_data_seek ($this->res_id[$id], $pos)) {
 			// debug("wolDB->data_seek(".$this->res_id[$id]."):".mysql_errno()." : ".mysql_error());
 			return 0;
-		} else
-			return 1;
+		} else return 1;
 		// return mysql_data_seek($this->res_id[$id],$pos);
 	}
 
@@ -1264,19 +1341,20 @@ include("mysql.php");*/
 	function libera ($id = -1) {
 		if (empty ($id) OR $id == -1)
 			$id = $this->res_point;
-//debug("liberando... ($id) (".$this->res_id[$id].")");
-		@mysql_free_result ($this->res_id[$id]);
-//debug("liberado ($id)");
-
-												/** Acuerdate de a�adir soporte aki para poder liberar resultados
-				intermedios, es decir, que el puntero de resultados no tenga pork
-				ser el ultimo necesariamente **/
+		//debug("liberando... ($id) (".$this->res_id[$id].")");
+		// @mysql_free_result ($this->res_id[$id]);
+		mysqli_free_result ($this->res_id[$id]);
+		//debug("liberado ($id)");
+		/** Acuerdate de a�adir soporte aki para poder liberar resultados
+			intermedios, es decir, que el puntero de resultados no tenga pork
+			ser el ultimo necesariamente **/
 		$nResSize = sizeof ($this->res_id);
 		unset ($this->res_id[$id]);
 		$this->res_id[$id] = NULL;
 		if ($this->res_point == $nResSize)
 			$this->res_point--;
 	}
+
 
 	/*
 	 * conectado($SQL) : Esta funcion nos devuelve TRUE caso de existir un socket abierto o FALSE caso contrario 
@@ -1286,10 +1364,13 @@ include("mysql.php");*/
 			$SQL = $this->SQL_point;
 		// if (mysql_ping($this->SQL[$SQL]))
 		// debug("conectado el $SQL ? => ".$this->SQL[$SQL]);
-		if (!empty ($this->SQL[$SQL]))
-			return true;
-		else
-			return false;
+		if (is_array($this->SQL) && !empty($this->SQL) && !empty ($this->SQL[$this->SQL_point])) return true;
+		else return false;
+	}
+
+
+	function info($type='host') {
+		return (($oDb->SQL[$oDb->SQL_point] instanceof mysqli) ? mysqli_get_host_info($oDb->SQL[$oDb->SQL_point]) : 'no info');
 	}
 
 
@@ -1301,12 +1382,14 @@ include("mysql.php");*/
 			$SQL = $this->SQL_point = (((int) $this->SQL_point) ? $this->SQL_point : 1);
 		if ((int) $SQL == $this->SQL_point)
 			$this->SQL_point--;
-//debug("Cerrando socket $SQL(".$this->SQL[$SQL].") que esta ".$this->conectado());
-		if (!empty ($this->SQL[$SQL]) AND $this->conectado ($this->SQL[$SQL]))
-			@mysql_close ($this->SQL[$SQL]);
+		if ($this->debug) debug("wol_db->desconecta() Cerrando socket $SQL(".$this->info().") que esta ".$this->conectado());
+		if (!empty($this->SQL[$SQL]) AND $this->conectado ($this->SQL[$SQL]))
+			mysqli_close ($this->SQL[$SQL]);
+			// @mysql_close ($this->SQL[$SQL]);
 		$this->SQL[$SQL] = NULL;
 		unset ($this->SQL[$SQL]);
 	}
+
 
 	/*
 	 * Preparar el objeto para ser guardado 
@@ -1326,6 +1409,7 @@ include("mysql.php");*/
 		$this->_bAlive = FALSE;
 		return 1;
 	}
+
 
 	/*
 	 * Funcion que busca un elemento en un array y devuelve la posicion del elemento 
@@ -1348,10 +1432,9 @@ include("mysql.php");*/
 
 
 	function buscar (&$tab_dest, &$longi) {
-
-//echo "long: ".$longi."-- Tab:".$tab_dest."<br>";
+		//echo "long: ".$longi."-- Tab:".$tab_dest."<br>";
 		$cons = "select * from Relaciones where tabla_origen='".$tab_dest."'"." order by id_relacion";
-//echo $cons."<br>";
+		//echo $cons."<br>";
 		$rs = $this->query ($cons);
 
 		/*
@@ -1368,15 +1451,15 @@ include("mysql.php");*/
 			return 0;
 		}
 
-//echo "Tiene ".$this->num_rows($rs)." tablas Destino<br>";
+		//echo "Tiene ".$this->num_rows($rs)." tablas Destino<br>";
 
-/*
-if ($this->num_rows($rs)) {
-        while ($aTmp=$this->fetch_array($rs)) {
-                salida($aTmp[tabla_destino]."<BR>\n");
-        }
-        $this->data_seek($rs,0);
-}*/
+		/*
+		if ($this->num_rows($rs)) {
+			while ($aTmp=$this->fetch_array($rs)) {
+				salida($aTmp[tabla_destino]."<BR>\n");
+			}
+			$this->data_seek($rs,0);
+		}*/
 
 		if ($this->num_rows ($rs) == 0)
 			return 0;
@@ -1472,6 +1555,7 @@ if ($this->num_rows($rs)) {
 		return $vRetval;
 	}
 
+
 /** Aplicaremos el algoritmo de Dijstra para conseguir los caminos mininos entre la tabla y los destinos
 *	 Pasaremos al explicar el algoritmo, que es un poquillo complicado.
 *	 Pseudocodigo :
@@ -1499,7 +1583,6 @@ if ($this->num_rows($rs)) {
 *	 - Conseguir los campos de origen y destino que relacionan dos tablas.
 *  Debug de Estos metodos = 5;
 **/
-
 /** ruta ($tb_orig,$tb_dest,$val_clave,$ruta_path,$not_ruta_path):
 *      Esta funcion recibe como parametros la tabla inicio y las tablas destino
 *      y nos devuelve en un array de 3 posiciones los valores que han de tomar
@@ -2180,6 +2263,7 @@ if ($this->num_rows($rs)) {
 
 		return $resultado;
 	}  // Fin de funcion
+
 
 	function rutaprobe ($tabla = NULL, $aDestinos = NULL, $valclave = NULL, $ruta_path = NULL, $not_ruta_path = NULL) {
 		return $this->ruta($tabla,$aDestinos,$valclave,$ruta_path,$not_ruta_path);

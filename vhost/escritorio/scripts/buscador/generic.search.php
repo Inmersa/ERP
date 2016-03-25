@@ -42,7 +42,7 @@ function fd_generic(&$Sesion,&$oSearch) {
 }
 
 function fd_generic_leftjoin(&$Sesion,&$oSearch) {
-	fd_generic(&$Sesion,&$oSearch);
+	fd_generic($Sesion,$oSearch);
 	$oSearch->useLeftJoin(true);
 }
 

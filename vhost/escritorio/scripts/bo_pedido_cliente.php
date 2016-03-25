@@ -28,7 +28,7 @@ function pre_pedido_cliente(&$Sesion) {
 				$Sesion->perror_link($retlnk);
 				return ;
 			} else {
-				$Sesion->setVarByRef("oPedido_ficha",&$oPedido,"NOEXPIRE");
+				$Sesion->setVarByRef("oPedido_ficha",$oPedido,"NOEXPIRE");
 				$Sesion->set_var('__document_iface_varname','oPedido_ficha','NOEXPIRE');
 			}
 			// Comprobacion de acceso al pedido:

@@ -16,12 +16,12 @@ function inmersa_session_recover() {
 		$bStartUp = true;
 	} else {
 		if (!is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) {
-			debug("_constructor_ pristine db .. ");
+			// debug("_constructor_ pristine db .. ");
 			$GLOBALS['INMERSA_BASEDB'] = new wol_db($GLOBALS['APP_NAME']);
 		}
 
 		if (is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) {
-			debug("_existe_ nuestra db .. ");
+			// debug("_existe_ nuestra db .. ");
 			$oDb = &$GLOBALS['INMERSA_BASEDB'];
 			$sId = session_id();
 			// debug("Logout: ".$lout." sId: ".$sId);
@@ -46,26 +46,26 @@ function inmersa_session_recover() {
 	}
 
 	if ($bStartUp) {
-//		debug("StartUp = True ... es objeto? ".is_object($_SESSION[$GLOBALS['APP_NAME']]) );
+		// debug("StartUp = True ... es objeto? ".is_object($_SESSION[$GLOBALS['APP_NAME']]) );
 		if ( !is_object($_SESSION[$GLOBALS['APP_NAME']]) OR (FALSE AND is_object($_SESSION[$GLOBALS['APP_NAME']]) AND $lout) 
                         OR strcmp($_SESSION[$GLOBALS['APP_NAME']]->App_Name,$GLOBALS['APP_NAME']) ) {
 			if (is_array($_POST) AND sizeof($_POST) AND !is_array($_SESSION['post_before_login'])) {
 				$_SESSION['post_before_login'] = $_POST;
 			}
-//			debug("inmersa_session_recover() - start: $bStartUp ");
+			// debug("inmersa_session_recover() - start: $bStartUp ");
                         session_destroy();
                         session_start();
 			$_SESSION[$GLOBALS['APP_NAME']] = new wolSesion($GLOBALS['APP_NAME'],$GLOBALS['APP_NAME']);
 		} elseif ($lout) {
-//                    debug("inmersa_session_recover() - logout con startup: $bStartUp ");
+                    // debug("inmersa_session_recover() - logout con startup: $bStartUp ");
                     session_destroy();
                     session_start();
                     $_SESSION[$GLOBALS['APP_NAME']] = new wolSesion($GLOBALS['APP_NAME'],$GLOBALS['APP_NAME']);
 		} else {
-//                    debug("Parece que si que hay cosas en _SESSION para $GLOBALS[APP_NAME] con lout $lout");
-//                    echo "<pre>";
-//                    print_r(array_keys($_SESSION));
-//                    echo "</pre>";
+                    // debug("Parece que si que hay cosas en _SESSION para $GLOBALS[APP_NAME] con lout $lout");
+                    // echo "<pre>";
+                    // print_r(array_keys($_SESSION));
+                    // echo "</pre>";
                 }
 	}
 }
@@ -938,7 +938,7 @@ class wolSesion {
 
 //		$this->debug = DBUG_DB | DBUG_INC ;
 //		$this->debug = (DBUG_INC | DBUG_VARS) ;
-//		$this->debug = (DBUG_DB | DBUG_INC) ;
+//		$this->debug = DBUG_DB ;
 //		$this->debug |= (DBUG_MODS ) ;
 //		$this->debug |= (DBUG_VARS | DBUG_INC);
 //		$this->debug = (DBUG_VARS );
@@ -2017,14 +2017,14 @@ class wolSesion {
 				********/
 	function conectar_dbs ($type = NULL) {
 		if ($this->debug & DBUG_DB)
-			debug ("conectar_dbs($type)");
+			debug ("wolSesion->conectar_dbs($type)");
 
 		if (!$type || ($type AND ! strcmp ($type, "conf"))) {
 			$oDb = &$this->get_db ("conf");
-                        if ($this->debug & DBUG_DB) debug ("conectar_dbs($type) hemos obtenido la db de configuracion ... ");
+                        if ($this->debug & DBUG_DB) debug ("wolSesion->conectar_dbs($type) hemos obtenido la db de configuracion en cache ... ");
 
-			if (is_a($oDb,'wol_db')) {
-				if ($this->debug & DBUG_DB) debug ("oDb(conf) es un objeto de conexion valido");
+			if (is_a($oDb,'wol_db') and is_a($oDb->SQL[$oDb->SQL_point],'mysqli')  ) {
+				if ($this->debug & DBUG_DB) debug ("wolSesion->conectar_dbs($type) - oDb(conf) es un objeto de conexion valido y clase: ".get_class($oDb->SQL[$oDb->SQL_point]));
 			} else {
 				if (is_a($GLOBALS['INMERSA_BASEDB'],'wol_db')) 
 					$oDb = &$GLOBALS['INMERSA_BASEDB'];
@@ -2032,7 +2032,7 @@ class wolSesion {
 
 			if (!is_object ($oDb)) {
 				if ($this->debug & DBUG_DB)
-					debug ("creamos wolDB para la configuracion");
+					debug ("wolSesion->conectar_dbs($type) creamos wolDB para la configuracion");
 				$oDb = new wol_db ($this->App_Name);
 				$oDb->init ();
 			} else {
@@ -2046,7 +2046,7 @@ class wolSesion {
 			$this->set_db ("conf", $oDb, true);
 			$this->activate_db ('conf');
 			if ($this->debug & DBUG_DB)
-				debug ("El sql point ta en ".$oDb->SQL_point);
+				debug ("wolSesion->conectar_dbs($type) El sql point ta en ".$oDb->SQL_point);
 
 			// $oDb=$this->db;
 		}
@@ -2105,9 +2105,10 @@ class wolSesion {
 	function cerrar_dbs () {
 		// $this->dbs[data] = NULL;
 		// unset($this->dbs[data]);
+		if ($this->debug & DBUG_DB) debug("wolSesion->cerrar_dbs() # dbs: ".sizeof($this->dbs),array_keys($this->dbs));
+		reset ($this->dbs);
 		for (; list ($r, $o) = each ($this->dbs);) {
-			if ($this->debug & DBUG_DB)
-				debug ("cerrar_dbs($r) clase: ".get_class($o));
+			if ($this->debug & DBUG_DB) debug ("wolSesion->cerrar_dbs() Item ($r) Clase: ".get_class($o));
 			if (!is_object ($o)) {
 				//Comprobar que no pase nada.. 
 				// $this->dbs[$r] = NULL;
@@ -2149,7 +2150,7 @@ class wolSesion {
 	 */
 	function set_db ($name, &$oDb, $persistente = 0) {
 		if ($this->debug & DBUG_DB)
-			debug ("sesiones.inc:set_db($name,$persistente) with ($oDb->SQL_point - ".$oDb->SQL[$oDb->SQL_point].")");
+			debug ("sesiones.inc:set_db($name,$persistente) with ($oDb->SQL_point - ".$oDb->info().")");
 		$this->dbs[$name] = &$oDb;
 		$this->dbs_pconn[$name] = (int) $persistente;
 	}
@@ -3909,7 +3910,7 @@ reset($RetVal);
 
 	function quit () {
 		if ($this->debug & DBUG_DB)
-			debug ("Callin quit()");
+			debug ("wolSesion->quit() ");
 
 		if (is_object ($this->Access))
 			$this->Access->cerrar ();
@@ -3919,21 +3920,19 @@ reset($RetVal);
 				if (is_object($this->_aPlantillas[$pname]['oRoot']))
 					unset($this->_aPlantillas[$pname]['oRoot']);
 			 /** 
-       $func = $this->code[$this->plt_point][1]; /* post_code esto en plts *
-       if (!empty($func)) return $func($this);
+		       $func = $this->code[$this->plt_point][1]; /* post_code esto en plts *
+		       if (!empty($func)) return $func($this);
 			 **/
 
-								 /** Mandamos senyal de cierre a todos los modulos **/
+		 /** Mandamos senyal de cierre a todos los modulos **/
 		// debug("y b_activa?");
 		// print_r(is_object($this->b_activa));
-		if (is_object ($this->b_activa))
-			$this->b_activa->cerrar ();
-		if (is_object ($this->menu))
-			$this->menu->cerrar ();
+		if (is_object ($this->b_activa)) $this->b_activa->cerrar ();
+		if (is_object ($this->menu)) $this->menu->cerrar ();
 
 
 		if (is_object ($this->db)) {
-			debug("Cerrando instancia obsoleta wolSession::db ");
+			debug("wolSesion->quit() Cerrando instancia obsoleta wolSession::db ");
 			$this->db->cerrar ();
 		}
 
@@ -3970,7 +3969,7 @@ reset($RetVal);
 			if (!$_SESSION['INMERSA_BASEDB'])	/* cambiar por $this->error() */
 				salida ("ERROR Interno, no se ha podido guardar la sesion.<BR>\n");
 		} else {
-			//debug("Registrando la sesion: ".$GLOBALS['APP_NAME']);
+			if ($this->debug & DBUG_INC) debug("wolSesion->quit() Registrando la sesion: ".$GLOBALS['APP_NAME']);
 //			if (!session_register ($GLOBALS['APP_NAME']))
 			if (!$_SESSION [$GLOBALS['APP_NAME']] )
 				salida ("ERROR Interno, no se ha podido guardar la sesion.<BR>\n");

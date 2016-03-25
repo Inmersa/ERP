@@ -432,7 +432,7 @@ class wol_search {
 		// if (!empty ($id) AND !$obj_sesion->bRecarga ) 
 		if (!empty ($id) ) {
 			$cons = "select distinct nom_var from ".$this->sesion->read_main_value ("tb_tipbus_subse");
-			$cons .= " where id_sub=".$id." order by id_sub";
+			$cons .= " where id_sub=".$id;
 			unset ($id);
 			// salida("cons0 ".$cons."<br>");
 			$rs = $this->db->query ($cons);
@@ -617,7 +617,7 @@ class wol_search {
 				$cons = "select distinct t1.busq_forzada,t2.hits_page,t1.id_tipo from ".
 					$this->sesion->read_main_value ("tb_tipbus_subse");
 				$cons .= " t1, ".$this->sesion->read_main_value ("tb_tipo_busq")." t2 ".
-					" where t1.id_tipo=t2.id_tip AND t1.id_sub=".$obj_sesion->get_id_subsecc ()." order by t1.id_sub";
+					" where t1.id_tipo=t2.id_tip AND t1.id_sub=".$obj_sesion->get_id_subsecc ();
 //salida("cons0 ".$cons."<br>\n");
 				$rs = $this->db->query ($cons);
 				// Jode las busquedas en ventana nueva: $this->busqueda_forzada=0;
